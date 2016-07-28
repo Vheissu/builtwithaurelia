@@ -1,6 +1,9 @@
 import {Aurelia} from 'aurelia-framework'
 import environment from './environment';
 
+import {AIEvent} from 'aurelia-interface';
+import 'aurelia-interface-grid/ai-grid.css!';
+
 //Configure Bluebird Promises.
 //Note: You may want to use environment-specific configuration.
 (<any>Promise).config({
@@ -12,6 +15,10 @@ import environment from './environment';
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
+    .plugin('aurelia-interface', ai => {
+        ai.setViewPort();
+        au.webAppCapable();
+    })
     .feature('resources');
 
   if (environment.debug) {
