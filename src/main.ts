@@ -2,7 +2,6 @@ import {Aurelia} from 'aurelia-framework'
 import environment from './environment';
 
 import {AIEvent} from 'aurelia-interface';
-import 'aurelia-interface-grid/ai-grid.css!';
 
 //Configure Bluebird Promises.
 //Note: You may want to use environment-specific configuration.
