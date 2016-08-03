@@ -28,11 +28,10 @@ export class Home {
         this.currentPage = params.page || 1;
 
         this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
-            if (projects.length) {
-                this.projects = projects;
-                console.log(projects);
+            if (projects.totalPages) {
+                this.projects = projects.projects;
 
-                this.totalNumberOfPages = Math.ceil(this.projects.length / maxProjectsPerPage);
+                this.totalNumberOfPages = projects.totalPages;
             } else {
                 this.router.navigate('/');
             }

@@ -77,7 +77,11 @@ body {
 
 pagination {
     border-top: 1px solid #EAEAEA;
-    display: block;
+    display: flex;
     margin-top: 20px;
     padding-top: 20px;
+}
+
+.pagination__link {
+    margin-right: 10px;   
 }

@@ -21,8 +21,20 @@ export class Api {
         return this.http.fetch('https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/projects.json')
             .then(response => response.json())
             .then(projects => {
+                let returned = {projects: null, totalPages: 0};
+
                 let offset = (page - 1) * maxPerPage;
-                return maxPerPage === -1 ? projects : projects.slice(offset, offset + maxPerPage);
+                let totalPages = Math.ceil(projects.length / maxPerPage);
+
+                returned.totalPages = totalPages;
+
+                if (maxPerPage === -1) {
+                    returned.projects = projects;
+                } else {
+                    returned.projects = projects.slice(offset, offset + maxPerPage);
+                }
+
+                return returned;
             });
     }
 
@@ -30,7 +42,7 @@ export class Api {
         let returnProject = null;
 
         return this.getProjects(-1, -1).then(projects => {
-            projects.forEach(project => {
+            projects.projects.forEach(project => {
                 if (project.slug === slug) {
                     returnProject = project;
                 }
