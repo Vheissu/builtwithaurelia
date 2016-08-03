@@ -1,11 +1,13 @@
 <template bindable="project">
     <div class="project">
         <div class="project__image" if.bind="project.image">
-            <img src="${project.image}">
+            <a route-href="route: view; params.bind: {slug: project.slug}">
+                <img src="https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/images/${project.image}">
+            </a>
         </div>
         
         <header>
-            <h1 class="project__name">${project.name}</h1>
+            <h1 class="project__name"><a route-href="route: view; params.bind: {slug: project.slug}">${project.name}</a></h1>
         </header>
         <p><a href="${project.url}">View</a> <template if.bind="project.repoUrl">| <a href="${project.repoUrl}">Source Code</a></template></p>
     </div>

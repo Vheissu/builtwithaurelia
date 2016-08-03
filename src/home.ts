@@ -19,7 +19,7 @@ export class Home {
     canActivate() {
         this.api.getProjects().then(projects => {
             this.projects = projects;
-        })
+        });
     }
 
     constructor(api: Api) {
