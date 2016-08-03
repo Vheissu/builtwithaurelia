@@ -132,6 +132,7 @@ define('home',["require", "exports", 'aurelia-framework', './api'], function (re
                 { name: 'Websites', value: 'website' }
             ];
             this.projects = [];
+            this.backupProjects = [];
             this.api = api;
         }
         Home.prototype.canActivate = function () {
@@ -145,6 +146,17 @@ define('home',["require", "exports", 'aurelia-framework', './api'], function (re
         };
         Home.prototype.filterCategory = function (category) {
             this.currentCategory = category;
+            if (!this.backupProjects.length) {
+                this.backupProjects = this.projects.slice(0);
+            }
+            if (category.value !== '') {
+                this.projects = this.backupProjects.filter(function (project) {
+                    return project.category === category.value;
+                });
+            }
+            else {
+                this.projects = this.backupProjects;
+            }
         };
         Home = __decorate([
             aurelia_framework_1.autoinject, 

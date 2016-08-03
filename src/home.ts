@@ -4,17 +4,18 @@ import {Api} from './api';
 
 @autoinject
 export class Home {
-    api: Api;
+    private api: Api;
 
-    currentCategory = null;
+    private currentCategory = null;
 
-    categories = [
+    private categories = [
         {name: 'All', value: ''},
         {name: 'Plugins', value: 'plugin'},
         {name: 'Websites', value: 'website'}
     ];
 
-    projects = [];
+    private projects = [];
+    private backupProjects = [];
 
     canActivate() {
         this.api.getProjects().then(projects => {
@@ -32,5 +33,19 @@ export class Home {
 
     filterCategory(category) {
         this.currentCategory = category;
+
+        if (!this.backupProjects.length) {
+            // Backup existing projects
+            this.backupProjects = this.projects.slice(0);
+        }
+
+        // If we are not wanting to show everything
+        if (category.value !== '') {
+            this.projects = this.backupProjects.filter(project => {
+                return project.category === category.value;
+            });
+        } else {
+            this.projects = this.backupProjects;
+        }
     }
 }
