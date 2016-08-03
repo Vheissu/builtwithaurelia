@@ -27,11 +27,11 @@ export class Home {
     canActivate(params) {
         this.currentPage = params.page || 1;
 
-        this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
-            if (projects.totalPages) {
-                this.projects = projects.projects;
-
-                this.totalNumberOfPages = projects.totalPages;
+        this.api.getProjects().then(projects => {
+            if (projects.length) {
+                let paginated = this.api.paginate(this.currentPage, maxProjectsPerPage, projects);
+                this.projects = paginated.items;
+                this.totalNumberOfPages = paginated.pages;
             } else {
                 this.router.navigate('/');
             }

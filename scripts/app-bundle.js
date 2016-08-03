@@ -20,27 +20,25 @@ define('api',["require", "exports", 'aurelia-framework', 'aurelia-fetch-client']
                 return image;
             });
         };
-        Api.prototype.getProjects = function (maxPerPage, page) {
+        Api.prototype.paginate = function (page, maxPerPage, items) {
+            var offset = (page - 1) * maxPerPage;
+            var totalPages = Math.ceil(items.length / maxPerPage);
+            return {
+                items: (maxPerPage === -1) ? items : items.slice(offset, offset + maxPerPage),
+                pages: totalPages
+            };
+        };
+        Api.prototype.getProjects = function () {
             return this.http.fetch('https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/projects.json')
                 .then(function (response) { return response.json(); })
                 .then(function (projects) {
-                var returned = { projects: null, totalPages: 0 };
-                var offset = (page - 1) * maxPerPage;
-                var totalPages = Math.ceil(projects.length / maxPerPage);
-                returned.totalPages = totalPages;
-                if (maxPerPage === -1) {
-                    returned.projects = projects;
-                }
-                else {
-                    returned.projects = projects.slice(offset, offset + maxPerPage);
-                }
-                return returned;
+                return projects;
             });
         };
         Api.prototype.getProject = function (slug) {
             var returnProject = null;
-            return this.getProjects(-1, -1).then(function (projects) {
-                projects.projects.forEach(function (project) {
+            return this.getProjects().then(function (projects) {
+                projects.forEach(function (project) {
                     if (project.slug === slug) {
                         returnProject = project;
                     }
@@ -152,10 +150,11 @@ define('home',["require", "exports", 'aurelia-framework', 'aurelia-router', './a
         Home.prototype.canActivate = function (params) {
             var _this = this;
             this.currentPage = params.page || 1;
-            this.api.getProjects(maxProjectsPerPage, this.currentPage).then(function (projects) {
-                if (projects.totalPages) {
-                    _this.projects = projects.projects;
-                    _this.totalNumberOfPages = projects.totalPages;
+            this.api.getProjects().then(function (projects) {
+                if (projects.length) {
+                    var paginated = _this.api.paginate(_this.currentPage, maxProjectsPerPage, projects);
+                    _this.projects = paginated.items;
+                    _this.totalNumberOfPages = paginated.pages;
                 }
                 else {
                     _this.router.navigate('/');

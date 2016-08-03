@@ -17,32 +17,29 @@ export class Api {
             });
     }
 
-    getProjects(maxPerPage, page) {
+    paginate(page, maxPerPage, items) {
+        let offset = (page - 1) * maxPerPage;
+        let totalPages = Math.ceil(items.length / maxPerPage);
+
+        return {
+            items: (maxPerPage === -1) ? items : items.slice(offset, offset + maxPerPage),
+            pages: totalPages
+        };
+    }
+
+    getProjects() {
         return this.http.fetch('https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/projects.json')
             .then(response => response.json())
             .then(projects => {
-                let returned = {projects: null, totalPages: 0};
-
-                let offset = (page - 1) * maxPerPage;
-                let totalPages = Math.ceil(projects.length / maxPerPage);
-
-                returned.totalPages = totalPages;
-
-                if (maxPerPage === -1) {
-                    returned.projects = projects;
-                } else {
-                    returned.projects = projects.slice(offset, offset + maxPerPage);
-                }
-
-                return returned;
+                return projects;
             });
     }
 
     getProject(slug) {
         let returnProject = null;
 
-        return this.getProjects(-1, -1).then(projects => {
-            projects.projects.forEach(project => {
+        return this.getProjects().then(projects => {
+            projects.forEach(project => {
                 if (project.slug === slug) {
                     returnProject = project;
                 }
