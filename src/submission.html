@@ -1,0 +1,36 @@
+<template>
+    <h1>Form is valid: ${formValid}</h1>
+    <form method="POST" submit.delegate="handleSubmit()">
+        <div class="form-row">
+            <label class="form-row__label">${fields.name.label}</label>
+            <input type="text" name="name" value.bind="fields.name.value" keydown.delegate="validateField(fields.name) & debounce:850"><br>
+            <strong show.bind="!fields.name.isValid">${fields.name.errorMessage}</strong>
+        </div>
+        
+        <div class="form-row">
+            <label class="form-row__label">${fields.category.label}</label>
+            <select value.bind="fields.category.value" change.trigger="validateField(fields.category) & debounce:850">
+                <option value="">Select a category</option>
+                <option value="mobile">Mobile Application</option>
+                <option value="plugin">Plugin</option>
+                <option value="theme">Theme</option>
+                <option value="website">Website</option>
+            </select><br>
+            <strong show.bind="!fields.category.isValid">${fields.category.errorMessage}</strong>
+        </div>
+
+        <div class="form-row">
+            <label class="form-row__label">${fields.url.label}</label>
+            <input type="text" name="name" value.bind="fields.url.value" keydown.delegate="validateField(fields.url) & debounce:850"><br>
+            <strong show.bind="!fields.url.isValid">${fields.url.errorMessage}</strong>
+        </div>
+
+        <div class="form-row">
+            <label class="form-row__label">${fields.repoUrl.label}</label>
+            <input type="text" name="name" value.bind="fields.repoUrl.value" keydown.delegate="validateField(fields.repoUrl) & debounce:850"><br>
+            <strong show.bind="!fields.url.isValid">${fields.repoUrl.errorMessage}</strong>
+        </div>
+
+        <input type="submit" disabled.bind="!formValid">
+    </form>
+</template>
