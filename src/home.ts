@@ -1,4 +1,5 @@
 import {autoinject} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
 
 import {Api} from './api';
 
@@ -7,6 +8,7 @@ const maxProjectsPerPage = 10;
 @autoinject
 export class Home {
     private api: Api;
+    private router: Router;
 
     private currentCategory = null;
 
@@ -22,15 +24,20 @@ export class Home {
     private currentPage: number = 1;
 
     canActivate(params) {
-        this.currentPage = params.currentPage || 1;
+        this.currentPage = params.page || 1;
 
         this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
-            this.projects = projects;
+            if (projects.length) {
+                this.projects = projects;
+            } else {
+                this.router.navigate('/');
+            }
         });
     }
 
-    constructor(api: Api) {
+    constructor(api: Api, router: Router) {
         this.api = api;
+        this.router = router;
     }
 
     activate() {

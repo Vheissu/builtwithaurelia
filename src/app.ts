@@ -9,7 +9,7 @@ export class App {
 
     config.map([
         { 
-          route: ['', 'home'], 
+          route: ['', 'page/:page'], 
           name: 'home',        
           nav: true, 
           title: 'Home',
