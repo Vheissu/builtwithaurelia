@@ -16,7 +16,6 @@
   "peerDependencies": {},
   "devDependencies": {
     "aurelia-cli": "^0.17.0",
-    "aurelia-interface": "github:aurelia/interface",
     "aurelia-testing": "^1.0.0-beta.2.0.0",
     "aurelia-tools": "^0.2.2",
     "autoprefixer": "^6.3.6",
