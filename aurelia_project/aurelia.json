@@ -25,8 +25,8 @@
   "cssProcessor": {
     "id": "postcss",
     "displayName": "Post CSS",
-    "fileExtension": ".css",
-    "source": "src\\**\\*.css"
+    "fileExtension": ".scss",
+    "source": "src\\**\\*.scss"
   },
   "editor": {
     "id": "vscode",
