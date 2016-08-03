@@ -30,6 +30,7 @@ export class Home {
         this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
             if (projects.length) {
                 this.projects = projects;
+                console.log(projects);
 
                 this.totalNumberOfPages = Math.ceil(this.projects.length / maxProjectsPerPage);
             } else {
