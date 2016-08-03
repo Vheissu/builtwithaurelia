@@ -10,17 +10,33 @@ export class App {
     config.map([
         { 
           route: ['', 'home'], 
-          name: 'home',      
-          moduleId: './home',      
+          name: 'home',        
           nav: true, 
-          title: 'Home' 
+          title: 'Home',
+          viewPorts: {
+              default: { moduleId: './home' },
+              sidebar: { moduleId: './home-sidebar' }
+          } 
         },
         { 
           route: 'view/:slug', 
-          name: 'view',      
-          moduleId: './view',      
+          name: 'view',          
           nav: false, 
-          title: 'View' 
+          title: 'View',
+          viewPorts: {
+              default: { moduleId: './view' },
+              sidebar: { moduleId: './home-sidebar' }
+          }  
+        },
+        { 
+          route: 'submission', 
+          name: 'submission',    
+          nav: true, 
+          title: 'Submission',
+          viewPorts: {
+              default: { moduleId: './submission' },
+              sidebar: { moduleId: './home-sidebar' }
+          }   
         }
     ]);
 
