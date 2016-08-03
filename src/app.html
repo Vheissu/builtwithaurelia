@@ -1,9 +1,18 @@
 <template>
+    <require from="./app.css"></require>
     <require from="./app-header.html"></require>
     <require from="./app-footer.html"></require>
 
-    <au-container>
-        <app-header></app-header>
-        <app-footer></app-footer>
-    </au-container>
+    <app-header></app-header>
+
+    <main id="content">
+        <div class="container">
+            <div class="row">
+                <router-view class="col-xs-12 col-sm-8"></router-view>
+                <router-view class="col-xs-12 col-sm-4" name="sidebar"></router-view>
+            </div>
+        </div>
+    </main>
+    
+    <app-footer></app-footer>
 </template>

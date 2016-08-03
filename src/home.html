@@ -1,0 +1,13 @@
+<template>
+    <require from="partials/project.html"></require>
+
+    <nav>
+        <ul>
+            <li repeat.for="category of categories"><a href="javascript:void(0);" class="${category == currentCategory ? 'active': ''}" click.delegate="filterCategory(category)">${category.name}</a></li>
+        </ul>
+    </nav>
+
+    <div class="blocks row">
+        <project class="blocks__block col-xs-12 col-sm-6" repeat.for="project of projects" project.bind="project"></block>
+    </div>
+</template>
