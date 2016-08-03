@@ -19,7 +19,16 @@
 }
 
 .project__image {
+    background-position: center center;
+    background-size: cover;
+    height: 265px;
     margin-bottom: 10px;
-    max-height: 265px;
     overflow: hidden;
+
+    a {
+        display: block;
+        height: 100%;
+        text-decoration: none;
+        width: 100%;
+    }
 }

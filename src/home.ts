@@ -30,10 +30,8 @@ export class Home {
         this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
             if (projects.length) {
                 this.projects = projects;
-                
-                setTimeout(() => {
-                    this.totalNumberOfPages = Math.ceil(this.projects.length / maxProjectsPerPage);
-                }, 90);
+
+                this.totalNumberOfPages = Math.ceil(this.projects.length / maxProjectsPerPage);
             } else {
                 this.router.navigate('/');
             }

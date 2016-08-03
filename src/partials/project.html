@@ -1,9 +1,7 @@
 <template bindable="project">
     <div class="project">
-        <div class="project__image" if.bind="project.image">
-            <a route-href="route: view; params.bind: {slug: project.slug}">
-                <img src="https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/images/${project.image}">
-            </a>
+        <div class="project__image" if.bind="project.image" style="background-image: url(https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/images/${project.image})">
+            <a route-href="route: view; params.bind: {slug: project.slug}"></a>
         </div>
         
         <header>
