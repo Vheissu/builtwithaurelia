@@ -2,6 +2,8 @@ import {autoinject} from 'aurelia-framework';
 
 import {Api} from './api';
 
+const maxProjectsPerPage = 10;
+
 @autoinject
 export class Home {
     private api: Api;
@@ -17,8 +19,12 @@ export class Home {
     private projects = [];
     private backupProjects = [];
 
-    canActivate() {
-        this.api.getProjects().then(projects => {
+    private currentPage: number = 1;
+
+    canActivate(params) {
+        this.currentPage = params.currentPage || 1;
+
+        this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
             this.projects = projects;
         });
     }
