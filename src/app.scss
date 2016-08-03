@@ -1,5 +1,7 @@
 @import "styles/grid";
 @import "styles/blocks";
+@import "styles/sidebars";
+@import "styles/forms";
 
 * {
     background-repeat: no-repeat;
@@ -67,4 +69,8 @@ body {
     font-size: 22px;
     font-weight: normal;
     margin: 0;
+}
+
+#main-content {
+    padding-right: 30px;
 }
