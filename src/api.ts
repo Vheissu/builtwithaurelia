@@ -17,18 +17,18 @@ export class Api {
             });
     }
 
-    getProjects() {
+    getProjects(maxPerPage, page) {
         return this.http.fetch('https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/projects.json')
             .then(response => response.json())
             .then(projects => {
-                return projects;
+                return maxPerPage === -1 ? projects : projects.slice( (page - 1) * maxPerPage, page * maxPerPage );
             });
     }
 
     getProject(slug) {
         let returnProject = null;
 
-        return this.getProjects().then(projects => {
+        return this.getProjects(-1, -1).then(projects => {
             projects.forEach(project => {
                 if (project.slug === slug) {
                     returnProject = project;
