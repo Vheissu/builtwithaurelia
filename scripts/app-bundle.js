@@ -317,11 +317,12 @@ define('view',["require", "exports", 'aurelia-framework', './api'], function (re
         function View(api) {
             this.api = api;
         }
-        View.prototype.canActivate = function (params) {
+        View.prototype.canActivate = function (params, currentRoute) {
             var _this = this;
             if (params.slug) {
                 this.api.getProject(params.slug).then(function (project) {
                     _this.project = project;
+                    currentRoute.navModel.title = project.name;
                 }).catch(function (e) {
                     console.error(e);
                 });

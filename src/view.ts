@@ -4,20 +4,22 @@ import {Api} from './api';
 
 @autoinject
 export class View {
-    api: Api;
-    project;
+    private api: Api;
 
-    canActivate(params) {
+    private project;
+
+    constructor(api: Api) {
+        this.api = api;
+    }
+
+    canActivate(params, currentRoute) {
         if (params.slug) {
             this.api.getProject(params.slug).then(project => {
                 this.project = project;
+                currentRoute.navModel.title = project.name;
             }).catch(e => {
                 console.error(e);
             });
         }
-    }
-
-    constructor(api: Api) {
-        this.api = api;
     }
 }
