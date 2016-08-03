@@ -22,6 +22,7 @@ export class Home {
     private backupProjects = [];
 
     private currentPage: number = 1;
+    private totalNumberOfPages: number = 1;
 
     canActivate(params) {
         this.currentPage = params.page || 1;
@@ -29,6 +30,7 @@ export class Home {
         this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
             if (projects.length) {
                 this.projects = projects;
+                this.totalNumberOfPages = Math.ceil(projects.length / maxProjectsPerPage);
             } else {
                 this.router.navigate('/');
             }

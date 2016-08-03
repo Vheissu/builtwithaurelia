@@ -1,5 +1,14 @@
+.blocks {
+    align-items: flex-start;
+}
+
+.blocks__block {
+    margin-bottom: 15px;
+}
+
 .project {
     background: #FFF;
+    box-shadow: 0 0 5px 0px #b5b5b5;
     font-size: 16px;
     padding: 15px;
 }
@@ -7,4 +16,10 @@
 .project__name {
     font-size: 19px;
     margin: 0 0 10px 0;
+}
+
+.project__image {
+    margin-bottom: 10px;
+    max-height: 265px;
+    overflow: hidden;
 }
