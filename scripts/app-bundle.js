@@ -20,16 +20,16 @@ define('api',["require", "exports", 'aurelia-framework', 'aurelia-fetch-client']
                 return image;
             });
         };
-        Api.prototype.getProjects = function () {
+        Api.prototype.getProjects = function (maxPerPage, page) {
             return this.http.fetch('https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/projects.json')
                 .then(function (response) { return response.json(); })
                 .then(function (projects) {
-                return projects;
+                return maxPerPage === -1 ? projects : projects.slice((page - 1) * maxPerPage, page * maxPerPage);
             });
         };
         Api.prototype.getProject = function (slug) {
             var returnProject = null;
-            return this.getProjects().then(function (projects) {
+            return this.getProjects(-1, -1).then(function (projects) {
                 projects.forEach(function (project) {
                     if (project.slug === slug) {
                         returnProject = project;
@@ -56,7 +56,7 @@ define('app',["require", "exports"], function (require, exports) {
             config.title = 'Built With Aurelia';
             config.map([
                 {
-                    route: ['', 'home'],
+                    route: ['', 'page/:page'],
                     name: 'home',
                     nav: true,
                     title: 'Home',
@@ -121,10 +121,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define('home',["require", "exports", 'aurelia-framework', './api'], function (require, exports, aurelia_framework_1, api_1) {
+define('home',["require", "exports", 'aurelia-framework', 'aurelia-router', './api'], function (require, exports, aurelia_framework_1, aurelia_router_1, api_1) {
     "use strict";
+    var maxProjectsPerPage = 10;
     var Home = (function () {
-        function Home(api) {
+        function Home(api, router) {
             this.currentCategory = null;
             this.categories = [
                 { name: 'All', value: '' },
@@ -133,12 +134,20 @@ define('home',["require", "exports", 'aurelia-framework', './api'], function (re
             ];
             this.projects = [];
             this.backupProjects = [];
+            this.currentPage = 1;
             this.api = api;
+            this.router = router;
         }
-        Home.prototype.canActivate = function () {
+        Home.prototype.canActivate = function (params) {
             var _this = this;
-            this.api.getProjects().then(function (projects) {
-                _this.projects = projects;
+            this.currentPage = params.page || 1;
+            this.api.getProjects(maxProjectsPerPage, this.currentPage).then(function (projects) {
+                if (projects.length) {
+                    _this.projects = projects;
+                }
+                else {
+                    _this.router.navigate('/');
+                }
             });
         };
         Home.prototype.activate = function () {
@@ -160,7 +169,7 @@ define('home',["require", "exports", 'aurelia-framework', './api'], function (re
         };
         Home = __decorate([
             aurelia_framework_1.autoinject, 
-            __metadata('design:paramtypes', [api_1.Api])
+            __metadata('design:paramtypes', [api_1.Api, aurelia_router_1.Router])
         ], Home);
         return Home;
     }());
