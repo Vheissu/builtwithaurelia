@@ -3,7 +3,7 @@ import {Router} from 'aurelia-router';
 
 import {Api} from './api';
 
-const maxProjectsPerPage = 10;
+const maxProjectsPerPage = 2;
 
 @autoinject
 export class Home {
@@ -22,7 +22,7 @@ export class Home {
     private backupProjects = [];
 
     private currentPage: number = 1;
-    private totalNumberOfPages: number = 1;
+    private totalNumberOfPages: number = -1;
 
     canActivate(params) {
         this.currentPage = params.page || 1;
@@ -30,7 +30,10 @@ export class Home {
         this.api.getProjects(maxProjectsPerPage, this.currentPage).then(projects => {
             if (projects.length) {
                 this.projects = projects;
-                this.totalNumberOfPages = Math.ceil(projects.length / maxProjectsPerPage);
+                
+                setTimeout(() => {
+                    this.totalNumberOfPages = Math.ceil(this.projects.length / maxProjectsPerPage);
+                }, 90);
             } else {
                 this.router.navigate('/');
             }

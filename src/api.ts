@@ -21,7 +21,10 @@ export class Api {
         return this.http.fetch('https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/projects.json')
             .then(response => response.json())
             .then(projects => {
-                return maxPerPage === -1 ? projects : projects.slice( (page - 1) * maxPerPage, page * maxPerPage );
+                let offset = (page * maxPerPage) - maxPerPage;
+
+                console.log(offset);
+                return maxPerPage === -1 ? projects : projects.slice(offset, offset + maxPerPage);
             });
     }
 
