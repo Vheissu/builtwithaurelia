@@ -1,9 +1,19 @@
 #sidebar {
-    padding-top: 75px;
+
+    @media all and (min-width: 768px) {
+        padding-top: 75px;
+    }
 }
 
 .sidebar__section {
     margin-bottom: 50px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    @media all and (min-width: 768px) {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
     &:last-child {
         margin-bottom: 0;

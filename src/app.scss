@@ -23,6 +23,11 @@ nav {
     border-bottom: 1px solid #DADADA;
     margin-bottom: 30px;
     padding-bottom: 20px;
+    text-align: center;
+
+    @media all and (min-width: 768px) {
+        text-align: left;
+    }
 }
 
 nav ul,
@@ -77,6 +82,19 @@ p {
     height: 65px;
     line-height: 65px;
     margin-bottom: 50px;
+    text-align: center;
+
+    @media all and (min-width: 768px) {
+        text-align: left;
+    }
+
+    .col-sm-6:last-child {
+        display: none;
+
+        @media all and (min-width: 768px) {
+            display: initial;
+        }
+    }
 
     a {
         color: inherit;
@@ -90,7 +108,10 @@ p {
 }
 
 #main-content {
-    padding-right: 30px;
+
+    @media all and (min-width: 768px) {
+        padding-right: 30px;
+    }
 }
 
 pagination {
