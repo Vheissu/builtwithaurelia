@@ -125,6 +125,10 @@ pagination {
     margin-right: 10px;   
 }
 
+#submission-iframe {
+    height: calc(100vh + 50vh);
+}
+
 #main-footer {
     border-top: 1px solid #EAEAEA;
     margin-top: 60px;

@@ -2,37 +2,5 @@
     <h1>Contribute to Built With Aurelia</h1>
     <p>Whether it be a plugin or a cool site that you built, tell the world about it.</p>
     
-    <form method="POST" submit.delegate="handleSubmit()" class="form">
-        <div class="form-row">
-            <label class="form-row__label">${fields.name.label}</label>
-            <input type="text" name="name" value.bind="fields.name.value" keydown.delegate="validateField(fields.name) & debounce:850"><br>
-            <strong show.bind="!fields.name.isValid">${fields.name.errorMessage}</strong>
-        </div>
-        
-        <div class="form-row">
-            <label class="form-row__label">${fields.category.label}</label>
-            <select value.bind="fields.category.value" change.trigger="validateField(fields.category) & debounce:850">
-                <option value="">Select a category</option>
-                <option value="mobile">Mobile Application</option>
-                <option value="plugin">Plugin</option>
-                <option value="theme">Theme</option>
-                <option value="website">Website</option>
-            </select><br>
-            <strong show.bind="!fields.category.isValid">${fields.category.errorMessage}</strong>
-        </div>
-
-        <div class="form-row">
-            <label class="form-row__label">${fields.url.label}</label>
-            <input type="text" name="name" value.bind="fields.url.value" keydown.delegate="validateField(fields.url) & debounce:850"><br>
-            <strong show.bind="!fields.url.isValid">${fields.url.errorMessage}</strong>
-        </div>
-
-        <div class="form-row">
-            <label class="form-row__label">${fields.repoUrl.label}</label>
-            <input type="text" name="name" value.bind="fields.repoUrl.value" keydown.delegate="validateField(fields.repoUrl) & debounce:850"><br>
-            <strong show.bind="!fields.url.isValid">${fields.repoUrl.errorMessage}</strong>
-        </div>
-
-        <input type="submit" disabled.bind="!formValid">
-    </form>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScKJzv82LP6Yb3DCJrg6vHiyTZwitzxv9R3m-V2d6wFY5S-bQ/viewform?embedded=true" id="submission-iframe" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 </template>
