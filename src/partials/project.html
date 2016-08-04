@@ -3,8 +3,12 @@
         <header>
             <h1 class="project__name ${fullView ? 'project__name--large': ''}"><a route-href="route: view; params.bind: {slug: slug}">${name}</a></h1>
         </header>
-
+        
         <div class="project__image" if.bind="image" style="background-image: url(https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/images/${image})">
+            <a route-href="route: view; params.bind: {slug: slug}"></a>
+        </div>
+
+        <div class="project__image" if.bind="!image" style="background-image: url(/images/curlies.svg); background-size: 50%;">
             <a route-href="route: view; params.bind: {slug: slug}"></a>
         </div>
 
@@ -14,3 +18,4 @@
         </div>
     </div>
 </template>
+
