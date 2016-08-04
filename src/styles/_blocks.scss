@@ -7,23 +7,40 @@
 }
 
 .project {
-    background: #FFF;
-    box-shadow: 0 0 5px 0px #b5b5b5;
-    font-size: 16px;
-    padding: 15px;
+
+}
+
+.project--single {
+    box-shadow: none;
 }
 
 .project__name {
-    font-size: 19px;
-    margin: 0 0 10px 0;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    margin-top: 0;
+    text-transform: uppercase;
+
+    a {
+        color: inherit;
+    }
+}
+
+.project__name--large {
+    font-size: 32px;
+    margin-bottom: 15px;
+    text-transform: capitalize;
 }
 
 .project__image {
     background-position: center center;
     background-size: cover;
-    height: 265px;
+    border: 1px solid #DADADA;
+    border-radius: 3px;
     margin-bottom: 10px;
     overflow: hidden;
+    padding-bottom: 75%;
 
     a {
         display: block;
@@ -31,4 +48,15 @@
         text-decoration: none;
         width: 100%;
     }
+}
+
+.project__content {
+    color: #626b6b;
+    display: block;
+    font-size: 16px;
+    text-align: left;
+}
+
+.project__content--black {
+    color: #000;
 }
