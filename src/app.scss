@@ -76,6 +76,19 @@ p {
     line-height: 28px;
 }
 
+.list {
+    list-style-position: inside;
+    margin-left: 0;
+    padding-left: 0;
+}
+    .list__item {
+        margin: 0 0 8px 15px;
+    }
+
+    .list__item--no-style {
+        list-style: none;
+    }
+
 #main-header {
     background: #727BC5;
     color: #FFF;
