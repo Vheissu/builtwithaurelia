@@ -12,5 +12,5 @@
         <project class="blocks__block col-xs-12 col-sm-6" repeat.for="project of projects" project.bind="project"></block>
     </div>
 
-    <pagination total-pages.bind="totalNumberOfPages"></pagination>
+    <pagination total-pages.bind="totalNumberOfPages" if.bind="totalNumberOfPages > 1"></pagination>
 </template>
