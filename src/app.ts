@@ -9,8 +9,18 @@ export class App {
 
     config.map([
         { 
-          route: ['', 'page/:page'], 
+          route: 'page/:page', 
           name: 'home',        
+          nav: false, 
+          title: 'Home',
+          viewPorts: {
+              default: { moduleId: './home' },
+              sidebar: { moduleId: './home-sidebar' }
+          } 
+        },
+        {
+          route: '', 
+          name: 'home_nopagination',        
           nav: true, 
           title: 'Home',
           viewPorts: {
