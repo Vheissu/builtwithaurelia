@@ -3,7 +3,7 @@ import {Router} from 'aurelia-router';
 
 import {Api} from './api';
 
-const maxProjectsPerPage = 2;
+const maxProjectsPerPage = 10;
 
 @autoinject
 export class Home {
