@@ -12,7 +12,15 @@ export class View {
         this.api = api;
     }
 
-    canActivate(params, currentRoute) {
+    attached() {
+        document.body.classList.add('single-view');
+    }
+
+    detached() {
+        document.body.classList.remove('single-view');
+    }
+
+    activate(params, currentRoute) {
         if (params.slug) {
             this.api.getProject(params.slug).then(project => {
                 this.project = project;
