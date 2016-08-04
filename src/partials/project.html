@@ -1,12 +1,16 @@
-<template bindable="project">
-    <div class="project">
-        <div class="project__image" if.bind="project.image" style="background-image: url(https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/images/${project.image})">
-            <a route-href="route: view; params.bind: {slug: project.slug}"></a>
-        </div>
-        
+<template bindable="project, fullView">
+    <div class="project ${fullView ? 'project--single': ''}" with.bind="project">
         <header>
-            <h1 class="project__name"><a route-href="route: view; params.bind: {slug: project.slug}">${project.name}</a></h1>
+            <h1 class="project__name ${fullView ? 'project__name--large': ''}"><a route-href="route: view; params.bind: {slug: slug}">${name}</a></h1>
         </header>
-        <p><a href="${project.url}">View</a> <template if.bind="project.repoUrl">| <a href="${project.repoUrl}">Source Code</a></template></p>
+
+        <div class="project__image" if.bind="image" style="background-image: url(https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/images/${image})">
+            <a route-href="route: view; params.bind: {slug: slug}"></a>
+        </div>
+
+        <div class="project__content ${fullView ? 'project__content--black': ''}" if.bind="fullView">
+            <p innerhtml.bind="description"></p>
+            <p><a href="${url}">View</a> <template if.bind="repoUrl">| <a href="${repoUrl}">Source Code</a></template></p>
+        </div>
     </div>
 </template>
