@@ -14,7 +14,9 @@ export class Home {
 
     private categories = [
         {name: 'All', value: ''},
+        {name: 'Mobile', value: 'mobile'},
         {name: 'Plugins', value: 'plugin'},
+        {name: 'Themes', value: 'theme'},
         {name: 'Websites', value: 'website'}
     ];
 

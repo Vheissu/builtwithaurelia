@@ -9,7 +9,8 @@
     </nav>
 
     <div class="blocks row">
-        <project class="blocks__block col-xs-12 col-sm-6" repeat.for="project of projects" project.bind="project"></block>
+        <div id="no-results" if.bind="!projects.length"><h2>Sorry, nothing was found :(</h2></div>
+        <project class="blocks__block col-xs-12 col-sm-6" repeat.for="project of projects" project.bind="project" if.bind="projects.length"></block>
     </div>
 
     <pagination total-pages.bind="totalNumberOfPages" if.bind="totalNumberOfPages > 1"></pagination>
