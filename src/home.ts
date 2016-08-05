@@ -75,7 +75,6 @@ export class Home {
 
                 if (item && item.category) {
                     let navItem = this.categories[item.category];
-                    console.log(item);
 
                     if (navItem) {
                         navItem.count += 1;
@@ -84,7 +83,6 @@ export class Home {
             }
 
             this.categories.all.count = this.projects.length;
-            console.log(this.categories);
         }
     }
 
