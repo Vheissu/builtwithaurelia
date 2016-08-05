@@ -1,10 +1,11 @@
 <template>
+    <require from="resources/value-converters/object-keys"></require>
     <require from="partials/pagination.html"></require>
     <require from="partials/thumbnail.html"></require>
 
     <nav>
         <ul>
-            <li repeat.for="category of categories"><a href="javascript:void(0);" class="${category == currentCategory ? 'active': ''}" click.delegate="filterCategory(category)">${category.name}</a></li>
+            <li repeat.for="category of categories | objectKeys"><a href="javascript:void(0);" class="${category == currentCategory ? 'active': ''}" click.delegate="filterCategory(category)">${category.name} <span>(${category.count})</span></a></li>
         </ul>
     </nav>
 

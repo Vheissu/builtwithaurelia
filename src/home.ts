@@ -14,13 +14,13 @@ export class Home {
 
     private currentCategory = null;
 
-    private categories = [
-        {name: 'All', value: ''},
-        {name: 'Mobile', value: 'mobile'},
-        {name: 'Plugins', value: 'plugin'},
-        {name: 'Themes', value: 'theme'},
-        {name: 'Websites', value: 'website'}
-    ];
+    private categories = {
+        all: {name: 'All', value: '', count: 0},
+        mobile: {name: 'Mobile', value: 'mobile', count: 0},
+        plugin: {name: 'Plugins', value: 'plugin', count: 0},
+        theme: {name: 'Themes', value: 'theme', count: 0},
+        website: {name: 'Websites', value: 'website', count: 0}
+    };
 
     private lastBackground = '';
 
@@ -45,26 +45,47 @@ export class Home {
     private currentPage: number = 1;
     private totalNumberOfPages: number = -1;
 
-    canActivate(params) {
-        this.currentPage = params.page || 1;
-
-        this.api.getProjects().then(projects => {
-            if (projects.length) {
-                this.projects = projects;
-            } else {
-                this.router.navigate('/');
-            }
-        });
-    }
-
     constructor(api: Api, appService, ApplicationService, router: Router) {
         this.api = api;
         this.appService = appService;
         this.router = router;
     }
 
+    canActivate(params) {
+        this.currentPage = params.page || 1;
+
+        this.api.getProjects().then(projects => {
+            if (projects.length) {
+                this.projects = projects;
+                this.getProjectCounts();
+            } else {
+                this.router.navigate('/');
+            }
+        });
+    }
+
     activate() {
-        this.currentCategory = this.categories[0];
+        this.currentCategory = this.categories.all;
+    }
+
+    getProjectCounts() {
+        if (this.projects.length) {
+            for (let i = 0; i < this.projects.length; i++) {
+                let item = this.projects[i];
+
+                if (item && item.category) {
+                    let navItem = this.categories[item.category];
+                    console.log(item);
+
+                    if (navItem) {
+                        navItem.count += 1;
+                    }
+                }
+            }
+
+            this.categories.all.count = this.projects.length;
+            console.log(this.categories);
+        }
     }
 
     getRandomBackgroundColour(name): string {
