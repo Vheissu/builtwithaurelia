@@ -1,6 +1,7 @@
 import {autoinject} from 'aurelia-framework';
 
 import {Api} from './api';
+import {getColourFromHashedString} from './common';
 
 @autoinject
 export class View {
@@ -24,6 +25,7 @@ export class View {
         if (params.slug) {
             this.api.getProject(params.slug).then(project => {
                 this.project = project;
+                this.project.colour = getColourFromHashedString(this.project.name);
                 currentRoute.navModel.title = project.name;
             }).catch(e => {
                 console.error(e);

@@ -23,16 +23,6 @@ export class Api {
             });
     }
 
-    paginate(page, maxPerPage, items) {
-        let offset = (page - 1) * maxPerPage;
-        let totalPages = Math.ceil(items.length / maxPerPage);
-
-        return {
-            items: (maxPerPage === -1) ? items : items.slice(offset, offset + maxPerPage),
-            pages: totalPages
-        };
-    }
-
     getProjects() {
         this.appService.loading = true;
 
