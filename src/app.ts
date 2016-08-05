@@ -10,43 +10,31 @@ export class App {
     config.map([
         { 
           route: 'page/:page', 
+          moduleId: './home',
           name: 'home',        
           nav: false, 
-          title: 'Home',
-          viewPorts: {
-              default: { moduleId: './home' },
-              sidebar: { moduleId: './home-sidebar' }
-          } 
+          title: 'Home'
         },
         {
           route: '', 
+          moduleId: './home',
           name: 'home_nopagination',        
           nav: true, 
-          title: 'Home',
-          viewPorts: {
-              default: { moduleId: './home' },
-              sidebar: { moduleId: './home-sidebar' }
-          } 
+          title: 'Home'
         },
         { 
-          route: 'view/:slug', 
+          route: 'view/:slug',
+          moduleId: './view', 
           name: 'view',          
           nav: false, 
-          title: 'View',
-          viewPorts: {
-              default: { moduleId: './view' },
-              sidebar: { moduleId: './home-sidebar' }
-          }  
+          title: 'View'
         },
         { 
-          route: 'submission', 
+          route: 'submission',
+          moduleId: './submission', 
           name: 'submission',    
           nav: true, 
-          title: 'Submission',
-          viewPorts: {
-              default: { moduleId: './submission' },
-              sidebar: { moduleId: './home-sidebar' }
-          }   
+          title: 'Submission'
         }
     ]);
 
