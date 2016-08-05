@@ -93,7 +93,6 @@
 
         .thumbnail__heading {
             font-size: 46px;
-            margin-bottom: 12px;
         }
     }
 }
@@ -112,9 +111,11 @@
 }
 
 .thumbnail__heading {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     font-size: 32px;
     font-weight: bold;
-    margin: 0 0 6px 0;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
 }
 
 .thumbnail__subheading {
