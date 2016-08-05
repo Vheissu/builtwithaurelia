@@ -7,6 +7,8 @@ export class App {
     appService: ApplicationService;
     router: Router;
 
+    private showHat: boolean = false;
+
     constructor(appService: ApplicationService) {
         this.appService = appService;
     }
@@ -35,6 +37,13 @@ export class App {
                 name: 'view',          
                 nav: false, 
                 title: 'View'
+            },
+            { 
+                route: 'about',
+                moduleId: './about', 
+                name: 'about',    
+                nav: true, 
+                title: 'About'
             },
             { 
                 route: 'submission',

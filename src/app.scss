@@ -63,8 +63,38 @@ nav li {
     }
 }
 
+.text--bold {
+    font-weight: bold;
+}
+
 .text--right {
     text-align: right;
+}
+
+.hat {
+    background-color: #333;
+    color: #FFF;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s linear;
+}
+
+.hat__title {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hat__inner {
+    margin: 0 auto;
+    padding: 0 30px;
+    
+    @media all and (min-width: 768px) {
+        width: 50%;
+    }
+}
+
+.hat--active {
+    height: 550px;
 }
 
 body {
@@ -143,6 +173,8 @@ pagination {
 }
 
 #submission-iframe {
+    color: #000;
+    font-size: 22px;
     height: calc(100vh + 50vh);
     width: 100%;
 }
