@@ -26,8 +26,10 @@ a {
 nav {
     border-bottom: 1px solid #DADADA;
     margin-bottom: 30px;
+    margin-left: 6px;
     padding-bottom: 20px;
     text-align: center;
+    width: 100%;
 
     @media all and (min-width: 768px) {
         text-align: left;
@@ -156,6 +158,7 @@ p {
 }
 
 #main-content {
+    display: block;
 
     @media all and (min-width: 768px) {
         padding-right: 30px;

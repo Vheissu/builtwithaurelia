@@ -4,11 +4,6 @@
 
 .blocks__block {
     margin-bottom: 15px;
-    padding: 0 1.5rem;
-
-    @media all and (min-width: 768px) {
-        padding: 0 0.5rem;
-    }
 }
 
 .project {
