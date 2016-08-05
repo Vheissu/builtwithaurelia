@@ -3,6 +3,7 @@ import {Router} from 'aurelia-router';
 
 import {Api} from './api';
 import {ApplicationService} from './services/application';
+import {getColourFromHashedString} from './common';
 
 const maxProjectsPerPage = 10;
 
@@ -21,23 +22,6 @@ export class Home {
         theme: {name: 'Themes', value: 'theme', count: 0},
         website: {name: 'Websites', value: 'website', count: 0}
     };
-
-    private lastBackground = '';
-
-    private bgClasses = [
-        'bg--purple',
-        'bg--grapefruit',
-        'bg--medium-blue',
-        'bg--bright-blue',
-        'bg--gentle-pink',
-        'bg--teal',
-        'bg--light-cyan',
-        'bg--brave-orange',
-        'bg--yellow-its-me',
-        'bg--green',
-        'bg--pie',
-        'bg--middle-blue'
-    ];
 
     private projects = [];
     private backupProjects = [];
@@ -87,20 +71,7 @@ export class Home {
     }
 
     getRandomBackgroundColour(name): string {
-        const hashString = (str) => {
-            let hash = 0;
-
-            for (let i = 0; i < str.length; i++) {
-                let charCode = str.charCodeAt(i);
-                hash += charCode;
-            }
-
-            return hash;
-        };
-
-        let hash = hashString(name);
-        let index = hash % this.bgClasses.length;
-        return this.bgClasses[index];
+        return getColourFromHashedString(name);
     }
 
     filterCategory(category) {
