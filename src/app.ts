@@ -14,9 +14,14 @@ export class App {
     constructor(appService: ApplicationService, ea: EventAggregator) {
         this.appService = appService;
         this.ea = ea;
+    }
 
+    attached() {
         this.ea.subscribe('router:navigation:success', payload => {
-            //this.send('pageview', payload.instruction.fragment, payload.instruction.title || document.title);
+            if ('clicky' in window) {
+                (<any>window).clicky.log(payload.instruction.fragment, payload.instruction.title || document.title);
+                //this.send('pageview', payload.instruction.fragment, payload.instruction.title || document.title);
+            }
         });
     }
 

@@ -102,9 +102,14 @@ define('app',["require", "exports", 'aurelia-framework', 'aurelia-event-aggregat
             this.showHat = false;
             this.appService = appService;
             this.ea = ea;
-            this.ea.subscribe('router:navigation:success', function (payload) {
-            });
         }
+        App.prototype.attached = function () {
+            this.ea.subscribe('router:navigation:success', function (payload) {
+                if ('clicky' in window) {
+                    window.clicky.log(payload.instruction.fragment, payload.instruction.title || document.title);
+                }
+            });
+        };
         App.prototype.configureRouter = function (config, router) {
             config.title = 'Built With Aurelia';
             config.map([
