@@ -64,31 +64,21 @@ export class Home {
         this.currentCategory = this.categories[0];
     }
 
-    @computedFrom('bgClasses')
-    get background() {
-        return this.getRandomBackgroundColour();
-    }
+    getRandomBackgroundColour(name): string {
+        const hashString = (str) => {
+            let hash = 0;
 
-    getRandomBackgroundColour(): string {
-        const getBackgroundString = () => {
-            return this.bgClasses[Math.floor(Math.random() * this.bgClasses.length)];
+            for (let i = 0; i < str.length; i++) {
+                let charCode = str.charCodeAt(i);
+                hash += charCode;
+            }
+
+            return hash;
         };
 
-        // Pick a random class from the array
-        let random = getBackgroundString();
-
-        // Random string is not the same as the last generated string
-        if (random !== this.lastBackground) {
-            this.lastBackground = random;
-            return random;
-        } else {
-            // TODO: use recursion to make this neater, was saving time
-            // this will not always gurantee non-duplicates
-            let random = getBackgroundString();
-
-            this.lastBackground = random;
-            return random;
-        }
+        let hash = hashString(name);
+        let index = hash % this.bgClasses.length;
+        return this.bgClasses[index];
     }
 
     filterCategory(category) {
