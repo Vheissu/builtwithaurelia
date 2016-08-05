@@ -119,6 +119,7 @@ p {
         margin: 0 0 8px 0;
     }
 
+    .list--no-style,
     .list__item--no-style {
         list-style: none;
     }
@@ -186,6 +187,20 @@ pagination {
     margin-top: 60px;
     padding-bottom: 20px;
     padding-top: 20px;
+}
+
+.button {
+    border: 1px solid #05babf;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    margin-right: 12px;
+    padding: 10px 20px;
+    vertical-align: middle;
+
+    &:last-child {
+        margin-right: 0;
+    }
 }
 
 .bg--purple {

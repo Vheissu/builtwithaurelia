@@ -1,16 +1,18 @@
-<template bindable="project, fullView">
-    <div class="project ${fullView ? 'project--single': ''}" with.bind="project">
-        <header>
-            <h1 class="project__name ${fullView ? 'project__name--large': ''}">${name}</h1>
-        </header>
-        
-        <div class="project__image" if.bind="image" style="background-image: url(https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/images/${image})"></div>
+<template bindable="project">
+    <div class="project project--single" with.bind="project">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                <header>
+                    <h1 class="project__name project__name--large">${name}</h1>
+                </header>
 
-        <div class="project__image" if.bind="!image" style="background-image: url(/images/curlies.svg); background-size: 50%;"></div>
+                <div class="project__content project__content--black">
+                    <p innerhtml.bind="description"></p>
+                </div>
 
-        <div class="project__content ${fullView ? 'project__content--black': ''}" if.bind="fullView">
-            <p innerhtml.bind="description"></p>
-            <p><a href="${url}">View</a> <template if.bind="repoUrl">| <a href="${repoUrl}">Source Code</a></template></p>
+                <a href="${url}" class="button">View</a>
+                <a if.bind="repoUrl" href="${repoUrl}" class="button">Source Code</a>
+            </div>
         </div>
     </div>
 </template>
