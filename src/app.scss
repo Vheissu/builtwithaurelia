@@ -19,6 +19,10 @@ a {
     text-decoration: none;
 }
 
+.link--underlined {
+    text-decoration: underline;
+}
+
 nav {
     border-bottom: 1px solid #DADADA;
     margin-bottom: 30px;
@@ -91,7 +95,7 @@ p {
     }
 
 #main-header {
-    background: #727BC5;
+    background: #333;
     color: #FFF;
     height: 65px;
     line-height: 65px;
@@ -150,4 +154,60 @@ pagination {
     margin-top: 60px;
     padding-bottom: 20px;
     padding-top: 20px;
+}
+
+.bg--purple {
+    background-color: #646FC7;
+}
+
+.bg--grapefruit {
+    background-color: #E14840;
+}
+
+.bg--medium-blue {
+    background-color: #4E73AA;
+}
+
+.bg--bright-blue {
+    background-color: #00C3FF;
+}
+.bg--gentle-pink {
+    background-color: #FFC3CD;
+}
+
+.bg--teal {
+    background-color: #21ADA4;
+}
+
+.bg--middle-blue {
+    background-color: #00A5C6;
+}
+
+.bg--light-cyan {
+    background-color: #1CD8E7;
+}
+
+.bg--brave-orange {
+    background-color: #FF794E;
+}
+
+.bg--yellow-its-me {
+    background-color: #FDDC57;
+}
+
+.bg--green {
+    background-color: #6F9661;
+}
+
+.bg--pie {
+    background-color: #FDBE79;
+}
+
+.bg--dark {
+    background-color: #424242;
+}
+
+.bg--aurelia-pink {
+    background-color: #BC157A;
+    color: #FFF;
 }

@@ -66,3 +66,59 @@
 .project__content--black {
     color: #000;
 }
+
+.thumbnail {
+    height: 320px;
+    
+    @media all and (min-width: 768px) {
+        border-left: 12px solid #FFF;
+    }
+
+    & > a {
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+    }
+}
+
+.thumbnail--large {
+    height: 320px;
+
+    @media all and (min-width: 768px) {
+        height: 460px;
+
+        .thumbnail__heading {
+            font-size: 46px;
+            margin-bottom: 12px;
+        }
+    }
+}
+
+.thumbnail__inner {
+    color: #FFF;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    a {
+        color: #FFF;
+    }
+}
+
+.thumbnail__heading {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 0 6px 0;
+}
+
+.thumbnail__subheading {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+}

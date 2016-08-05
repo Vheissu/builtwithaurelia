@@ -1,4 +1,4 @@
-import {autoinject} from 'aurelia-framework';
+import {autoinject, computedFrom} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 
 import {Api} from './api';
@@ -20,6 +20,23 @@ export class Home {
         {name: 'Websites', value: 'website'}
     ];
 
+    private lastBackground = '';
+
+    private bgClasses = [
+        'bg--purple',
+        'bg--grapefruit',
+        'bg--medium-blue',
+        'bg--bright-blue',
+        'bg--gentle-pink',
+        'bg--teal',
+        'bg--light-cyan',
+        'bg--brave-orange',
+        'bg--yellow-its-me',
+        'bg--green',
+        'bg--pie',
+        'bg--middle-blue'
+    ];
+
     private projects = [];
     private backupProjects = [];
 
@@ -31,9 +48,7 @@ export class Home {
 
         this.api.getProjects().then(projects => {
             if (projects.length) {
-                let paginated = this.api.paginate(this.currentPage, maxProjectsPerPage, projects);
-                this.projects = paginated.items;
-                this.totalNumberOfPages = paginated.pages;
+                this.projects = projects;
             } else {
                 this.router.navigate('/');
             }
@@ -47,6 +62,33 @@ export class Home {
 
     activate() {
         this.currentCategory = this.categories[0];
+    }
+
+    @computedFrom('bgClasses')
+    get background() {
+        return this.getRandomBackgroundColour();
+    }
+
+    getRandomBackgroundColour(): string {
+        const getBackgroundString = () => {
+            return this.bgClasses[Math.floor(Math.random() * this.bgClasses.length)];
+        };
+
+        // Pick a random class from the array
+        let random = getBackgroundString();
+
+        // Random string is not the same as the last generated string
+        if (random !== this.lastBackground) {
+            this.lastBackground = random;
+            return random;
+        } else {
+            // TODO: use recursion to make this neater, was saving time
+            // this will not always gurantee non-duplicates
+            let random = getBackgroundString();
+
+            this.lastBackground = random;
+            return random;
+        }
     }
 
     filterCategory(category) {

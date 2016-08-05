@@ -1,6 +1,6 @@
 <template>
     <require from="partials/pagination.html"></require>
-    <require from="partials/project.html"></require>
+    <require from="partials/thumbnail.html"></require>
 
     <nav>
         <ul>
@@ -10,7 +10,17 @@
 
     <div class="blocks row">
         <div id="no-results" if.bind="!projects.length"><h2>Sorry, nothing was found :(</h2></div>
-        <project class="blocks__block col-xs-12 col-sm-6" repeat.for="project of projects" project.bind="project" if.bind="projects.length"></block>
+        <template repeat.for="project of projects">
+            <template if.bind="$index == 2">
+                <div class="col-xs-12 col-sm-6 thumbnail blocks__block bg--dark">
+                    <div class="thumbnail__inner">
+                        <h1 class="thumbnail__heading">Built With Aurelia</h1>
+                        <h2 class="thumbnail__subheading">A showcase of applications, plugins and resources developed for or using Aurelia.<br><br><a route-href="route: submission" class="link--underlined">Make a Submission</a></h2>
+                    </div>
+                </div>
+            </template>
+            <thumbnail class="blocks__block ${!$first ? background : 'bg--aurelia-pink'} ${$first ? 'col-xs-12 col-sm-12 thumbnail--large' : 'col-xs-12 col-sm-6'}" project.bind="project"></thumbnail>
+        </template>
     </div>
 
     <pagination total-pages.bind="totalNumberOfPages" if.bind="totalNumberOfPages > 1"></pagination>

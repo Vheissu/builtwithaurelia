@@ -1,0 +1,10 @@
+<template bindable="project, fullView" class="thumbnail">
+    <template with.bind="project">
+        <a route-href="route: view; params.bind: {slug: slug}"></a>
+        <div class="thumbnail__inner">
+            <h1 class="thumbnail__heading">${name}</h1>
+            <h2 class="thumbnail__subheading">${category}</h2>
+        </div>
+    </template>
+</template>
+
