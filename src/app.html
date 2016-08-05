@@ -1,7 +1,10 @@
 <template>
     <require from="./app.css"></require>
+    <require from="./loader.html"></require>
     <require from="./app-header.html"></require>
     <require from="./app-footer.html"></require>
+
+    <loader show.bind="router.isNavigating || appService.loading"></loader>
 
     <app-header></app-header>
 

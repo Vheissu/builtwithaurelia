@@ -2,12 +2,14 @@ import {autoinject, computedFrom} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 
 import {Api} from './api';
+import {ApplicationService} from './services/application';
 
 const maxProjectsPerPage = 10;
 
 @autoinject
 export class Home {
     private api: Api;
+    private appService: ApplicationService;
     private router: Router;
 
     private currentCategory = null;
@@ -55,8 +57,9 @@ export class Home {
         });
     }
 
-    constructor(api: Api, router: Router) {
+    constructor(api: Api, appService, ApplicationService, router: Router) {
         this.api = api;
+        this.appService = appService;
         this.router = router;
     }
 
