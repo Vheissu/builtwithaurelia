@@ -47,6 +47,10 @@
     .thumbnail__inner {
         max-width: 80%;
         text-align: left;
+
+        a {
+            text-decoration: underline;
+        }
     }
 }
 
