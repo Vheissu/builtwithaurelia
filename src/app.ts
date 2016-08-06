@@ -44,13 +44,6 @@ export class App {
                 title: 'Home'
             },
             { 
-                route: 'view/:slug',
-                moduleId: './view', 
-                name: 'view',          
-                nav: false, 
-                title: 'View'
-            },
-            { 
                 route: 'about',
                 moduleId: './about', 
                 name: 'about',    

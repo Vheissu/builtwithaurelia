@@ -9,79 +9,15 @@
     }
 }
 
-.project {
-
-}
-
-.project--single {
-    box-shadow: none;
-}
-
-.project__name {
-    color: #000;
-    font-size: 18px;
-    font-weight: 400;
-    margin-bottom: 5px;
-    margin-top: 0;
-    text-transform: uppercase;
-
-    a {
-        color: inherit;
-    }
-}
-
-.project__name--large {
-    font-size: 32px;
-    margin-bottom: 15px;
-    text-transform: capitalize;
-}
-
-.project__border {
-    height: 4px;
-}
-
-.project__image {
-    background-position: center center;
-    background-size: cover;
-    border: 1px solid #DADADA;
-    border-radius: 3px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    padding-bottom: 75%;
-
-    a {
-        display: block;
-        height: 100%;
-        position: absolute;
-        text-decoration: none;
-        width: 100%;
-    }
-}
-
-.project__content {
-    color: #626b6b;
-    display: block;
-    font-size: 16px;
-    text-align: left;
-}
-
-.project__meta {
-    margin: 0;
-}
-
-    .project__meta__link {
-        margin-bottom: 15px;
-    }
-
-.project__content--black {
-    color: #000;
-}
-
 .thumbnail {
     height: 320px;
     
     @media all and (min-width: 768px) {
         border-left: 12px solid #FFF;
+    }
+
+    &:hover > .thumbnail__pullover {
+        height: 100%;
     }
 
     & > a {
@@ -92,6 +28,25 @@
         top: 0;
         width: 100%;
         z-index: 100;
+    }
+}
+
+.thumbnail__pullover {
+    background: rgba(0, 0, 0, 0.8);
+    bottom: 0;
+    color: #FFF;
+    height: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    transition: all 0.4s ease;
+    width: 100%;
+    z-index: 1000;
+
+    .thumbnail__inner {
+        max-width: 80%;
+        text-align: left;
     }
 }
 
@@ -110,10 +65,17 @@
 .thumbnail__inner {
     color: #FFF;
     left: 50%;
+    max-width: 50%;
     position: absolute;
     text-align: center;
     top: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+
+    p {
+        font-size: 14px;
+        line-height: 20px;
+    }
 
     a {
         color: #FFF;

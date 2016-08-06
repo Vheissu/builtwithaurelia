@@ -1,9 +1,15 @@
 <template bindable="project, fullView" class="thumbnail">
     <template with.bind="project">
-        <a route-href="route: view; params.bind: {slug: slug}"></a>
         <div class="thumbnail__inner">
             <h1 class="thumbnail__heading">${name}</h1>
             <h2 class="thumbnail__subheading">${category}</h2>
+        </div>
+        <div class="thumbnail__pullover">
+            <div class="thumbnail__inner">
+                <p innerhtml.bind="description"></p>
+                <a href="${url}" class="button" target="_blank">View</a>
+                <a if.bind="repoUrl" href="${repoUrl}" class="button" target="_blank">Source Code</a>
+            </div>
         </div>
     </template>
 </template>
