@@ -48,15 +48,17 @@
         max-width: 80%;
         text-align: left;
 
-        a {
+        a:not(.button) {
             text-decoration: underline;
         }
     }
 }
 
 .blocks__block--large .thumbnail__pullover p {
-    font-size: 20px;
-    line-height: 26px;
+    @media all and (min-width: 768px) {
+        font-size: 20px;
+        line-height: 26px;
+    }
 }
 
 .thumbnail--large {
