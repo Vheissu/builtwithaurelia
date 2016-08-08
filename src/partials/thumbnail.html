@@ -1,4 +1,4 @@
-<template bindable="project, fullView" class="thumbnail">
+<template class="thumbnail">
     <template with.bind="project">
         <div class="thumbnail__inner">
             <h1 class="thumbnail__heading">${name}</h1>
@@ -7,8 +7,8 @@
         <div class="thumbnail__pullover">
             <div class="thumbnail__inner">
                 <p innerhtml.bind="description"></p>
-                <a href="${url}" class="button" target="_blank">View</a>
-                <a if.bind="repoUrl" href="${repoUrl}" class="button" target="_blank">Source Code</a>
+                <a href="${url}" class="button" target="_blank" click.delegate="handleClick(url, name)">View</a>
+                <a if.bind="repoUrl" href="${repoUrl}" class="button" target="_blank" click.delegate="handleClick(repoUrl, name)">Source Code</a>
             </div>
         </div>
     </template>

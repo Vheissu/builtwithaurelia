@@ -16,15 +16,6 @@ export class App {
         this.ea = ea;
     }
 
-    attached() {
-        this.ea.subscribe('router:navigation:success', payload => {
-            if ('clicky' in window) {
-                (<any>window).clicky.log(payload.instruction.fragment, payload.instruction.title || document.title);
-                //this.send('pageview', payload.instruction.fragment, payload.instruction.title || document.title);
-            }
-        });
-    }
-
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'Built With Aurelia';
 
