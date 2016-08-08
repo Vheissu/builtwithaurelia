@@ -108,6 +108,18 @@
 
     <script src="scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBd5DSBYmZJ-ZV65QeQnK5wr6PrTAAKnLQ",
+        authDomain: "built-with-aurelia.firebaseapp.com",
+        databaseURL: "https://built-with-aurelia.firebaseio.com",
+        storageBucket: "",
+    };
+    firebase.initializeApp(config);
+    </script>
+
     <script type="text/javascript">
     var clicky_site_ids = clicky_site_ids || [];
     clicky_site_ids.push(100978527);
