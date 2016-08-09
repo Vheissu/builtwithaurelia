@@ -3,6 +3,7 @@ import {Router} from 'aurelia-router';
 
 import {Api} from './api';
 import {ApplicationService} from './services/application';
+import {UserService} from './services/user';
 import {getColourFromHashedString} from './common';
 
 declare var firebase;
@@ -13,6 +14,7 @@ const maxProjectsPerPage = 10;
 export class Home {
     private api: Api;
     private appService: ApplicationService;
+    private userService: UserService;
     private router: Router;
 
     private currentCategory = null;
@@ -26,27 +28,24 @@ export class Home {
     };
 
     private projects = [];
+    private submissionVotes;
     private backupProjects = [];
 
     private currentPage: number = 1;
     private totalNumberOfPages: number = -1;
 
-    constructor(api: Api, appService, ApplicationService, router: Router) {
+    constructor(api: Api, appService, ApplicationService, userService: UserService, router: Router) {
         this.api = api;
         this.appService = appService;
+        this.userService = userService;
         this.router = router;
     }
 
     canActivate(params) {
-        let firebasePromise = new Promise((resolve, reject) => {
-            firebase.database().ref('submissions').on('child_added', submissions => {
-                if (submissions.length) {
-                    this.projects = submissions;
-                    this.getProjectCounts();
-                }
-
-                resolve(submissions);
-            });
+        firebase.database().ref('submissions').on('child_added', submissions => {
+            if (submissions.length) {
+                this.submissionVotes = submissions.votes;
+            }
         });
 
         let projectsPromise = new Promise((resolve, reject) => {
@@ -62,7 +61,7 @@ export class Home {
             })
         });
 
-        return Promise.all([projectsPromise, firebasePromise]);
+        return Promise.all([projectsPromise]);
     }
 
     activate() {
@@ -107,5 +106,16 @@ export class Home {
         } else {
             this.projects = this.backupProjects;
         }
+    }
+
+    upvote($name) {
+        let when = firebase.database.ServerValue.TIMESTAMP;
+
+        let newVoteKey = firebase.database().ref().child('votes').push().key;
+
+        let updates = {};
+        updates[`submissions/${$name}/voters/${firebase.auth.uid}`] = true;
+
+        return firebase.database().ref().update(updates);
     }
 }

@@ -1,18 +1,29 @@
 import {Aurelia, autoinject} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
 import {EventAggregator} from 'aurelia-event-aggregator';
+
 import {ApplicationService} from './services/application';
+import {UserService} from './services/user';
 
 @autoinject
 export class App {
     ea: EventAggregator;
     appService: ApplicationService;
+    userService: UserService;
     router: Router;
 
     private showHat: boolean = false;
+    private showHatLogin: boolean = false;
+    private showHatRegister: boolean = false;
 
-    constructor(appService: ApplicationService, ea: EventAggregator) {
+    private model = {
+        email: '',
+        password: ''
+    };
+
+    constructor(appService: ApplicationService, userService: UserService, ea: EventAggregator) {
         this.appService = appService;
+        this.userService = userService;
         this.ea = ea;
     }
 
@@ -51,5 +62,21 @@ export class App {
         ]);
 
         this.router = router;
+    }
+
+    login($event: Event) {
+        this.showHat = true;
+        this.showHatRegister = false;
+        this.showHatLogin = true;
+    }
+
+    logout($event: Event) {
+        alert('Goodbye');
+    }
+
+    register($event: Event) {
+        this.showHat = true;
+        this.showHatLogin = false;
+        this.showHatRegister = true;
     }
 }

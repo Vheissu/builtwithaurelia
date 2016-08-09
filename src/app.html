@@ -6,7 +6,19 @@
 
     <loader show.bind="router.isNavigating || appService.loading"></loader>
 
-    <app-header></app-header>
+    <div class="hat ${showHat ? 'hat--active': ''}" if.bind="showHat">
+        <div class="hat__inner" if.bind="showHatLogin">
+            <h1 class="hat__title">Login</h1>
+            <p>To upvote submissions and other cool things, login here.</p>
+            <form submit.delegate="handleLogin($event)">
+                <input type="email" name="email" vlaue.bind="model.email"><br>
+                <input type="password" name="password" value.bind="model.password"><br>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+    <app-header user.bind="userService" login-callback.call="login($event)" logout-callback.call="logout($event)"></app-header>
 
     <main id="content">
         <div class="container">
