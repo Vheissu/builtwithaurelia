@@ -5,6 +5,8 @@ import {Api} from './api';
 import {ApplicationService} from './services/application';
 import {getColourFromHashedString} from './common';
 
+declare var firebase;
+
 const maxProjectsPerPage = 10;
 
 @autoinject
@@ -36,16 +38,31 @@ export class Home {
     }
 
     canActivate(params) {
-        this.currentPage = params.page || 1;
+        let firebasePromise = new Promise((resolve, reject) => {
+            firebase.database().ref('submissions').on('child_added', submissions => {
+                if (submissions.length) {
+                    this.projects = submissions;
+                    this.getProjectCounts();
+                }
 
-        this.api.getProjects().then(projects => {
-            if (projects.length) {
-                this.projects = projects;
-                this.getProjectCounts();
-            } else {
-                this.router.navigate('/');
-            }
+                resolve(submissions);
+            });
         });
+
+        let projectsPromise = new Promise((resolve, reject) => {
+            this.api.getProjects().then(projects => {
+                if (projects.length) {
+                    if (projects.length) {
+                        this.projects = projects;
+                        this.getProjectCounts();
+                    }
+
+                    resolve(projects);
+                }
+            })
+        });
+
+        return Promise.all([projectsPromise, firebasePromise]);
     }
 
     activate() {
