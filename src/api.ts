@@ -33,40 +33,6 @@ export class Api {
             });
     }
 
-    getProject(slug) {
-        this.appService.loading = true;
-        let returnProject = null;
-
-        return this.getProjects().then(projects => {
-            projects.forEach(project => {
-                if (project.slug === slug) {
-                    returnProject = project;
-                }
-            });
-
-            this.appService.loading = false;
-
-            return returnProject;
-        });
-    }
-
-    getProjectByName(name) {
-        this.appService.loading = true;
-        let returnProject = null;
-
-        return this.getProjects().then(projects => {
-            projects.forEach(project => {
-                if (project.name === name) {
-                    returnProject = project;
-                }
-            });
-
-            this.appService.loading = false;
-
-            return returnProject;
-        });
-    }
-
     getVoteCountsBySlug(slug) {
         return new Promise((resolve, reject) => {
             firebase.database().ref(`submissions/${slug}/votes`).once('value').then(snapshot => {
