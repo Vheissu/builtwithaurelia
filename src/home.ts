@@ -8,8 +8,6 @@ import {getColourFromHashedString} from './common';
 
 declare var firebase;
 
-const maxProjectsPerPage = 10;
-
 @autoinject
 export class Home {
     private api: Api;
