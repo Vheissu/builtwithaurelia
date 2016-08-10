@@ -28,7 +28,6 @@ export class Home {
     };
 
     private projects = [];
-    private submissionVotes;
     private backupProjects = [];
 
     private currentPage: number = 1;
@@ -42,19 +41,11 @@ export class Home {
     }
 
     canActivate(params) {
-        firebase.database().ref('submissions').on('child_added', submissions => {
-            if (submissions.length) {
-                this.submissionVotes = submissions.votes;
-            }
-        });
-
         let projectsPromise = new Promise((resolve, reject) => {
             this.api.getProjects().then(projects => {
                 if (projects.length) {
-                    if (projects.length) {
-                        this.projects = projects;
-                        this.getProjectCounts();
-                    }
+                    this.projects = projects;
+                    this.getProjectCounts();
 
                     resolve(projects);
                 }
@@ -66,15 +57,15 @@ export class Home {
                 for (let submission in submissions) {
                     if (submission) {
                         this.projects.map(project => {
-                            if (project.slug === submission) {
+                            if (project.slug == submission) {
                                 if (this.userService.getLoggedInUser()) {
                                     if (this.userService.getLoggedInUser().uid in submissions[submission].votes) {
                                         project.currentUserHasVotedFor = true;
                                     }
                                 }
+                                
+                                // Count the vote nodes to get the vote count
                                 project.votes = Object.keys(submissions[submission].votes).length;
-                            } else {
-                                project.votes = 0;
                             }
 
                             return project;
@@ -89,8 +80,17 @@ export class Home {
     }
 
     activate() {
+        // Make sure all projects have a vote count
+        this.projects.map(project => {
+            if (typeof project.votes === 'undefined') {
+                project.votes = 0;
+            }
+            return project;
+        });
+
+        // Sort the projects by their vote counts in descending order
         this.projects.sort((a, b) => {
-            return b.votes - a.votes;
+            return parseInt(b.votes, 10) - parseInt(a.votes, 10);
         });
         
         this.currentCategory = this.categories.all;
