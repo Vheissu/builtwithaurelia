@@ -108,15 +108,7 @@ export class Home {
         }
     }
 
-    vote(evt, name) {
-        console.log(arguments);
-        // let when = firebase.database.ServerValue.TIMESTAMP;
-
-        // let newVoteKey = firebase.database().ref().child('votes').push().key;
-
-        // let updates = {};
-        // updates[`submissions/${$name}/voters/${firebase.auth.uid}`] = true;
-
-        // return firebase.database().ref().update(updates);
+    vote(evt, slug) {
+        this.api.castVote(slug);
     }
 }

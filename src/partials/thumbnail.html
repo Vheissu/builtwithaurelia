@@ -12,8 +12,8 @@
             </div>
 
             <div class="vote-buttons">
-                <a href="javascript:void(0);" class="vote" click.delegate="callVoteCallback($event, name)"></a>
-                <span>${getVoteCount(name)}</span>
+                <a href="javascript:void(0);" class="vote" click.delegate="callVoteCallback($event, slug)"></a>
+                <span>${getVoteCount(slug) & async:'0'}</span>
             </div>
         </div>
     </template>
