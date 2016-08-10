@@ -13,7 +13,7 @@
 
             <div class="vote-buttons">
                 <a href="javascript:void(0);" class="vote fa ${currentUserHasVotedFor ? 'fa-heart': 'fa-heart-o'}" aria-hidden="true" click.delegate="callVoteCallback($event, slug)"></a>
-                <span>${votes}</span>
+                <span>${votes || 0}</span>
             </div>
         </div>
     </template>
