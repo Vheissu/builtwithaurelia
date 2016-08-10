@@ -11,7 +11,7 @@
                 <a if.bind="repoUrl" href="${repoUrl}" class="button" target="_blank" click.delegate="handleClick(repoUrl, name)">Source Code</a>
             </div>
 
-            <div class="vote-buttons">
+            <div class="vote-buttons" if.bind="!userService.isLoggedIn">
                 <a href="javascript:void(0);" class="vote fa ${currentUserHasVotedFor ? 'fa-heart': 'fa-heart-o'}" aria-hidden="true" click.delegate="callVoteCallback($event, slug)"></a>
                 <span>${votes || 0}</span>
             </div>
