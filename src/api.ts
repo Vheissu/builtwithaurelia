@@ -76,6 +76,6 @@ export class Api {
     }
 
     castVote(slug) {
-        return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).push(true);
+        return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(true);
     }
 }

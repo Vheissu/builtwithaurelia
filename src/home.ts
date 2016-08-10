@@ -85,7 +85,7 @@ export class Home {
 
     activate() {
         this.projects.sort((a, b) => {
-            return b - a;
+            return b.votes - a.votes;
         });
         
         this.currentCategory = this.categories.all;
