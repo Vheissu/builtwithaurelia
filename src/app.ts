@@ -45,6 +45,10 @@ export class App {
         this.ea = ea;
     }
 
+    attached() {
+        this.ea.subscribe('show.login-form', this.login);
+    }
+
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'Built With Aurelia';
 

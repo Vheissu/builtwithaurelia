@@ -242,6 +242,11 @@ pagination {
     }
 }
 
+.vote--disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+}
+
 .fa-heart {
     color: #FF0000;
 }

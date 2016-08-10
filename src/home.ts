@@ -1,4 +1,5 @@
 import {autoinject, computedFrom} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {Router} from 'aurelia-router';
 
 import {Api} from './api';
@@ -13,6 +14,7 @@ export class Home {
     private api: Api;
     private appService: ApplicationService;
     private userService: UserService;
+    private ea: EventAggregator;
     private router: Router;
 
     private currentCategory = null;
@@ -31,10 +33,11 @@ export class Home {
     private currentPage: number = 1;
     private totalNumberOfPages: number = -1;
 
-    constructor(api: Api, appService, ApplicationService, userService: UserService, router: Router) {
+    constructor(api: Api, appService, ApplicationService, userService: UserService, ea: EventAggregator, router: Router) {
         this.api = api;
         this.appService = appService;
         this.userService = userService;
+        this.ea = ea;
         this.router = router;
     }
 
@@ -135,23 +138,27 @@ export class Home {
     }
 
     vote(evt, slug) {
-        var voteAction = 'add';
+        if (this.userService.isLoggedIn) {
+            var voteAction = 'add';
 
-        this.projects.map(project => {
-            if (project.slug === slug) {
-                if (project.currentUserHasVotedFor) {
-                    project.votes--;
-                    project.currentUserHasVotedFor = false;
-                    voteAction = 'remove';
-                } else {
-                    project.votes++;
-                    project.currentUserHasVotedFor = true;
+            this.projects.map(project => {
+                if (project.slug === slug) {
+                    if (project.currentUserHasVotedFor) {
+                        project.votes--;
+                        project.currentUserHasVotedFor = false;
+                        voteAction = 'remove';
+                    } else {
+                        project.votes++;
+                        project.currentUserHasVotedFor = true;
+                    }
                 }
-            }
 
-            return project;
-        });
+                return project;
+            });
 
-        this.api.castVote(slug, voteAction);
+            this.api.castVote(slug, voteAction);
+        } else {
+            this.ea.publish('show.login-form');
+        }
     }
 }
