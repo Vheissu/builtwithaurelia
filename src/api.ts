@@ -61,21 +61,13 @@ export class Api {
 
     getVoteCountsBySlug(slug) {
         return new Promise((resolve, reject) => {
-            let submissionRef = firebase.database().ref(`submissions/${slug}/votes`);
-            submissionRef.on('value', snapshot => {
-                resolve(snapshot.val());
+            firebase.database().ref(`submissions/${slug}/votes`).once('value').then(snapshot => {
+                resolve(snapshot.numChildren());
             });
         });
     }
 
     castVote(slug) {
-        let when = firebase.database.ServerValue.TIMESTAMP;
-
-        let newVoteKey = firebase.database().ref(`submissions/${slug}/votes`).push().key;
-
-        let updates = {};
-        updates[`submissions/${slug}/votes/${firebase.auth.uid}`] = true;
-
-        return firebase.database().ref().update(updates);
+        return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).push(true);
     }
 }
