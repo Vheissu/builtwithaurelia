@@ -49,7 +49,11 @@ export class Api {
         });
     }
 
-    castVote(slug) {
-        return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(true);
+    castVote(slug, action) {
+        if (action === 'add') {
+            return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(true);
+        } else {
+            return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(null);
+        }
     }
 }

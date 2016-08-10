@@ -135,14 +135,23 @@ export class Home {
     }
 
     vote(evt, slug) {
+        var voteAction = 'add';
+
         this.projects.map(project => {
             if (project.slug === slug) {
-                project.votes++;
-                project.currentUserHasVotedFor = true;
+                if (project.currentUserHasVotedFor) {
+                    project.votes--;
+                    project.currentUserHasVotedFor = false;
+                    voteAction = 'remove';
+                } else {
+                    project.votes++;
+                    project.currentUserHasVotedFor = true;
+                }
             }
+
             return project;
         });
 
-        this.api.castVote(slug);
+        this.api.castVote(slug, voteAction);
     }
 }
