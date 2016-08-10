@@ -236,6 +236,10 @@ pagination {
     position: absolute;
     right: 0;
     z-index: 1001;
+
+    a {
+        transition: all 1s ease;
+    }
 }
 
 .fa-heart {
