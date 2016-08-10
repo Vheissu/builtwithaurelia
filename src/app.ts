@@ -99,6 +99,7 @@ export class App {
 
     logout($event?: Event) {
         this.userService.logout();
+        window.location.reload();
     }
 
     register($event?: Event) {
@@ -120,6 +121,8 @@ export class App {
                     this.showHat = false;
                     this.showHatRegister = false;
                     this.showHatLogin = false;
+
+                    window.location.reload();
                 })
                 .catch(e => {
                     if (e.code === 'auth/user-not-found') {
@@ -138,6 +141,8 @@ export class App {
                     this.showHat = false;
                     this.showHatRegister = false;
                     this.showHatLogin = true;
+
+                    window.location.reload();
                 })
                 .catch(e => {
                     this.formMessage = 'Sorry :(<br>there was a problem registering. Please make sure you entered in all fields correctly or refreshing the page.';
