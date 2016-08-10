@@ -238,16 +238,8 @@ pagination {
     z-index: 1001;
 }
 
-.vote {
-    background: transparent url(/images/heart-empty.svg) no-repeat center center;
-    display: inline-block;
-    height: 24px;
-    text-decoration: none;
-    width: 24px;
-}
-
-.vote--voted {
-    background-image: url(/images/heart-full.svg);
+.fa-heart {
+    color: #FF0000;
 }
 
 .form__row {
