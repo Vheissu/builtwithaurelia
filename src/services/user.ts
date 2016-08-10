@@ -1,54 +1,42 @@
 declare var firebase;
 
-import {computedFrom, autoinject, TaskQueue} from 'aurelia-framework';
+import {computedFrom, autoinject} from 'aurelia-framework';
 
 @autoinject
-
 export class UserService {
     userLoggedIn: boolean = false;
 
-    constructor(taskQueue: TaskQueue) {
-        // Gives us an artificial delay before attempting to get
-        // any auth information from Firebase
-        taskQueue.queueMicroTask(() => {
-            firebase.auth().onAuthStateChanged(user => {
-                if (user) {
-                    this.userLoggedIn = true;
-
-                    this.saveUser({
-                        displayName: user.displayName,
-                        email: user.email,
-                        providers: user.providerData,
-                        uid: user.uid
-                    }).catch(error => {
-                        console.error(error);
-                    })
-                } else {
-                    this.userLoggedIn = false;
-                }
-            });
-
-            firebase.auth().getRedirectResult().then(result => {
-                if (result && result.credential) {
-                    let token = result.credential.accessToken;
-                    let user = result.user;
-
-                    this.userLoggedIn = true;
-                }
-            }).catch(error => {
-                let errorCode = error.code;
-                let errorMessage = error.message;
-                let email = error.email;
-                let credential = error.credential;
-
+    constructor() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.userLoggedIn = true;
+            } else {
                 this.userLoggedIn = false;
+            }
+        });
+    }
 
-                if (errorCode === 'auth/account-exists-with-different-credential') {
-                    alert('You have already signed up with a different auth provider for that email.');
-                } else {
-                    console.error(error);
-                }
-            });
+    login(email, password) {
+        return new Promise((resolve, reject) => {
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    resolve(true);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    register(email, password) {
+        return new Promise((resolve, reject) => {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    resolve(true);
+                })
+                .catch(error => {
+                    reject(error);
+                });
         });
     }
 
@@ -57,33 +45,8 @@ export class UserService {
         return this.userLoggedIn;
     }
 
-    saveUser(user) {
-        let updates = {};
-        updates['users/' + user.uid] = user;
-
-        return firebase.database().ref().update(updates);
-    }
-
     getLoggedInUser() {
         return firebase.auth().currentUser;
-    }
-
-    loginWithFacebook() {
-        if (!this.getLoggedInUser()) {
-            let provider = new firebase.auth.FacebookAuthProvider();
-            firebase.auth().signInWithRedirect(provider);
-        } else {
-            firebase.auth().signOut();
-        }
-    }
-
-    loginWithGoogle() {
-        if (!this.getLoggedInUser()) {
-            let provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithRedirect(provider);
-        } else {
-            firebase.auth().signOut();
-        }
     }
 
     logout() {

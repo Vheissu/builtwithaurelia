@@ -6,14 +6,37 @@
 
     <loader show.bind="router.isNavigating || appService.loading"></loader>
 
-    <div class="hat ${showHat ? 'hat--active': ''}" if.bind="showHat">
+    <div class="hat ${showHat ? 'hat--active': ''}">
         <div class="hat__inner" if.bind="showHatLogin">
             <h1 class="hat__title">Login</h1>
-            <p>To upvote submissions and other cool things, login here.</p>
+            <p>To upvote submissions and other cool things, login here.<br>Not a member? <a href="javascript:void(0);" click.delegate="register($event)">click here</a> to signup.</p>
+            <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
             <form submit.delegate="handleLogin($event)">
-                <input type="email" name="email" vlaue.bind="model.email"><br>
-                <input type="password" name="password" value.bind="model.password"><br>
-                <input type="submit">
+                <div class="form__row">
+                    <input type="email" name="email" placeholder="Email" value.bind="model.email">
+                </div>
+                <div class="form__row">
+                    <input type="password" name="password" value.bind="model.password" autocomplete="off">
+                </div>
+                <button type="submit" class="button">Login</button>
+            </form>
+        </div>
+        <div class="hat__inner" if.bind="showHatRegister">
+            <h1 class="hat__title">Register</h1>
+            <p>Joining Built With Aurelia is quick and easy. Simply fill out the form below and you are on your way.<br>Already a member? <a href="javascript:void(0);" click.delegate="login($event)">click here to login</a></p>
+            <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
+            <form submit.delegate="handleRegister($event)">
+                <div class="form__row">
+                    <input type="email" name="email" placeholder="Email" value.bind="model.email">
+                </div>
+                <div class="form__row">
+                    <input type="password" name="password" placeholder="Enter a strong password" value.bind="model.password" autocomplete="off">
+                </div>
+                <div class="form__row">
+                    <input type="password" name="password2" placeholder="Re-enter your chosen password" value.bind="model.password2" autocomplete="off">
+                </div>
+                <p if.bind="!passwordsMatch" class="error-message">Please make sure both passwords match</p>
+                <button type="submit" class="button" disabled.bind="!registerFormIsValid">Register</button>
             </form>
         </div>
     </div>

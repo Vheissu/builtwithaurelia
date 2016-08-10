@@ -108,14 +108,15 @@ export class Home {
         }
     }
 
-    upvote($name) {
-        let when = firebase.database.ServerValue.TIMESTAMP;
+    vote(evt, name) {
+        console.log(arguments);
+        // let when = firebase.database.ServerValue.TIMESTAMP;
 
-        let newVoteKey = firebase.database().ref().child('votes').push().key;
+        // let newVoteKey = firebase.database().ref().child('votes').push().key;
 
-        let updates = {};
-        updates[`submissions/${$name}/voters/${firebase.auth.uid}`] = true;
+        // let updates = {};
+        // updates[`submissions/${$name}/voters/${firebase.auth.uid}`] = true;
 
-        return firebase.database().ref().update(updates);
+        // return firebase.database().ref().update(updates);
     }
 }

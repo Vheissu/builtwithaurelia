@@ -10,6 +10,11 @@
                 <a href="${url}" class="button" target="_blank" click.delegate="handleClick(url, name)">View</a>
                 <a if.bind="repoUrl" href="${repoUrl}" class="button" target="_blank" click.delegate="handleClick(repoUrl, name)">Source Code</a>
             </div>
+
+            <div class="vote-buttons">
+                <a href="javascript:void(0);" class="vote" click.delegate="callVoteCallback($event, name)"></a>
+                <span>${getVoteCount(name)}</span>
+            </div>
         </div>
     </template>
 </template>

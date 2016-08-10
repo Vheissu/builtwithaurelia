@@ -23,6 +23,10 @@ a {
     text-decoration: underline;
 }
 
+.error-message {
+    color: #FF0000;
+}
+
 nav {
     border-bottom: 1px solid #DADADA;
     margin-bottom: 30px;
@@ -84,7 +88,7 @@ nav li {
     color: #FFF;
     height: 0;
     overflow: hidden;
-    transition: all 0.5s linear;
+    transition: all 0.5s ease;
 }
 
 .hat__title {
@@ -102,7 +106,7 @@ nav li {
 }
 
 .hat--active {
-    height: 550px;
+    height: 550px !important;
 }
 
 body {
@@ -200,7 +204,9 @@ pagination {
 }
 
 .button {
+    background: none;
     border: 1px solid #05babf;
+    color: #FFF;
     cursor: pointer;
     display: inline-block;
     font-size: 20px;
@@ -216,6 +222,42 @@ pagination {
 
     &:last-child {
         margin-right: 0;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.3;
+    }
+}
+
+.vote-buttons {
+    bottom: 0;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    z-index: 1001;
+}
+
+.vote {
+    background: transparent url(/images/heart-empty.svg) no-repeat center center;
+    display: inline-block;
+    height: 24px;
+    text-decoration: none;
+    width: 24px;
+}
+
+.vote--voted {
+    background-image: url(/images/heart-full.svg);
+}
+
+.form__row {
+    margin-bottom: 15px;
+
+    input {
+        background: #FFF;
+        border: none;
+        padding: 10px;
+        width: 250px;
     }
 }
 
