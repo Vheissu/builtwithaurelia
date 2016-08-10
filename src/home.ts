@@ -67,6 +67,11 @@ export class Home {
                     if (submission) {
                         this.projects.map(project => {
                             if (project.slug === submission) {
+                                if (this.userService.getLoggedInUser()) {
+                                    if (this.userService.getLoggedInUser().uid in submissions[submission].votes) {
+                                        project.currentUserHasVotedFor = true;
+                                    }
+                                }
                                 project.votes = Object.keys(submissions[submission].votes).length;
                             } else {
                                 project.votes = 0;
@@ -132,6 +137,14 @@ export class Home {
     }
 
     vote(evt, slug) {
+        this.projects.map(project => {
+            if (project.slug === slug) {
+                project.votes++;
+                project.currentUserHasVotedFor = true;
+            }
+            return project;
+        });
+
         this.api.castVote(slug);
     }
 }

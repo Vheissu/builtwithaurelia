@@ -21,6 +21,14 @@ export class Api {
             .then(response => response.json())
             .then(projects => {
                 this.appService.loading = false;
+
+                // By default assume the current user has not voted for this project
+                // a check is run later which changes this value
+                projects.map(project => {
+                    project.currentUserHasVotedFor = false;
+                    return project;
+                });
+
                 return projects;
             });
     }
