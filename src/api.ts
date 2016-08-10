@@ -67,6 +67,14 @@ export class Api {
         });
     }
 
+    getVotedSubmissions() {
+        return new Promise((resolve, reject) => {
+            firebase.database().ref('submissions').once('value').then(snapshot => {
+                resolve(snapshot.val());
+            })
+        });
+    }
+
     castVote(slug) {
         return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).push(true);
     }
