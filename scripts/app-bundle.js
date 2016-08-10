@@ -248,6 +248,7 @@ define('app',["require", "exports", 'aurelia-framework', 'aurelia-event-aggregat
         };
         App.prototype.logout = function ($event) {
             this.userService.logout();
+            window.location.reload();
         };
         App.prototype.register = function ($event) {
             this.model.email = '';
@@ -266,6 +267,7 @@ define('app',["require", "exports", 'aurelia-framework', 'aurelia-event-aggregat
                     _this.showHat = false;
                     _this.showHatRegister = false;
                     _this.showHatLogin = false;
+                    window.location.reload();
                 })
                     .catch(function (e) {
                     if (e.code === 'auth/user-not-found') {
@@ -283,6 +285,7 @@ define('app',["require", "exports", 'aurelia-framework', 'aurelia-event-aggregat
                     _this.showHat = false;
                     _this.showHatRegister = false;
                     _this.showHatLogin = true;
+                    window.location.reload();
                 })
                     .catch(function (e) {
                     _this.formMessage = 'Sorry :(<br>there was a problem registering. Please make sure you entered in all fields correctly or refreshing the page.';
