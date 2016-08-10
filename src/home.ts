@@ -61,10 +61,33 @@ export class Home {
             })
         });
 
-        return Promise.all([projectsPromise]);
+        let votedSubmissionsPromise = new Promise((resolve, reject) => {
+            this.api.getVotedSubmissions().then(submissions => {
+                for (let submission in submissions) {
+                    if (submission) {
+                        this.projects.map(project => {
+                            if (project.slug === submission) {
+                                project.votes = Object.keys(submissions[submission].votes).length;
+                            } else {
+                                project.votes = 0;
+                            }
+
+                            return project;
+                        });
+                    }
+                }
+                resolve(true);
+            });
+        });
+
+        return Promise.all([projectsPromise, votedSubmissionsPromise]);
     }
 
     activate() {
+        this.projects.sort((a, b) => {
+            return b - a;
+        });
+        
         this.currentCategory = this.categories.all;
     }
 
