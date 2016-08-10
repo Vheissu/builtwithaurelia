@@ -46,7 +46,9 @@ export class App {
     }
 
     attached() {
-        this.ea.subscribe('show.login-form', this.login);
+        this.ea.subscribe('show.login-form', () => {
+            this.login();
+        });
     }
 
     configureRouter(config: RouterConfiguration, router: Router) {
@@ -86,7 +88,7 @@ export class App {
         this.router = router;
     }
 
-    login($event: Event) {
+    login($event?: Event) {
         this.model.email = '';
         this.model.password = '';
 
@@ -95,11 +97,11 @@ export class App {
         this.showHatLogin = true;
     }
 
-    logout($event: Event) {
+    logout($event?: Event) {
         this.userService.logout();
     }
 
-    register($event: Event) {
+    register($event?: Event) {
         this.model.email = '';
         this.model.password = '';
         this.model.password2 = '';
@@ -109,7 +111,7 @@ export class App {
         this.showHatRegister = true;
     }
 
-    handleLogin($event) {
+    handleLogin($event?) {
         if (this.loginFormIsValid) {
             this.formMessage = '';
              
@@ -127,7 +129,7 @@ export class App {
         }
     }
 
-    handleRegister($event) {
+    handleRegister($event?) {
         if (this.registerFormIsValid) {
             this.formMessage = '';
 

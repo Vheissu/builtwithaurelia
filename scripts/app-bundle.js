@@ -200,7 +200,10 @@ define('app',["require", "exports", 'aurelia-framework', 'aurelia-event-aggregat
             configurable: true
         });
         App.prototype.attached = function () {
-            this.ea.subscribe('show.login-form', this.login);
+            var _this = this;
+            this.ea.subscribe('show.login-form', function () {
+                _this.login();
+            });
         };
         App.prototype.configureRouter = function (config, router) {
             config.title = 'Built With Aurelia';
