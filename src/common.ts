@@ -14,7 +14,7 @@ export const colours = [
 ];
 
 
-export function getColourFromHashedString(str) {
+export const getColourFromHashedString = str => {
     if (str) {
         let hash = hashString(str);
         let index = hash % colours.length;
@@ -25,7 +25,7 @@ export function getColourFromHashedString(str) {
     return null;
 };
 
-export function hashString (str) {
+export const hashString = str => {
     let hash = 0;
 
     for (let i = 0; i < str.length; i++) {
@@ -36,7 +36,7 @@ export function hashString (str) {
     return hash;
 };
 
-export function paginate(page, maxPerPage, items) {
+export const paginate = (page, maxPerPage, items) => {
         let offset = (page - 1) * maxPerPage;
         let totalPages = Math.ceil(items.length / maxPerPage);
 
@@ -45,3 +45,10 @@ export function paginate(page, maxPerPage, items) {
             pages: totalPages
         };
 };
+
+export const slugify = str => {
+    return str.toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, ''); 
+}
