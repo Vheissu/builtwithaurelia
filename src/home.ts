@@ -75,6 +75,8 @@ export class Home {
         this.projects.sort((a, b) => {
             return parseInt(b.votes, 10) - parseInt(a.votes, 10);
         });
+
+        this.getProjectCounts();
         
         this.currentCategory = this.categories.all;
     }
