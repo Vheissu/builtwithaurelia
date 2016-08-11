@@ -2,6 +2,8 @@ import {autoinject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {ApplicationService} from './services/application';
 
+import {slugify} from './common/utils';
+
 declare var firebase;
 
 @autoinject
@@ -14,46 +16,34 @@ export class Api {
         this.appService = appService;
     }
 
-    getProjects() {
+    getProjectsFromFirebase() {
         this.appService.loading = true;
 
-        return this.http.fetch('https://raw.githubusercontent.com/Vheissu/builtwithaurelia-projects/master/projects.json')
-            .then(response => response.json())
-            .then(projects => {
-                this.appService.loading = false;
-
-                // By default assume the current user has not voted for this project
-                // a check is run later which changes this value
-                projects.map(project => {
-                    project.currentUserHasVotedFor = false;
-                    return project;
-                });
-
-                return projects;
-            });
-    }
-
-    getVoteCountsBySlug(slug) {
-        return new Promise((resolve, reject) => {
-            firebase.database().ref(`submissions/${slug}/votes`).once('value').then(snapshot => {
-                resolve(snapshot.numChildren());
-            });
-        });
-    }
-
-    getVotedSubmissions() {
         return new Promise((resolve, reject) => {
             firebase.database().ref('submissions').once('value').then(snapshot => {
+                this.appService.loading = false;
                 resolve(snapshot.val());
-            })
+            }, () => {
+                this.appService.loading = false;
+            });
         });
     }
 
-    castVote(slug, action) {
+    castVote(name, action) {
+        let slug = slugify(name);
+        
         if (action === 'add') {
             return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(true);
         } else {
             return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(null);
         }
+    }
+
+    addProject(project) {
+        if (!project.added) {
+            project.added = firebase.database.ServerValue.TIMESTAMP;
+        }
+
+        firebase.database().ref(`submissions/${slugify(project.name)}`).update(project);
     }
 }

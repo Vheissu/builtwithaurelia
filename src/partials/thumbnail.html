@@ -12,8 +12,8 @@
             </div>
 
             <div class="vote-buttons">
-                <a href="javascript:void(0);" class="vote ${!userService.isLoggedIn ? 'vote--disabled' : ''} fa ${currentUserHasVotedFor ? 'fa-heart': 'fa-heart-o'}" aria-hidden="true" click.delegate="callVoteCallback($event, slug)"></a>
-                <span>${votes || 0}</span>
+                <a href="javascript:void(0);" class="vote ${!userService.isLoggedIn ? 'vote--disabled' : ''} fa ${currentUserHasVotedFor ? 'fa-heart': 'fa-heart-o'}" aria-hidden="true" click.delegate="callVoteCallback($event, name)"></a>
+                <span>${votes}</span>
             </div>
         </div>
     </template>

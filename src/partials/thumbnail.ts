@@ -22,11 +22,11 @@ export class Thumbnail {
         return true;
     }
 
-    callVoteCallback(evt, slug) {
+    callVoteCallback(evt, name) {
         if (this.voteCallback) {
             this.voteCallback({
                 evt: evt,
-                slug: slug
+                name: name
             });
         }
     }

@@ -15,10 +15,14 @@ export const colours = [
 
 
 export function getColourFromHashedString(str) {
-    let hash = hashString(str);
-    let index = hash % colours.length;
-    
-    return colours[index];
+    if (str) {
+        let hash = hashString(str);
+        let index = hash % colours.length;
+        
+        return colours[index];
+    }
+
+    return null;
 };
 
 export function hashString (str) {

@@ -6,6 +6,7 @@ import {Api} from './api';
 import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
 import {getColourFromHashedString} from './common';
+import {slugify} from './common/utils';
 
 declare var firebase;
 
@@ -43,52 +44,33 @@ export class Home {
 
     canActivate(params) {
         let projectsPromise = new Promise((resolve, reject) => {
-            this.api.getProjects().then(projects => {
-                if (projects.length) {
-                    this.projects = projects;
-                    this.getProjectCounts();
+            this.api.getProjectsFromFirebase().then(projects => {
+                for (let key in projects) {
+                    let project = projects[key];
 
-                    resolve(projects);
-                }
-            })
-        });
-
-        let votedSubmissionsPromise = new Promise((resolve, reject) => {
-            this.api.getVotedSubmissions().then(submissions => {
-                for (let submission in submissions) {
-                    if (submission) {
-                        this.projects.map(project => {
-                            if (project.slug == submission) {
-                                if (this.userService.getLoggedInUser()) {
-                                    if (this.userService.getLoggedInUser().uid in submissions[submission].votes) {
-                                        project.currentUserHasVotedFor = true;
-                                    }
-                                }
-                                
-                                // Count the vote nodes to get the vote count
-                                project.votes = Object.keys(submissions[submission].votes).length;
+                    if (typeof project.votes !== 'undefined') {
+                        if (firebase.auth().currentUser) {
+                            if (firebase.auth().currentUser.uid in project.votes) {
+                                project.currentUserHasVotedFor = true;
                             }
+                        }
 
-                            return project;
-                        });
+                        project.votes = Object.keys(project.votes).length;
+                    } else {
+                        project.votes = 0;
                     }
+                    
+                    this.projects.push(project);
                 }
-                resolve(true);
+
+                resolve(projects);
             });
         });
 
-        return Promise.all([projectsPromise, votedSubmissionsPromise]);
+        return Promise.all([projectsPromise]);
     }
 
     activate() {
-        // Make sure all projects have a vote count
-        this.projects.map(project => {
-            if (typeof project.votes === 'undefined') {
-                project.votes = 0;
-            }
-            return project;
-        });
-
         // Sort the projects by their vote counts in descending order
         this.projects.sort((a, b) => {
             return parseInt(b.votes, 10) - parseInt(a.votes, 10);
@@ -137,12 +119,12 @@ export class Home {
         }
     }
 
-    vote(evt, slug) {
+    vote(evt, name) {
         if (this.userService.isLoggedIn) {
             var voteAction = 'add';
 
             this.projects.map(project => {
-                if (project.slug === slug) {
+                if (slugify(project.name) === slugify(name)) {
                     if (project.currentUserHasVotedFor) {
                         project.votes--;
                         project.currentUserHasVotedFor = false;
@@ -156,7 +138,7 @@ export class Home {
                 return project;
             });
 
-            this.api.castVote(slug, voteAction);
+            this.api.castVote(name, voteAction);
         } else {
             this.ea.publish('show.login-form');
         }
