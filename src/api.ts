@@ -2,7 +2,7 @@ import {autoinject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {ApplicationService} from './services/application';
 
-import {slugify} from './common/utils';
+import {slugify} from './common';
 
 declare var firebase;
 

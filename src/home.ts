@@ -5,8 +5,7 @@ import {Router} from 'aurelia-router';
 import {Api} from './api';
 import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
-import {getColourFromHashedString} from './common';
-import {slugify} from './common/utils';
+import {getColourFromHashedString, slugify} from './common';
 
 declare var firebase;
 
