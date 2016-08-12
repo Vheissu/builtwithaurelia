@@ -1,4 +1,4 @@
-import {Aurelia, autoinject, computedFrom} from 'aurelia-framework';
+import {Aurelia, autoinject, computedFrom, observable} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
 import {EventAggregator} from 'aurelia-event-aggregator';
 
@@ -6,7 +6,7 @@ import {Api} from './api';
 import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
 
-import {categories} from './common';
+import {categories, scrollTop} from './common';
 
 @autoinject
 export class App {
@@ -18,7 +18,7 @@ export class App {
 
     private categories;
 
-    private showHat: boolean = false;
+    @observable showHat: boolean = false;
     private showHatLogin: boolean = false;
     private showHatRegister: boolean = false;
     private showHatSubmission: boolean = false;
@@ -56,7 +56,7 @@ export class App {
         for (let key in this.submissionModel) {
             let field = this.submissionModel[key];
 
-            if (key !== 'url' || key !== 'repoUrl') {
+            if (key !== 'url' && key !== 'repoUrl') {
                 if (field.trim() === '') {
                     isValid = false;
                 }
@@ -215,6 +215,12 @@ export class App {
                     this.showHat = false;
                     this.showHatSubmission = false;
                 })
+        }
+    }
+
+    showHatChanged(bool: boolean) {
+        if (bool) {
+            scrollTop();
         }
     }
 }
