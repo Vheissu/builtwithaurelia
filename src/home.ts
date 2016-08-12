@@ -80,6 +80,10 @@ export class Home {
         this.currentCategory = this.categories.all;
     }
 
+    submission($event: Event) {
+        this.ea.publish('submission');
+    }
+
     getProjectCounts() {
         if (this.projects.length) {
             for (let i = 0; i < this.projects.length; i++) {

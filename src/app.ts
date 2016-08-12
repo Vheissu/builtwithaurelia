@@ -95,6 +95,10 @@ export class App {
         this.ea.subscribe('show.login-form', () => {
             this.login();
         });
+
+        this.ea.subscribe('submission', () => {
+            this.submission();
+        });
     }
 
     configureRouter(config: RouterConfiguration, router: Router) {
@@ -102,17 +106,10 @@ export class App {
 
         config.map([
             { 
-                route: 'page/:page', 
+                route: '', 
                 moduleId: './home',
                 name: 'home',        
                 nav: false, 
-                title: 'Home'
-            },
-            {
-                route: '', 
-                moduleId: './home',
-                name: 'home_nopagination',        
-                nav: true, 
                 title: 'Home'
             },
             { 
@@ -121,13 +118,6 @@ export class App {
                 name: 'about',    
                 nav: true, 
                 title: 'About'
-            },
-            { 
-                route: 'submission',
-                moduleId: './submission', 
-                name: 'submission',    
-                nav: true, 
-                title: 'Submission'
             }
         ]);
 

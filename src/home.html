@@ -16,7 +16,7 @@
                 <div class="col-xs-12 col-sm-6 thumbnail blocks__block bg--dark">
                     <div class="thumbnail__inner">
                         <h1 class="thumbnail__heading">Built With Aurelia</h1>
-                        <h2 class="thumbnail__subheading">A showcase of applications, plugins and resources developed for or using the Aurelia Javascript framework.<br><br><a route-href="route: submission" class="link--underlined">Make a Submission</a></h2>
+                        <h2 class="thumbnail__subheading">A showcase of applications, plugins and resources developed for or using the Aurelia Javascript framework.<br><br><a href="javascript:void(0);" click.delegate="submission()" class="link--underlined">Make a Submission</a></h2>
                     </div>
                 </div>
             </template>
@@ -36,6 +36,4 @@
             <thumbnail class="blocks__block ${!$first ? getRandomBackgroundColour(project.name) : 'bg--aurelia-pink blocks__block--large'} ${$first ? 'col-xs-12 col-sm-12 thumbnail--large' : 'col-xs-12 col-sm-6'}" project.bind="project" vote-callback.call="vote(evt, name)"></thumbnail>
         </template>
     </div>
-
-    <pagination total-pages.bind="totalNumberOfPages" if.bind="totalNumberOfPages > 1"></pagination>
 </template>
