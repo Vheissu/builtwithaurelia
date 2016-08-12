@@ -6,7 +6,7 @@ import {Api} from './api';
 import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
 
-import {categories, scrollTop} from './common';
+import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from './common';
 
 @autoinject
 export class App {
@@ -16,7 +16,7 @@ export class App {
     userService: UserService;
     router: Router;
 
-    private categories;
+    public categories;
 
     @observable showHat: boolean = false;
     private showHatLogin: boolean = false;
@@ -26,44 +26,51 @@ export class App {
     private model = {
         email: '',
         password: '',
-        password2: ''
-    };
-
-    private submissionModel = {
+        password2: '',
         name: '',
-        category: '',
+        category: 'website',
         url: '',
         repoUrl: '',
-        description: ''
+        description: '',
+        twitterHandle: ''
     };
 
+    private disableButtons: boolean = false;
+
     private formMessage: string = '';
+    private validationErrors: any = {};
 
     @computedFrom('model.email', 'model.password')
     get loginFormIsValid() {
-        return (this.model.email.trim() !== '' && this.model.password.trim() !== '');
+        return (notEmpty(this.model.email) && notEmpty(this.model.password));
     }
 
     @computedFrom('model.email', 'model.password', 'model.password2')
     get registerFormIsValid() {
-        return (this.model.email.trim() !== '' && this.model.password.trim() !== '' && this.model.password2.trim() !== '' && this.passwordsMatch);
+        return (notEmpty(this.model.email) && notEmpty(this.model.password) && notEmpty(this.model.password2) && this.passwordsMatch);
     }
 
-    @computedFrom('submissionModel.name', 'submissionModel.category', 'submissionModel.url', 'submissionModel.repoUrl', 'submissionModel.description')
+    @computedFrom('model.name', 'model.category', 'model.url', 'model.repoUrl', 'model.description', 'model.twitterHandle')
     get submissionFormIsValid() {
         var isValid = true;
 
-        for (let key in this.submissionModel) {
-            let field = this.submissionModel[key];
-
-            if (key !== 'url' && key !== 'repoUrl') {
-                if (field.trim() === '') {
-                    isValid = false;
-                }
-            }
+        if (isEmpty(this.model.name) || isEmpty(this.model.category) || isEmpty(this.model.description)) {
+            isValid = false;
         }
 
-        if (this.submissionModel.url.trim() === '' && this.submissionModel.repoUrl.trim() === '') {
+        if (notEmpty(this.model.url) && !isUrl(this.model.url)) {
+            isValid = false;
+        }
+
+        if (notEmpty(this.model.repoUrl) && !isUrl(this.model.repoUrl)) {
+            isValid = false;
+        }
+
+        if (notEmpty(this.model.twitterHandle) && this.model.twitterHandle.charAt(0) === '@') {
+            this.model.twitterHandle.substring(1);
+        }
+
+        if (isEmpty(this.model.url) && isEmpty(this.model.repoUrl)) {
             isValid = false;
         }
 
@@ -72,7 +79,7 @@ export class App {
 
     @computedFrom('model.password', 'model.password2')
     get passwordsMatch() {
-        return (this.model.password.trim() === this.model.password2.trim());
+        return ( (notEmpty(this.model.password) && notEmpty(this.model.password2)) && (equals(this.model.password.trim(), this.model.password2.trim())));
     }
 
     constructor(api: Api, appService: ApplicationService, userService: UserService, ea: EventAggregator) {
@@ -128,6 +135,7 @@ export class App {
     }
 
     closeHat() {
+        this.formMessage = '';
         this.showHat = false;
         this.showHatLogin = false;
         this.showHatRegister = false;
@@ -135,6 +143,7 @@ export class App {
     }
 
     login($event?: Event) {
+        this.formMessage = '';
         this.model.email = '';
         this.model.password = '';
 
@@ -144,11 +153,13 @@ export class App {
     }
 
     logout($event?: Event) {
+        this.formMessage = '';
         this.userService.logout();
         window.location.reload();
     }
 
     register($event?: Event) {
+        this.formMessage = '';
         this.model.email = '';
         this.model.password = '';
         this.model.password2 = '';
@@ -159,18 +170,25 @@ export class App {
     }
 
     submission($event?: Event) {
-        this.submissionModel.name = '';
-        this.submissionModel.category = '';
+        this.model.name = '';
+        this.formMessage = '';
 
         this.showHat = true;
-        this.showHatLogin = false;
-        this.showHatRegister = false;
-        this.showHatSubmission = true;
+
+        if (this.userService.isLoggedIn) {
+            this.showHatLogin = false;
+            this.showHatRegister = false;
+            this.showHatSubmission = true;
+        } else {
+            this.showHatLogin = true;
+            this.formMessage = 'You need to be logged in to make a new submission.';
+        }
     }
 
     handleLogin($event?) {
         if (this.loginFormIsValid) {
             this.formMessage = '';
+            this.disableButtons = true;
              
             this.userService.login(this.model.email, this.model.password)
                 .then(() => {
@@ -191,6 +209,7 @@ export class App {
     handleRegister($event?) {
         if (this.registerFormIsValid) {
             this.formMessage = '';
+            this.disableButtons = true;
 
             this.userService.register(this.model.email, this.model.password)
                 .then(() => {
@@ -209,12 +228,33 @@ export class App {
     handleSubmission($event?) {
         if (this.submissionFormIsValid) {
             this.formMessage = '';
+            this.disableButtons = true;
 
-            this.api.postSubmission(this.submissionModel)
+            let submissionObject: any = {
+                name: this.model.name,
+                category: this.model.category,
+                description: this.model.description
+            };
+
+            if (notEmpty(this.model.url)) {
+                submissionObject.url = this.model.url;
+            }
+
+            if (notEmpty(this.model.repoUrl)) {
+                submissionObject.repoUrl = this.model.repoUrl;
+            }
+
+            if (notEmpty(this.model.twitterHandle)) {
+                submissionObject.twitterHandle = this.model.twitterHandle;
+            }
+
+            this.api.postSubmission(submissionObject)
                 .then(() => {
+                    window.alert('Your submission has been received, thank you');
+                    this.disableButtons = false;
                     this.showHat = false;
                     this.showHatSubmission = false;
-                })
+                });
         }
     }
 

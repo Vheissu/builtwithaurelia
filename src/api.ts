@@ -46,4 +46,17 @@ export class Api {
 
         firebase.database().ref(`submissions/${slugify(project.name)}`).update(project);
     }
+
+    postSubmission(submission) {
+        return new Promise((resolve, reject) => {
+            if (submission && firebase.auth().currentUser) {
+                submission._uid = firebase.auth().currentUser.uid;
+                submission.added = firebase.database.ServerValue.TIMESTAMP;
+
+                firebase.database().ref(`submissions/${slugify(submission.name)}`).set(submission).then(() => { 
+                    resolve(true); 
+                });
+            }
+        });
+    }
 }

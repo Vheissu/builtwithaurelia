@@ -3,6 +3,7 @@
     <require from="./partials/loader.html"></require>
     <require from="./partials/app-header.html"></require>
     <require from="./partials/app-footer.html"></require>
+    <require from="./partials/modal.html"></require>
 
     <loader show.bind="router.isNavigating || appService.loading"></loader>
 
@@ -19,7 +20,7 @@
                 <div class="form__row">
                     <input type="password" name="password" value.bind="model.password" autocomplete="off">
                 </div>
-                <button type="submit" class="button">Login</button>
+                <button type="submit" class="button" disabled.bind="!loginFormIsValid || disableButtons">Login</button>
             </form>
         </div>
         <div class="hat__inner" if.bind="showHatRegister">
@@ -37,7 +38,7 @@
                     <input type="password" name="password2" placeholder="Re-enter your chosen password" value.bind="model.password2" autocomplete="off">
                 </div>
                 <p if.bind="!passwordsMatch" class="error-message">Please make sure both passwords match</p>
-                <button type="submit" class="button" disabled.bind="!registerFormIsValid">Register</button>
+                <button type="submit" class="button" disabled.two-way="!registerFormIsValid || disableButtons">Register</button>
             </form>
         </div>
         <div class="hat__inner" if.bind="showHatSubmission">
@@ -46,23 +47,43 @@
             <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
             <form submit.delegate="handleSubmission($event)">
                 <div class="form__row">
-                    <input type="text" name="name" placeholder="Project name" value.bind="submissionModel.name">
+                    <p>
+                        <label>Project name <em>*</em></label>
+                        The name of this project.
+                    </p>
+                    <input type="text" name="name" placeholder="Project name" value.bind="model.name">
                 </div>
                 <div class="form__row">
-                    <select name="category" value.bind="submissionModel.category">
+                    <p>
+                        <label>Project category <em>*</em></label>
+                        What kind of project are you submitting?
+                    </p>
+                    <select name="category" value.bind="model.category">
                         <option repeat.for="category of categories" value.bind="category.value" selected.bind="category.selected">${category.name}</option>
                     </select>
                 </div>
                 <div class="form__row">
-                    <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="submissionModel.url">
+                    <p>
+                        <label>Where can this submission be seen?</label>
+                        If you are not providing a repository link, this field is required.
+                    </p>
+                    <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="model.url">
                 </div>
                 <div class="form__row">
-                    <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="submissionModel.repoUrl">
+                    <p>
+                        <label>Source code URL</label>
+                        If there is source code available, provide the link here to the Github/Bitbucket repository. Required if above URL field is empty.
+                    </p>
+                    <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="model.repoUrl">
                 </div>
                 <div class="form__row">
-                    <textarea name="description" value.bind="submissionModel.description"></textarea>
+                    <textarea name="description" value.bind="model.description"></textarea>
                 </div>
-                <button type="submit" class="button" disabled.bind="!submissionFormIsValid">Submit</button>
+                <div class="form__row">
+                    <input type="text" name="twitterHandle" placeholder="@MyTwitterHandle" value.bind="model.twitterHandle">
+                </div>
+
+                <button type="submit" class="button" disabled.bind="!submissionFormIsValid || disableButtons">Submit</button>
             </form>
         </div>
     </div>

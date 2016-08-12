@@ -99,6 +99,12 @@ nav li {
 .hat__inner {
     margin: 0 auto;
     padding: 0 30px;
+
+    form {
+        border-top: 1px solid #AAA;
+        margin-top: 15px;
+        padding-top: 30px;
+    }
     
     @media all and (min-width: 768px) {
         width: 50%;
@@ -106,7 +112,13 @@ nav li {
 }
 
 .hat--active {
-    height: calc(100vh - 2px);
+    height: auto;
+    overflow-y: auto;
+    padding-bottom: 20px;
+
+    @media all and (min-width: 768px) {
+        height: calc(100vh - 2px);
+    }
 }
 
 .close {
@@ -224,7 +236,7 @@ pagination {
     line-height: 1;
     margin-right: 12px;
     padding: 10px 20px;
-    transition: background 0.5s ease;
+    transition: all 0.5s ease;
     vertical-align: middle;
 
     &:hover {
@@ -238,6 +250,14 @@ pagination {
     &:disabled {
         cursor: not-allowed;
         opacity: 0.3;
+    }
+}
+
+.button--dark {
+    color: #000;
+
+    &:hover {
+        color: #FFF;
     }
 }
 
@@ -263,7 +283,31 @@ pagination {
 }
 
 .form__row {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+
+    p {
+        font-size: 12px;
+        font-style: normal;
+        line-height: 19px;
+        margin: 0 0 12px 0;
+        max-width: 350px;
+
+        label {
+            display: block;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 5px;
+
+            em {
+                color: #FF0000;
+                font-size: 11px;
+                font-style: inherit;
+                vertical-align: middle;
+            }
+        }
+    }
 
     input,
     select,
@@ -271,11 +315,48 @@ pagination {
         background: #FFF;
         border: none;
         padding: 10px;
-        width: 375px;
+        width: 100%;
+
+        @media all and (min-width: 768px) {
+            width: 375px;
+        }
     }
 
     textarea {
         height: 150px;
+    }
+}
+
+modal {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 3000;
+}
+
+.modal__header {
+
+}
+
+.modal__inner {
+    background: #FFF;
+    padding: 20px;
+    width: 500px;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 400;
+        margin: 0 0 15px 0;
     }
 }
 
