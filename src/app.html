@@ -40,9 +40,34 @@
                 <button type="submit" class="button" disabled.bind="!registerFormIsValid">Register</button>
             </form>
         </div>
+        <div class="hat__inner" if.bind="showHatSubmission">
+            <h1 class="hat__title">New Submission</h1>
+            <p>Make a new submission to the site. Just make sure you meet the criteria of it either being built using Aurelia or for Aurelia.</p>
+            <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
+            <form submit.delegate="handleSubmission($event)">
+                <div class="form__row">
+                    <input type="text" name="name" placeholder="Project name" value.bind="submissionModel.name">
+                </div>
+                <div class="form__row">
+                    <select name="category" value.bind="submissionModel.category">
+                        <option repeat.for="category of categories" value.bind="category.value" selected.bind="category.selected">${category.name}</option>
+                    </select>
+                </div>
+                <div class="form__row">
+                    <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="submissionModel.url">
+                </div>
+                <div class="form__row">
+                    <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="submissionModel.repoUrl">
+                </div>
+                <div class="form__row">
+                    <textarea name="description" value.bind="submissionModel.description"></textarea>
+                </div>
+                <button type="submit" class="button" disabled.bind="!submissionFormIsValid">Submit</button>
+            </form>
+        </div>
     </div>
 
-    <app-header user.bind="userService" login-callback.call="login($event)" logout-callback.call="logout($event)"></app-header>
+    <app-header user.bind="userService" login-callback.call="login($event)" logout-callback.call="logout($event)" submission-callback.call="submission($event)"></app-header>
 
     <main id="content">
         <div class="container">
