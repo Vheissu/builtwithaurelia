@@ -2,24 +2,39 @@ import {Aurelia, autoinject, computedFrom} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
 import {EventAggregator} from 'aurelia-event-aggregator';
 
+import {Api} from './api';
 import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
+
+import {categories} from './common';
 
 @autoinject
 export class App {
     ea: EventAggregator;
+    api: Api;
     appService: ApplicationService;
     userService: UserService;
     router: Router;
 
+    private categories;
+
     private showHat: boolean = false;
     private showHatLogin: boolean = false;
     private showHatRegister: boolean = false;
+    private showHatSubmission: boolean = false;
 
     private model = {
         email: '',
         password: '',
         password2: ''
+    };
+
+    private submissionModel = {
+        name: '',
+        category: '',
+        url: '',
+        repoUrl: '',
+        description: ''
     };
 
     private formMessage: string = '';
@@ -34,15 +49,39 @@ export class App {
         return (this.model.email.trim() !== '' && this.model.password.trim() !== '' && this.model.password2.trim() !== '' && this.passwordsMatch);
     }
 
+    @computedFrom('submissionModel.name', 'submissionModel.category', 'submissionModel.url', 'submissionModel.repoUrl', 'submissionModel.description')
+    get submissionFormIsValid() {
+        var isValid = true;
+
+        for (let key in this.submissionModel) {
+            let field = this.submissionModel[key];
+
+            if (key !== 'url' || key !== 'repoUrl') {
+                if (field.trim() === '') {
+                    isValid = false;
+                }
+            }
+        }
+
+        if (this.submissionModel.url.trim() === '' && this.submissionModel.repoUrl.trim() === '') {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     @computedFrom('model.password', 'model.password2')
     get passwordsMatch() {
         return (this.model.password.trim() === this.model.password2.trim());
     }
 
-    constructor(appService: ApplicationService, userService: UserService, ea: EventAggregator) {
+    constructor(api: Api, appService: ApplicationService, userService: UserService, ea: EventAggregator) {
+        this.api = api;
         this.appService = appService;
         this.userService = userService;
         this.ea = ea;
+
+        this.categories = categories;
     }
 
     attached() {
@@ -119,6 +158,16 @@ export class App {
         this.showHatRegister = true;
     }
 
+    submission($event?: Event) {
+        this.submissionModel.name = '';
+        this.submissionModel.category = '';
+
+        this.showHat = true;
+        this.showHatLogin = false;
+        this.showHatRegister = false;
+        this.showHatSubmission = true;
+    }
+
     handleLogin($event?) {
         if (this.loginFormIsValid) {
             this.formMessage = '';
@@ -154,6 +203,18 @@ export class App {
                 .catch(e => {
                     this.formMessage = 'Sorry :(<br>there was a problem registering. Please make sure you entered in all fields correctly or refreshing the page.';
                 });
+        }
+    }
+
+    handleSubmission($event?) {
+        if (this.submissionFormIsValid) {
+            this.formMessage = '';
+
+            this.api.postSubmission(this.submissionModel)
+                .then(() => {
+                    this.showHat = false;
+                    this.showHatSubmission = false;
+                })
         }
     }
 }
