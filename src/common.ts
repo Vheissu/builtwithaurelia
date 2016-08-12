@@ -54,8 +54,12 @@ export const slugify = str => {
 }
 
 export let categories = [
-    {name: 'Websites', value: 'website', selected: true},
-    {name: 'Plugins', value: 'plugin'},
-    {name: 'Mobile', value: 'mobile'},
-    {name: 'Themes', value: 'theme'}
+    {name: 'Website', value: 'website', selected: true},
+    {name: 'Plugin', value: 'plugin'},
+    {name: 'Mobile Application', value: 'mobile'},
+    {name: 'Theme', value: 'theme'}
 ];
+
+export const scrollTop = () => {
+    window.scrollTo(0, 0);
+};
