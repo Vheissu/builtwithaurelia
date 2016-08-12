@@ -7,6 +7,7 @@
     <loader show.bind="router.isNavigating || appService.loading"></loader>
 
     <div class="hat ${showHat ? 'hat--active': ''}">
+        <a href="javascript:void(0);" click.delegate="closeHat()" class="close">X</a>
         <div class="hat__inner" if.bind="showHatLogin">
             <h1 class="hat__title">Login</h1>
             <p>To upvote submissions and other cool things, login here.<br>Not a member? <a href="javascript:void(0);" click.delegate="register($event)">click here</a> to signup.</p>

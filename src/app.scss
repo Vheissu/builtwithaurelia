@@ -106,7 +106,18 @@ nav li {
 }
 
 .hat--active {
-    height: 550px !important;
+    height: calc(100vh - 2px);
+}
+
+.close {
+    color: #FFF;
+    font-size: 32px;
+    font-weight: 300;
+    position: absolute;
+    right: 10px;
+    text-decoration: none;
+    top: 10px;
+    z-index: 2000;
 }
 
 body {

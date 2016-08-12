@@ -88,6 +88,13 @@ export class App {
         this.router = router;
     }
 
+    closeHat() {
+        this.showHat = false;
+        this.showHatLogin = false;
+        this.showHatRegister = false;
+        this.showHatSubmission = false;
+    }
+
     login($event?: Event) {
         this.model.email = '';
         this.model.password = '';
