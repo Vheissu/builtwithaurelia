@@ -52,3 +52,10 @@ export const slugify = str => {
         .replace(/[\s_-]+/g, '-')
         .replace(/^-+|-+$/g, ''); 
 }
+
+export let categories = [
+    {name: 'Websites', value: 'website', selected: true},
+    {name: 'Plugins', value: 'plugin'},
+    {name: 'Mobile', value: 'mobile'},
+    {name: 'Themes', value: 'theme'}
+];
