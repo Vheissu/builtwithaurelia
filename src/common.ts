@@ -63,3 +63,27 @@ export let categories = [
 export const scrollTop = () => {
     window.scrollTo(0, 0);
 };
+
+export const isEmpty = str => {
+    return typeof str === 'string' && str.trim() === '';
+};
+
+export const notEmpty = str => {
+    return typeof str === 'string' && str.trim() !== '';
+};
+
+export const stringInObject = (str, obj) => {
+    return typeof str === 'string' && obj && str in obj || false;
+};
+
+export const isUrl = str => {
+    return typeof str === 'string' && (str.indexOf('http:') >= 0 || str.indexOf('https:') >= 0) || false;
+};
+
+export const requiredField = (field, map) => {
+    return field && map && map.indexOf(field) >= 0 || false;
+};
+
+export const equals = (a, b) => {
+    return a === b;
+};
