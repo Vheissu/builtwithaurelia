@@ -265,11 +265,17 @@ pagination {
 .form__row {
     margin-bottom: 15px;
 
-    input {
+    input,
+    select,
+    textarea {
         background: #FFF;
         border: none;
         padding: 10px;
-        width: 250px;
+        width: 375px;
+    }
+
+    textarea {
+        height: 150px;
     }
 }
 
