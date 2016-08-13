@@ -269,6 +269,8 @@ pagination {
     z-index: 1001;
 
     a {
+        color: #E82887;
+        font-weight: bold;
         transition: all 1s ease;
     }
 }
@@ -279,7 +281,7 @@ pagination {
 }
 
 .fa-heart {
-    color: #FF0000;
+    color: #E82887;
 }
 
 .form__row {
