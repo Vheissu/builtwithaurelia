@@ -72,7 +72,7 @@ export class Home {
     activate() {
         // Sort the projects by their vote counts in descending order
         this.projects.sort((a, b) => {
-            return parseInt(b.votes, 10) - parseInt(a.votes, 10);
+            return parseInt(b.votes, 10) - parseInt(a.votes, 10) || a.added - b.added;
         });
 
         this.getProjectCounts();
