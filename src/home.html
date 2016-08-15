@@ -9,6 +9,13 @@
         </ul>
     </nav>
 
+    <nav>
+        <ul>
+            <li><a href="javascript:void(0);" class="${currentSortMode == 'popular' ? 'active' : ''}" click.delegate="sortBy('popular')">Popular</a></li>
+            <li><a href="javascript:void(0);" class="${currentSortMode == 'new' ? 'active' : ''}" click.delegate="sortBy('new')">Newly Added</a></li>
+        </ul>
+    </nav>
+
     <div class="blocks row">
         <div id="no-results" if.bind="!projects.length && !appService.loading"><h2>Sorry, nothing was found :(</h2></div>
         <template repeat.for="project of projects">

@@ -33,6 +33,8 @@ export class Home {
     private currentPage: number = 1;
     private totalNumberOfPages: number = -1;
 
+    private currentSortMode: string = 'popular';
+
     constructor(api: Api, appService, ApplicationService, userService: UserService, ea: EventAggregator, router: Router) {
         this.api = api;
         this.appService = appService;
@@ -104,6 +106,28 @@ export class Home {
 
     getRandomBackgroundColour(name): string {
         return getColourFromHashedString(name);
+    }
+
+    sortBy(type) {
+        this.currentSortMode = type;
+        
+        if (type === 'popular') {
+            this.sortByPopular();
+        } else if (type === 'new') {
+            this.sortByNewlyAdded();
+        }
+    }
+
+    sortByPopular() {
+        this.projects.sort((a, b) => {
+            return parseInt(b.votes, 10) - parseInt(a.votes, 10) || a.added - b.added;
+        });   
+    }
+
+    sortByNewlyAdded() {
+        this.projects.sort((a, b) => {
+            return b.added - a.added;
+        });  
     }
 
     filterCategory(category) {
