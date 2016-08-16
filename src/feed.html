@@ -1,0 +1,11 @@
+<template>
+    <?xml version="1.0" encoding="utf-8"?>
+    <rss version="2.0">
+        <channel>
+            <title>Built With Aurelia</title>
+            <link>http://builtwithaurelia.com/</link>
+            <description>Latest submissions added to Built With Aurelia.</description>
+            <template repeat.for="item of items">${item}</template>
+        </channel>
+    </rss>
+</template>

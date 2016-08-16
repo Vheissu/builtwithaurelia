@@ -118,6 +118,13 @@ export class App {
                 name: 'about',    
                 nav: true, 
                 title: 'About'
+            },
+            {
+                route: 'feed',
+                moduleId: './feed',
+                name: 'feed',
+                nav: true,
+                title: 'RSS Feed'
             }
         ]);
 
