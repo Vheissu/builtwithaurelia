@@ -335,6 +335,13 @@ define('app',["require", "exports", 'aurelia-framework', 'aurelia-event-aggregat
                     name: 'about',
                     nav: true,
                     title: 'About'
+                },
+                {
+                    route: 'feed',
+                    moduleId: './feed',
+                    name: 'feed',
+                    nav: true,
+                    title: 'RSS Feed'
                 }
             ]);
             this.router = router;
@@ -487,6 +494,53 @@ define('environment',["require", "exports"], function (require, exports) {
         debug: true,
         testing: true
     };
+});
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('feed',["require", "exports", 'aurelia-framework', './api', './common'], function (require, exports, aurelia_framework_1, api_1, common_1) {
+    "use strict";
+    var Feed = (function () {
+        function Feed(api) {
+            this.items = [];
+            this.api = api;
+        }
+        Feed.prototype.attached = function () {
+            this.fetchItems().then(function (items) {
+                document.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n                <rss version=\"2.0\">\n                    <channel>\n                        <title>Built With Aurelia</title>\n                        <link>http://builtwithaurelia.com/</link>\n                        <description>Latest submissions added to Built With Aurelia.</description>\n                        " + items + "\n                    </channel>\n                </rss>");
+            });
+        };
+        Feed.prototype.fetchItems = function () {
+            var _this = this;
+            return new Promise(function (resolve, reject) {
+                _this.api.getProjectsFromFirebase().then(function (projects) {
+                    if (projects) {
+                        for (var project in projects) {
+                            var actualProject = projects[project];
+                            _this.items.push(_this.createItem(actualProject.name, 'builtwithaurelia.com', "builtwithaurelia.com/" + common_1.slugify(actualProject.name), '', actualProject.description));
+                        }
+                        resolve(_this.items.join(''));
+                    }
+                });
+            });
+        };
+        Feed.prototype.createItem = function ($title, $link, $guid, $pubDate, $description) {
+            return "\n            <item>\n                <title>" + $title + "</title>\n                <link>" + $link + "</link>\n                <guid>" + $guid + "</guid>\n                <pubDate>" + $pubDate + "</pubDate>\n                <description>" + $description + "</description>\n            </item>\n        ";
+        };
+        Feed = __decorate([
+            aurelia_framework_1.autoinject, 
+            __metadata('design:paramtypes', [api_1.Api])
+        ], Feed);
+        return Feed;
+    }());
+    exports.Feed = Feed;
 });
 
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -900,4 +954,5 @@ define('text!partials/modal.html', ['module'], function(module) { module.exports
 define('text!partials/pagination.html', ['module'], function(module) { module.exports = "<template bindable=\"totalPages\">\n    <a class=\"pagination__link\" route-href=\"route: home; params.bind: {page: i + 1}\" repeat.for=\"i of totalPages\">${i + 1}</a>\n</template>\n"; });
 define('text!partials/project.html', ['module'], function(module) { module.exports = "<template bindable=\"project\">\r\n    <div class=\"project project--single\" with.bind=\"project\">\r\n        <div class=\"row\">\r\n            <div class=\"col-xs-12 col-sm-8\">\r\n                <header>\r\n                    <h1 class=\"project__name project__name--large\">${name}</h1>\r\n                    <div class=\"project__border ${colour}\" if.bind=\"colour\"></div>\r\n                </header>\r\n\r\n                <div class=\"project__content project__content--black\">\r\n                    <p innerhtml.bind=\"description\"></p>\r\n                </div>\r\n\r\n                <a href=\"${url}\" class=\"button\" target=\"_blank\">View</a>\r\n                <a if.bind=\"repoUrl\" href=\"${repoUrl}\" class=\"button\" target=\"_blank\">Source Code</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>\r\n\r\n"; });
 define('text!partials/thumbnail.html', ['module'], function(module) { module.exports = "<template class=\"thumbnail\">\n    <template with.bind=\"project\">\n        <div class=\"thumbnail__inner\">\n            <h1 class=\"thumbnail__heading\">${name}</h1>\n            <h2 class=\"thumbnail__subheading\">${category}</h2>\n        </div>\n        <div class=\"thumbnail__pullover\">\n            <div class=\"thumbnail__inner\">\n                <p innerhtml.bind=\"description\"></p>\n                <a href=\"${url}\" class=\"button\" target=\"_blank\" click.delegate=\"handleClick(url, name)\">View</a>\n                <a if.bind=\"repoUrl\" href=\"${repoUrl}\" class=\"button\" target=\"_blank\" click.delegate=\"handleClick(repoUrl, name)\">Source Code</a>\n            </div>\n\n            <div class=\"vote-buttons\">\n                <a href=\"javascript:void(0);\" class=\"vote ${!userService.isLoggedIn ? 'vote--disabled' : ''} fa ${currentUserHasVotedFor ? 'fa-heart': 'fa-heart-o'}\" aria-hidden=\"true\" click.delegate=\"callVoteCallback($event, name)\"></a>\n                <span>${votes}</span>\n            </div>\n        </div>\n    </template>\n</template>\n\n"; });
+define('text!feed.html', ['module'], function(module) { module.exports = "<template>\n    <?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <rss version=\"2.0\">\n        <channel>\n            <title>Built With Aurelia</title>\n            <link>http://builtwithaurelia.com/</link>\n            <description>Latest submissions added to Built With Aurelia.</description>\n            <template repeat.for=\"item of items\">${item}</template>\n        </channel>\n    </rss>\n</template>\n"; });
 //# sourceMappingURL=app-bundle.js.map
