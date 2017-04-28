@@ -2,9 +2,10 @@
 <html>
   <head>
     <title>Built With Aurelia</title>
+    <meta charset="utf-8">
     <meta name="description" content="Built With Aurelia is a showcase of applications, plugins and resources developed for or using Aurelia.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="lhujXHMpYfxel1FZtQqNa6DNcKA2O549Ks7D8DaS0wU" />
+
     <style type="text/css">
         .loader {
             background: rgba(255, 255, 255, 0.95);
@@ -26,15 +27,15 @@
                     transform: translate(-50%, -50%);
             width: 250px;
             z-index: 1000;
+        }
 
-            h2 {
+            .loader__inner h2 {
                 color: #000;
                 font-size: 16px;
                 margin: 15px 0 0 0;
                 padding: 0;
                 width: 100%;
             }
-        }
 
         .loader__indicator {
             -webkit-animation: animate 1.5s linear infinite;
@@ -48,16 +49,16 @@
 
         .ellipsis {
             font-size: 16px;
+        }
 
-            &:after {
-                -webkit-animation: ellipsis steps(4, end) 900ms infinite;
-                        animation: ellipsis steps(4, end) 900ms infinite;
-                content: "\2026";
-                display: inline-block;
-                overflow: hidden;
-                vertical-align: bottom;
-                width: 0;
-            }
+        .ellipsis:after {
+            -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+                    animation: ellipsis steps(4, end) 900ms infinite;
+            content: "\2026";
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            width: 0;
         }
 
         @-webkit-keyframes animate {
@@ -100,7 +101,6 @@
   </head>
 
   <body aurelia-app="main">
-
     <div class="loader">
         <div class="loader__inner">
             <span class="loader__indicator"></span>
@@ -110,16 +110,18 @@
 
     <script src="scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script>
-    // Initialize Firebase
-    var config = {
+      // Initialize Firebase
+      var config = {
         apiKey: "AIzaSyDO0qFKD3epgUWyzcySSbwk-lRFZ38m92w",
         authDomain: "built-with-aurelia-6ef02.firebaseapp.com",
         databaseURL: "https://built-with-aurelia-6ef02.firebaseio.com",
+        projectId: "built-with-aurelia-6ef02",
         storageBucket: "built-with-aurelia-6ef02.appspot.com",
-    };
-    firebase.initializeApp(config);
+        messagingSenderId: "380305050522"
+      };
+      firebase.initializeApp(config);
     </script>
 
     <script type="text/javascript">
@@ -134,5 +136,6 @@
     })();
     </script>
     <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100978527ns.gif" /></p></noscript>
+
   </body>
 </html>
