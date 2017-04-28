@@ -1,6 +1,8 @@
 import {autoinject} from 'aurelia-framework'; 
 import {HttpClient} from 'aurelia-fetch-client';
-import {ApplicationService} from './services/application';
+
+import { ApplicationService } from './services/application';
+import { UserService } from './services/user';
 
 import {slugify} from './common';
 
@@ -8,12 +10,8 @@ declare var firebase;
 
 @autoinject
 export class Api {
-    private http: HttpClient;
-    private appService: ApplicationService;
+    constructor(private http: HttpClient, private appService: ApplicationService, private userService: UserService) {
 
-    constructor(http: HttpClient, appService: ApplicationService) {
-        this.http = http;
-        this.appService = appService;
     }
 
     getProjectsFromFirebase() {
@@ -27,6 +25,34 @@ export class Api {
                 this.appService.loading = false;
             });
         });
+    }
+
+    getCurrentUserSubmissions() {
+      return new Promise((resolve, reject) => {        
+        if (this.userService.isLoggedIn) {
+          let currentUser = this.userService.getLoggedInUser();
+
+          firebase.database().ref(`submissions`).once('value').then(snapshot => {
+            let submissions = snapshot.val();
+            let userSubmissions = [];
+
+            if (submissions && currentUser) {
+              for (let key in submissions) {
+                if (submissions.hasOwnProperty(key)) {
+                  let submission = submissions[key];
+                  submission.objectKey = key;
+                  
+                  if (submission._uid === currentUser.uid) {
+                    userSubmissions.push(submission);
+                  }
+                }
+              }
+            }
+
+            resolve(userSubmissions);
+          }); 
+        }
+      });
     }
 
     castVote(name, action) {
