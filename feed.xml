@@ -4,8 +4,8 @@
         <description><![CDATA[Latest submissions added to Built With Aurelia.]]></description>
         <link>http://builtwithaurelia.com/</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 03 May 2017 10:33:23 GMT</lastBuildDate>
-        <atom:link href="http://builtwithaurelia.com/#/feed" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Wed, 03 May 2017 13:03:16 GMT</lastBuildDate>
+        <atom:link href="http://builtwithaurelia.com/feed.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[ABSOLUT Buenos Aires]]></title>
             <description><![CDATA[The official website for the campaign of the limited ABSOLUT Buenos Aires bottle.]]></description>
