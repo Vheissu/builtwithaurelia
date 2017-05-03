@@ -8,6 +8,7 @@ declare var firebase;
 export class Submissions {
 
   private submissions: any[] = [];
+  private submission: any = null;
   private editMode: boolean = false;
 
   constructor(private api: Api, private taskQueue: TaskQueue) {
@@ -32,6 +33,8 @@ export class Submissions {
   activate(params) {
     if (params.key !== undefined) {
       this.editMode = true;
+
+      this.api.getSubmission(params.key).then(submission => this.submission = submission);
     }
   }
 

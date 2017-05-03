@@ -69,6 +69,14 @@ export class Api {
       });
     }
 
+    getSubmission(slug) {
+      return new Promise((resolve, reject) => {
+        firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
+          resolve(snapshot.val());
+        });
+      });
+    }
+
     castVote(name, action) {
         let slug = slugify(name);
         

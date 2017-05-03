@@ -120,7 +120,7 @@ export class App {
                 title: 'About'
             },
             {
-              route: 'my/submissions/:key?',
+              route: 'submissions/:key?',
               moduleId: './submissions',
               name: 'submissions',
               nav: false,
