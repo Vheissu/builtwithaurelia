@@ -52,9 +52,9 @@ exports.rssFeed = functions.database.ref('submissions').onWrite(() => {
         admin.database().ref('submissions').orderByChild('added').once('value').then(snapshot => {
             let items = snapshot.val();
 
-            items.sort((a, b) => {
-                return b.added - a.added;
-            });
+            // items.sort((a, b) => {
+            //     return b.added - a.added;
+            // });
 
             if (items) {
                 let counter = 0;
