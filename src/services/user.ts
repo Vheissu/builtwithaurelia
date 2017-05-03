@@ -17,27 +17,11 @@ export class UserService {
     }
 
     login(email, password) {
-        return new Promise((resolve, reject) => {
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    resolve(true);
-                })
-                .catch(error => {
-                    reject(error);
-                });
-        });
+        return firebase.auth().signInWithEmailAndPassword(email, password);
     }
 
     register(email, password) {
-        return new Promise((resolve, reject) => {
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(() => {
-                    resolve(true);
-                })
-                .catch(error => {
-                    reject(error);
-                });
-        });
+        return firebase.auth().createUserWithEmailAndPassword(email, password);
     }
 
     @computedFrom('userLoggedIn')
