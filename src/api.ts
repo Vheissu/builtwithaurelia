@@ -6,7 +6,7 @@ import { UserService } from './services/user';
 
 import {slugify} from './common';
 
-declare var firebase;
+declare let firebase;
 
 @autoinject
 export class Api {
