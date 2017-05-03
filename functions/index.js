@@ -7,7 +7,7 @@ const RSS = require('rss');
 const feed = new RSS({
   title: 'Built With Aurelia',
   description: 'Latest submissions added to Built With Aurelia.',
-  feed_url: 'http://builtwithaurelia.com/feed',
+  feed_url: 'http://builtwithaurelia.com/#/feed',
   site_url: 'http://builtwithaurelia.com/'
 });
 

@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.2.0",
     "@types/node": "^6.0.45",
-    "aurelia-cli": "^0.27.0",
+    "aurelia-cli": "^0.29.0",
     "aurelia-testing": "^1.0.0-beta.2.0.1",
     "aurelia-tools": "^1.0.0",
     "autoprefixer": "^6.7.7",
@@ -38,7 +38,7 @@
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-tslint": "^5.0.0",
-    "gulp-typescript": "^3.1.4",
+    "gulp-typescript": "^3.1.6",
     "html-minifier": "^3.2.3",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
@@ -47,8 +47,8 @@
     "karma-typescript-preprocessor": "^0.2.1",
     "minimatch": "^3.0.2",
     "through2": "^2.0.1",
-    "tslint": "^3.11.0",
-    "typescript": ">=1.9.0-dev || ^2.0.0",
+    "tslint": "^3.15.1",
+    "typescript": "^2.3.2",
     "uglify-js": "^2.6.3",
     "vinyl-fs": "^2.4.3"
   }

@@ -135,10 +135,7 @@ export class App {
             },
             {
                 route: 'feed',
-                moduleId: './feed',
-                name: 'feed',
-                nav: true,
-                title: 'RSS Feed'
+                redirect: 'https://us-central1-built-with-aurelia-6ef02.cloudfunctions.net/rssFeed'
             }
         ]);
 
