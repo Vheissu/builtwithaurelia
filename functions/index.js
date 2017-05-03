@@ -12,7 +12,7 @@ const feed = new RSS({
 });
 
 exports.rssFeed = functions.https.onRequest((req, res) => {
-  admin.database().ref('submissions').limitToLast(10).once('value').then(snapshot => {
+  admin.database().ref('submissions').orderByChild('added').once('value').then(snapshot => {
     let items = snapshot.val();
 
     if (items) {
