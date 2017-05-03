@@ -27,6 +27,20 @@ export class Api {
         });
     }
 
+    getProject(slug) {
+      this.appService.loading = true;
+
+      return new Promise((resolve, reject) => {
+        firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
+          this.appService.loading = false;
+          resolve(snapshot.val());  
+        }, () => {
+          this.appService.loading = false;
+          reject();
+        });
+      });
+    }
+
     getCurrentUserSubmissions() {
       return new Promise((resolve, reject) => {        
         if (this.userService.isLoggedIn) {

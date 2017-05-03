@@ -127,11 +127,11 @@ export class App {
               title: 'My Submissions'
             },
             {
-              route: 'submission/:slug',
-              moduleId: './submission',
-              name: 'submission',
+              route: 'view/:slug',
+              moduleId: './view',
+              name: 'view',
               nav: false,
-              title: 'Submission'
+              title: 'View'
             },
             {
                 route: 'feed',
