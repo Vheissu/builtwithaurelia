@@ -127,6 +127,13 @@ export class App {
               title: 'My Submissions'
             },
             {
+              route: 'submission/:slug',
+              moduleId: './submission',
+              name: 'submission',
+              nav: false,
+              title: 'Submission'
+            },
+            {
                 route: 'feed',
                 moduleId: './feed',
                 name: 'feed',
