@@ -2,9 +2,9 @@
   "rules": {
     ".read": true,
     "submissions": {
+      ".indexOn": ["added", "_uid"],
       "$slug": {
         ".write": "auth.uid != null",
-        ".indexOn": "added",
         "votes": {
           "$uid": {
             ".write": "auth.uid === $uid"

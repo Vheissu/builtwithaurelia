@@ -1,5 +1,5 @@
 import {Aurelia, autoinject, computedFrom, observable} from 'aurelia-framework';
-import {Router, RouterConfiguration} from 'aurelia-router';
+import {Router, RouterConfiguration, Redirect} from 'aurelia-router';
 import {EventAggregator} from 'aurelia-event-aggregator';
 
 import {Api} from './api';
@@ -7,6 +7,8 @@ import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
 
 import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from './common';
+
+declare let firebase: any;
 
 @autoinject
 export class App {
@@ -120,6 +122,14 @@ export class App {
                 title: 'About'
             },
             {
+                route: 'dashboard',
+                moduleId: './dashboard/dashboard',
+                name: 'dashboard',
+                nav: true,
+                auth: true,
+                title: 'Dashboard'
+            },
+            {
               route: 'submissions/:key?',
               moduleId: './submissions',
               name: 'submissions',
@@ -132,12 +142,10 @@ export class App {
               name: 'view',
               nav: false,
               title: 'View'
-            },
-            {
-                route: 'feed',
-                redirect: 'https://us-central1-built-with-aurelia-6ef02.cloudfunctions.net/rssFeed'
             }
         ]);
+
+        config.addPipelineStep('authorize', AuthorizeStep);
 
         this.router = router;
     }
@@ -270,5 +278,22 @@ export class App {
         if (bool) {
             scrollTop();
         }
+    }
+}
+
+class AuthorizeStep {
+    run(navigationInstruction, next) {
+        return new Promise((resolve, reject) => {
+            firebase.auth().onAuthStateChanged(user => {
+                let currentRoute = navigationInstruction.config;
+                let loginRequired = currentRoute.auth && currentRoute.auth === true;
+
+                if (!user && loginRequired) {
+                    return resolve(next.cancel(new Redirect('')));
+                }
+
+                return resolve(next());
+            });
+        });
     }
 }

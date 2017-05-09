@@ -12,7 +12,7 @@
             </template>
 
             <template if.bind="editMode">
-              <h1>Edit ${submission.name}</h1>
+              <h1>Edit ${submission.name} <a href="#" click.delegate="cancelEdit()">cancel</a></h1>
             </template>
         </div>
     </div>

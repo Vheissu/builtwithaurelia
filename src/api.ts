@@ -28,62 +28,70 @@ export class Api {
     }
 
     getProject(slug) {
-      this.appService.loading = true;
+        this.appService.loading = true;
 
-      return new Promise((resolve, reject) => {
-        firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
-          this.appService.loading = false;
-          resolve(snapshot.val());  
-        }, () => {
-          this.appService.loading = false;
-          reject();
+        return new Promise((resolve, reject) => {
+            firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
+                this.appService.loading = false;
+                resolve(snapshot.val());  
+            }, () => {
+                this.appService.loading = false;
+                reject();
+            });
         });
-      });
     }
 
     getCurrentUserSubmissions() {
-      return new Promise((resolve, reject) => {        
-        if (this.userService.isLoggedIn) {
-          let currentUser = this.userService.getLoggedInUser();
+        this.appService.loading = true;
+        
+        return new Promise((resolve, reject) => {        
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    firebase.database().ref(`submissions`)
+                        .orderByChild('_uid')
+                        .equalTo(user.uid)
+                        .once('value').then(snapshot => {
+                            let submissions = snapshot.val();
+                            let userSubmissions = [];
 
-          firebase.database().ref(`submissions`).once('value').then(snapshot => {
-            let submissions = snapshot.val();
-            let userSubmissions = [];
+                            if (submissions) {
+                                for (let key in submissions) {
+                                    if (submissions.hasOwnProperty(key)) {
+                                        let submission = submissions[key];
+                                        submission.objectKey = key;
 
-            if (submissions && currentUser) {
-              for (let key in submissions) {
-                if (submissions.hasOwnProperty(key)) {
-                  let submission = submissions[key];
-                  submission.objectKey = key;
-                  
-                  if (submission._uid === currentUser.uid) {
-                    userSubmissions.push(submission);
-                  }
-                }
-              }
-            }
+                                        if (submission._uid === user.uid) {
+                                            userSubmissions.push(submission);
+                                        }
+                                    }
+                                }
+                            }
 
-            resolve(userSubmissions);
-          }); 
-        }
-      });
+                            this.appService.loading = false;
+
+                            resolve(userSubmissions);
+                        });
+                } 
+            });
+        });
     }
 
     getSubmission(slug) {
-      return new Promise((resolve, reject) => {
-        firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
-          resolve(snapshot.val());
+        return new Promise((resolve, reject) => {
+            firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
+                resolve(snapshot.val());
+            });
         });
-      });
     }
 
     castVote(name, action) {
         let slug = slugify(name);
-        
+        let uid = firebase.auth().currentUser.uid;
+
         if (action === 'add') {
-            return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(true);
+            return firebase.database().ref(`submissions/${slug}/votes/${uid}`).set(true);
         } else {
-            return firebase.database().ref(`submissions/${slug}/votes/${firebase.auth().currentUser.uid}`).set(null);
+            return firebase.database().ref(`submissions/${slug}/votes/${uid}`).set(null);
         }
     }
 
