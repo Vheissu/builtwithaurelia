@@ -26,11 +26,11 @@ export class Submissions {
         });
     }
 
-    activate(params) {
+    async activate(params) {
         if (params.key !== undefined) {
             this.editMode = true;
 
-            this.api.getSubmission(params.key).then(submission => this.submission = submission);
+            await this.api.getSubmission(params.key).then(submission => this.submission = submission);
         }
     }
 

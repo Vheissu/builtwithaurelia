@@ -12,7 +12,9 @@
             </template>
 
             <template if.bind="editMode">
-              <h1>Edit ${submission.name} <a href="#" click.delegate="cancelEdit()">cancel</a></h1>
+              <h1>Edit ${submission.name} <a href="#" click.delegate="cancelEdit()" class="text--cancel">cancel</a></h1>
+
+              <textarea textcontent.bind="submission.description"></textarea>
             </template>
         </div>
     </div>
