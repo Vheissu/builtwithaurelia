@@ -31,6 +31,7 @@ export class Submissions {
             this.editMode = true;
 
             await this.api.getSubmission(params.key).then(submission => this.submission = submission);
+            console.log(this.submission);
         }
     }
 

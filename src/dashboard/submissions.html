@@ -13,8 +13,16 @@
 
             <template if.bind="editMode">
               <h1>Edit ${submission.name} <a href="#" click.delegate="cancelEdit()" class="text--cancel">cancel</a></h1>
+              
+              <div class="form-row">
+                <label class="form-row__label">Description</label>
+                <textarea textcontent.bind="submission.description"></textarea>
+              </div>
 
-              <textarea textcontent.bind="submission.description"></textarea>
+              <div class="form-row">
+                <label class="form-row__label">Submission URL</label>
+                <input type="text" value.bind="submission.url">
+              </div>
             </template>
         </div>
     </div>

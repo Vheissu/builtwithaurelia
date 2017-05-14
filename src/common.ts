@@ -37,13 +37,13 @@ export const hashString = str => {
 };
 
 export const paginate = (page, maxPerPage, items) => {
-        let offset = (page - 1) * maxPerPage;
-        let totalPages = Math.ceil(items.length / maxPerPage);
+    let offset = (page - 1) * maxPerPage;
+    let totalPages = Math.ceil(items.length / maxPerPage);
 
-        return {
-            items: (maxPerPage === -1) ? items : items.slice(offset, offset + maxPerPage),
-            pages: totalPages
-        };
+    return {
+        items: (maxPerPage === -1) ? items : items.slice(offset, offset + maxPerPage),
+        pages: totalPages
+    };
 };
 
 export const slugify = str => {
