@@ -1,0 +1,33 @@
+<template>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8">
+            <h1>Moderate Submissions</h1>
+            <h3 if.bind="!moderateSubmissions.length">The moderate queue is empty</h3>
+
+            <div class="submissions-list">
+                <div class="submission au-animate" repeat.for="submission of moderateSubmissions">
+                    <hr>
+
+                    <h4>${submission.name} // category: ${submission.category}</h4>
+                    <p><small>Submitted by: ${submission._uid}</small></p>
+                    <p if.bind="submission.twitterHandle"><small>Twitter handle: ${submission.twitterHandle}</small></p>
+                    <p innerhtml.bind="submission.description"></p>
+
+                    <div if.bind="submission.url || submission.repoUrl">
+                        <h5>Links:</h5>
+                        <ul>
+                            <li if.bind="submission.url">URL: ${submission.url}</li>
+                            <li if.bind="submission.repoUrl">URL: ${submission.repoUrl}</li>
+                        </ul>
+                    </div>
+
+                    <div class="buttons-wrapper">
+                        <a click.delegate="approveSubmission(submission.key, $index)" class="btn btn-primary">Approve</a>
+                        <a click.delegate="rejectSubmission(submission.key, $index)" class="btn btn-danger">Reject</a>
+                        <a click.delegate="deleteSubmission(submission.key, $index)" class="btn btn-danger">Reject and Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

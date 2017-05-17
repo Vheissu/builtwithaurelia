@@ -132,18 +132,18 @@ export class App {
                 title: 'Dashboard'
             },
             {
-              route: 'submissions/:key?',
-              moduleId: './submissions',
-              name: 'submissions',
-              nav: false,
-              title: 'My Submissions'
+                route: 'submissions/:key?',
+                moduleId: './submissions',
+                name: 'submissions',
+                nav: false,
+                title: 'My Submissions'
             },
             {
-              route: 'view/:slug',
-              moduleId: './view',
-              name: 'view',
-              nav: false,
-              title: 'View'
+                route: 'view/:slug',
+                moduleId: './view',
+                name: 'view',
+                nav: false,
+                title: 'View'
             },
             {
                 route: 'admin',
@@ -151,7 +151,10 @@ export class App {
                 name: 'admin',
                 nav: true,
                 auth: true,
-                title: 'Admin'
+                title: 'Admin',
+                settings: {
+                    admin: true
+                }
             },
         ]);
 
@@ -308,6 +311,12 @@ class AuthorizeStep {
 
                 if (!user && loginRequired) {
                     return resolve(next.cancel(new Redirect('')));
+                }
+
+                if (currentRoute.settings && currentRoute.settings.admin) {
+                    if (user.uid !== 'TPdM9feOrbgNHVGHebBT7TBZ8Xj1') {
+                        return resolve(next.cancel(new Redirect('')));
+                    }
                 }
 
                 return resolve(next());

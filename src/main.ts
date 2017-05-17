@@ -10,6 +10,8 @@ export function configure(aurelia: Aurelia) {
     aurelia.use.developmentLogging();
   }
 
+  aurelia.use.plugin('aurelia-animator-css');
+
   if (environment.testing) {
     aurelia.use.plugin('aurelia-testing');
   }

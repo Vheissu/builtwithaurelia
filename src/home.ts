@@ -150,7 +150,7 @@ export class Home {
 
     vote(evt, name) {
         if (this.userService.isLoggedIn) {
-            var voteAction = 'add';
+            var voteAction: 'add' | 'remove' = 'add';
 
             this.projects.map(project => {
                 if (slugify(project.name) === slugify(name)) {

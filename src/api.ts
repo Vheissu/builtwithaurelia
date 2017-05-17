@@ -32,6 +32,23 @@ export class Api {
         });
     }
 
+    getUnmoderatedProjectsFromFirebase() {
+        this.appService.loading = true;
+
+        return new Promise((resolve, reject) => {
+            firebase.database().ref('submissions')
+                .orderByChild('status')
+                .equalTo('moderation-queue')
+                .once('value')
+                .then(snapshot => {
+                    this.appService.loading = false;
+                    resolve(snapshot.val());
+            }, () => {
+                this.appService.loading = false;
+            });
+        });
+    }
+
     getProject(slug): Promise<SubmissionInterface> {
         this.appService.loading = true;
 
@@ -127,5 +144,20 @@ export class Api {
                 }
             });
         });
+    }
+
+    approveSubmission(key: string) {
+        return firebase.database().ref('submissions').child(key).update({status: 'published'});
+    }
+
+    rejectSubmission(key) {
+        return firebase.database().ref('submissions').child(key).update({status: 'rejected'});
+    }
+
+    deleteSubmission(key) {
+        let data = {};
+        data[`/submissions/${key}`] = null;
+
+        return firebase.database().ref().set(data);
     }
 }

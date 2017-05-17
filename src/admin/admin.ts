@@ -7,11 +7,18 @@ export class Admin {
         config.map([
             { 
                 route: '', 
-                moduleId: './admin',
-                name: 'admin',        
+                moduleId: './admin-home',
+                name: 'admin-home',        
                 nav: false, 
                 title: 'Admin'
-            }
+            },
+            { 
+                route: 'moderate-submissions', 
+                moduleId: './moderate-submissions',
+                name: 'moderate-submissions',        
+                nav: false, 
+                title: 'Moderate Submissions'
+            },
         ]);
 
         this.router = router;

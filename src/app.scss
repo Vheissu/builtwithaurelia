@@ -2,6 +2,7 @@
 @import "styles/blocks";
 @import "styles/sidebars";
 @import "styles/forms";
+@import "styles/buttons";
 
 * {
     background-repeat: no-repeat;
@@ -450,4 +451,28 @@ modal {
 .bg--aurelia-pink {
     background-color: #BC157A;
     color: #FFF;
+}
+
+.submissions-list {
+    & > .submission.au-enter {
+        opacity: 0!important;
+    }
+
+    & > .submission.au-enter-active {
+        animation: fadeIn 2s;
+    }
+
+    & > .submission.au-leave-active {
+        animation: fadeOut 2s;
+    }
+}
+
+@keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
 }
