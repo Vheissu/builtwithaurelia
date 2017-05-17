@@ -4,8 +4,68 @@
         <description><![CDATA[Latest submissions added to Built With Aurelia.]]></description>
         <link>http://builtwithaurelia.com/</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 17 May 2017 11:56:09 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 17 May 2017 11:56:18 GMT</lastBuildDate>
         <atom:link href="http://builtwithaurelia.com/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[ABSOLUT Buenos Airesz]]></title>
+            <description><![CDATA[The official website for the campaign of the limited ABSOLUT Buenos Aires bottle.]]></description>
+            <link>http://builtwithaurelia.com/#/submission/absolut-buenos-aires</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/absolut-buenos-aires</guid>
+        </item>
+        <item>
+            <title><![CDATA[ag-Grid Aurelia Plugin]]></title>
+            <description><![CDATA[Enterprise strength datagrid that you can configure using Aurelia templating]]></description>
+            <link>http://builtwithaurelia.com/#/submission/ag-grid-aurelia-plugin</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/ag-grid-aurelia-plugin</guid>
+        </item>
+        <item>
+            <title><![CDATA[AndreasLagerkvist.com]]></title>
+            <description><![CDATA[Personal portfolio of Andreas Lagerkvist]]></description>
+            <link>http://builtwithaurelia.com/#/submission/andreaslagerkvistcom</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/andreaslagerkvistcom</guid>
+        </item>
+        <item>
+            <title><![CDATA[Arena of Titans]]></title>
+            <description><![CDATA[An online strategy game developed with the Aurelia Javascript framework]]></description>
+            <link>http://builtwithaurelia.com/#/submission/arena-of-titans</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/arena-of-titans</guid>
+        </item>
+        <item>
+            <title><![CDATA[Artist Gallery]]></title>
+            <description><![CDATA[Aurelia / Materializecss Front End with seperate Sails-Mongodb backend]]></description>
+            <link>http://builtwithaurelia.com/#/submission/artist-gallery</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/artist-gallery</guid>
+        </item>
+        <item>
+            <title><![CDATA[Aurelia Ace editor plugin]]></title>
+            <description><![CDATA[The aurelia-ace-editor is a custom element for Aurelia application. Which allows you easily embed an ace editor to your application.]]></description>
+            <link>http://builtwithaurelia.com/#/submission/aurelia-ace-editor-plugin</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/aurelia-ace-editor-plugin</guid>
+        </item>
+        <item>
+            <title><![CDATA[Aurelia Api]]></title>
+            <description><![CDATA[Aurelia-api is a module wrapped around aurelia-fetch-client that allows you to perform the usual CRUD, supply criteria for your api, Manage more than one endpoint and more.]]></description>
+            <link>http://builtwithaurelia.com/#/submission/aurelia-api</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/aurelia-api</guid>
+        </item>
+        <item>
+            <title><![CDATA[Aurelia Auth]]></title>
+            <description><![CDATA[Aurelia Auth is a plugin for adding in authentication to your Aurelia applications.]]></description>
+            <link>http://builtwithaurelia.com/#/submission/aurelia-auth</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/aurelia-auth</guid>
+        </item>
+        <item>
+            <title><![CDATA[Aurelia Authentication]]></title>
+            <description><![CDATA[Token-based authentication with endpoint configurations, hooks, and much more.]]></description>
+            <link>http://builtwithaurelia.com/#/submission/aurelia-authentication</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/aurelia-authentication</guid>
+        </item>
+        <item>
+            <title><![CDATA[Aurelia Bootstrap]]></title>
+            <description><![CDATA[Aurelia Bootstrap is a series of Custom Element and Custom Attributes that provide Bootstrap components native to Aurelia]]></description>
+            <link>http://builtwithaurelia.com/#/submission/aurelia-bootstrap</link>
+            <guid isPermaLink="true">http://builtwithaurelia.com/#/submission/aurelia-bootstrap</guid>
+        </item>
         <item>
             <title><![CDATA[ABSOLUT Buenos Airesz]]></title>
             <description><![CDATA[The official website for the campaign of the limited ABSOLUT Buenos Aires bottle.]]></description>
