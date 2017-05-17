@@ -1,3 +1,10 @@
 <template>
+    <div class="row">
+        <ul class="nav navbar-nav col-xs-12 col-sm-8">
+            <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                <a href.bind="row.href">${row.title}</a>
+            </li>
+        </ul>
+    </div>
     <router-view></router-view>
 </template>

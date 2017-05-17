@@ -9,14 +9,14 @@ export class Admin {
                 route: '', 
                 moduleId: './admin-home',
                 name: 'admin-home',        
-                nav: false, 
-                title: 'Admin'
+                nav: true, 
+                title: 'Home'
             },
             { 
                 route: 'moderate-submissions', 
                 moduleId: './moderate-submissions',
                 name: 'moderate-submissions',        
-                nav: false, 
+                nav: true, 
                 title: 'Moderate Submissions'
             },
         ]);

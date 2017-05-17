@@ -11,12 +11,6 @@ declare var firebase;
 
 @autoinject
 export class Home {
-    private api: Api;
-    private appService: ApplicationService;
-    private userService: UserService;
-    private ea: EventAggregator;
-    private router: Router;
-
     private currentCategory = null;
 
     private categories = {
@@ -35,12 +29,17 @@ export class Home {
 
     private currentSortMode: string = 'popular';
 
-    constructor(api: Api, appService, ApplicationService, userService: UserService, ea: EventAggregator, router: Router) {
-        this.api = api;
-        this.appService = appService;
-        this.userService = userService;
-        this.ea = ea;
-        this.router = router;
+    constructor(
+        private api: Api, 
+        private appService: ApplicationService, 
+        private userService: UserService, 
+        private ea: EventAggregator, 
+        private router: Router) {
+            this.api = api;
+            this.appService = appService;
+            this.userService = userService;
+            this.ea = ea;
+            this.router = router;
     }
 
     canActivate(params) {

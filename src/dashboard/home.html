@@ -1,16 +1,14 @@
 <template>
     <div class="row">
-        <div class="col-xs-12 col-sm-8">
-            <h1>Dashboard</h1>
+        <div class="col-xs-12 col-sm-6">
+            <h2>Dashboard</h2>
             <p>Manage your account and submissions here.</p>
         </div>
-    </div>
+        <div class="col-xs-12 col-sm-6">
+            <h2>Your submission queue</h2>
+            <p if.bind="!submissionsQueue.length">You have no pending submissions.</p>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-8">
-            <h1>Your submission queue</h1>
-
-            <ul>
+            <ul if.bind="submissionsQueue.length">
                 <li repeat.for="submission of submissionsQueue">${submission.name} (${submission.status})</li>
             </ul>
         </div>
