@@ -19,18 +19,23 @@
                 <textarea textcontent.bind="description"></textarea>
               </div>
 
-              <div class="form-row" if.bind="url">
+              <div class="form-row">
                 <label class="form-row__label">Submission URL</label>
                 <input type="text" value.bind="url">
               </div>
 
-              <div class="form-row" if.bind="repoUrl">
+              <div class="form-row">
                 <label class="form-row__label">Repo URL</label>
                 <input type="text" value.bind="repoUrl">
               </div>
 
               <div class="form-row">
-                <button click.delegate="saveSubmission()">Save</button>
+                <label class="form-row__label">Twitter handle</label>
+                <input type="text" value.bind="twitterHandle">
+              </div>
+
+              <div class="form-row">
+                <button click.delegate="saveSubmission()" disabled.bind="!submissionFormIsValid">Save</button>
               </div>
             </template>
         </div>
