@@ -23,9 +23,13 @@ export class Api {
         this.appService.loading = true;
 
         return new Promise((resolve, reject) => {
-            firebase.database().ref('submissions').once('value').then(snapshot => {
-                this.appService.loading = false;
-                resolve(snapshot.val());
+            firebase.database().ref('submissions')
+                .orderByChild('status')
+                .equalTo('published')
+                .once('value')
+                .then(snapshot => {
+                    this.appService.loading = false;
+                    resolve(snapshot.val());
             }, () => {
                 this.appService.loading = false;
             });
