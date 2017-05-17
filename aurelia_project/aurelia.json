@@ -134,6 +134,12 @@
             "path": "../node_modules/aurelia-testing/dist/amd",
             "main": "aurelia-testing",
             "env": "dev"
+          },
+          {
+            "name": "aurelia-animator-css",
+            "main": "aurelia-animator-css",
+            "path": "../node_modules/aurelia-animator-css/dist/amd",
+            "resources": []
           }
         ]
       }
