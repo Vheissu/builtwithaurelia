@@ -1,4 +1,4 @@
-export interface Submission {
+export interface SubmissionInterface {
     _uid: string;
     added: number;
     category: string;
@@ -8,4 +8,5 @@ export interface Submission {
     url: string;
     repoUrl: string;
     votes: any;
+    status: 'published' | 'unpublished' | 'moderation-queue' | 'draft';
 }

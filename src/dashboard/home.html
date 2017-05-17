@@ -5,4 +5,14 @@
             <p>Manage your account and submissions here.</p>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8">
+            <h1>Your submission queue</h1>
+
+            <ul>
+                <li repeat.for="submission of submissionsQueue">${submission.name} (${submission.status})</li>
+            </ul>
+        </div>
+    </div>
 </template>

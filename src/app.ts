@@ -2,6 +2,8 @@ import {Aurelia, autoinject, computedFrom, observable} from 'aurelia-framework';
 import {Router, RouterConfiguration, Redirect} from 'aurelia-router';
 import {EventAggregator} from 'aurelia-event-aggregator';
 
+import {SubmissionInterface} from './interfaces';
+
 import {Api} from './api';
 import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
@@ -142,7 +144,15 @@ export class App {
               name: 'view',
               nav: false,
               title: 'View'
-            }
+            },
+            {
+                route: 'admin',
+                moduleId: './admin/admin',
+                name: 'admin',
+                nav: true,
+                auth: true,
+                title: 'Admin'
+            },
         ]);
 
         config.addPipelineStep('authorize', AuthorizeStep);
@@ -217,6 +227,7 @@ export class App {
                 .catch(e => {
                     if (e.code === 'auth/user-not-found') {
                         this.formMessage = 'Ow, there was a problem :(<br>Please make sure you have entered a valid email address and password, then try again.';
+                        this.disableButtons = false;
                     }
                 })
         }
@@ -237,6 +248,7 @@ export class App {
                 })
                 .catch(e => {
                     this.formMessage = 'Sorry :(<br>there was a problem registering. Please make sure you entered in all fields correctly or refreshing the page.';
+                    this.disableButtons = false;
                 });
         }
     }
@@ -246,11 +258,11 @@ export class App {
             this.formMessage = '';
             this.disableButtons = true;
 
-            let submissionObject: any = {
-                name: this.model.name,
-                category: this.model.category,
-                description: this.model.description
-            };
+            let submissionObject: SubmissionInterface;
+
+            submissionObject.name = this.model.name;
+            submissionObject.category = this.model.category;
+            submissionObject.description = this.model.description;
 
             if (notEmpty(this.model.url)) {
                 submissionObject.url = this.model.url;
@@ -263,6 +275,9 @@ export class App {
             if (notEmpty(this.model.twitterHandle)) {
                 submissionObject.twitterHandle = this.model.twitterHandle;
             }
+            
+            // New submissions go into the moderation queue
+            submissionObject.status = 'moderation-queue';
 
             this.api.postSubmission(submissionObject)
                 .then(() => {
@@ -270,6 +285,9 @@ export class App {
                     this.disableButtons = false;
                     this.showHat = false;
                     this.showHatSubmission = false;
+                })
+                .catch(() => {
+                    this.disableButtons = false;
                 });
         }
     }

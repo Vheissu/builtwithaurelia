@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-8" with.bind="submission">
 
             <template if.bind="!editMode">
               <h1>Your submissions</h1>
@@ -12,16 +12,25 @@
             </template>
 
             <template if.bind="editMode">
-              <h1>Edit ${submission.name} <a href="#" click.delegate="cancelEdit()" class="text--cancel">cancel</a></h1>
+              <h1>Edit ${name} <a href="#" click.delegate="cancelEdit()" class="text--cancel">cancel</a></h1>
               
               <div class="form-row">
                 <label class="form-row__label">Description</label>
-                <textarea textcontent.bind="submission.description"></textarea>
+                <textarea textcontent.bind="description"></textarea>
+              </div>
+
+              <div class="form-row" if.bind="url">
+                <label class="form-row__label">Submission URL</label>
+                <input type="text" value.bind="url">
+              </div>
+
+              <div class="form-row" if.bind="repoUrl">
+                <label class="form-row__label">Repo URL</label>
+                <input type="text" value.bind="repoUrl">
               </div>
 
               <div class="form-row">
-                <label class="form-row__label">Submission URL</label>
-                <input type="text" value.bind="submission.url">
+                <button click.delegate="saveSubmission()">Save</button>
               </div>
             </template>
         </div>

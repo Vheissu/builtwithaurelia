@@ -8,6 +8,8 @@
                     <a href="javascript:void(0);" class="text--bold" click.delegate="submissionCallback()">Make a Submission</a>
                     <span>&nbsp;|&nbsp;</span>
                     <a href="javascript:void(0);" if.bind="!user.isLoggedIn" click.delegate="loginCallback()">Login/Register</a>
+                    <a route-href="route: dashboard" if.bind="user.isLoggedIn">Dashboard</a>
+                    <span if.bind="user.isLoggedIn">&nbsp;|&nbsp;</span>
                     <a href="javascript:void(0);" if.bind="user.isLoggedIn" click.delegate="logoutCallback()">Logout</a>
                     <span>&nbsp;|&nbsp;</span>
                     <a route-href="route: about">About</a>

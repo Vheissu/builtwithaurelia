@@ -6,11 +6,16 @@ import { UserService } from './services/user';
 
 import {slugify} from './common';
 
+import {SubmissionInterface} from './interfaces';
+
 declare let firebase;
 
 @autoinject
 export class Api {
-    constructor(private http: HttpClient, private appService: ApplicationService, private userService: UserService) {
+    constructor(
+        private http: HttpClient, 
+        private appService: ApplicationService, 
+        private userService: UserService) {
 
     }
 
@@ -27,13 +32,13 @@ export class Api {
         });
     }
 
-    getProject(slug) {
+    getProject(slug): Promise<SubmissionInterface> {
         this.appService.loading = true;
 
         return new Promise((resolve, reject) => {
             firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
                 this.appService.loading = false;
-                resolve(snapshot.val());  
+                resolve(snapshot.val() as SubmissionInterface);  
             }, () => {
                 this.appService.loading = false;
                 reject();
@@ -41,7 +46,7 @@ export class Api {
         });
     }
 
-    getCurrentUserSubmissions() {
+    getCurrentUserSubmissions(): Promise<SubmissionInterface[]> {
         this.appService.loading = true;
         
         return new Promise((resolve, reject) => {        
@@ -52,7 +57,7 @@ export class Api {
                         .equalTo(user.uid)
                         .once('value').then(snapshot => {
                             let submissions = snapshot.val();
-                            let userSubmissions = [];
+                            let userSubmissions: SubmissionInterface[] = [];
 
                             if (submissions) {
                                 for (let key in submissions) {
@@ -69,22 +74,22 @@ export class Api {
 
                             this.appService.loading = false;
 
-                            resolve(userSubmissions);
+                            resolve(userSubmissions as SubmissionInterface[]);
                         });
                 } 
             });
         });
     }
 
-    getSubmission(slug) {
+    getSubmission(slug: string): Promise<SubmissionInterface> {
         return new Promise((resolve, reject) => {
             firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
-                resolve(snapshot.val());
+                resolve(snapshot.val() as SubmissionInterface);
             });
         });
     }
 
-    castVote(name, action) {
+    castVote(name: string, action: 'add' | 'remove') {
         let slug = slugify(name);
         let uid = firebase.auth().currentUser.uid;
 
@@ -95,24 +100,32 @@ export class Api {
         }
     }
 
-    addProject(project) {
-        if (!project.added) {
-            project.added = firebase.database.ServerValue.TIMESTAMP;
-        }
+    addProject(project: SubmissionInterface) {
+        return new Promise((resolve, reject) => {
+            if (!project.added) {
+                project.added = firebase.database.ServerValue.TIMESTAMP;
+            }
 
-        firebase.database().ref(`submissions/${slugify(project.name)}`).update(project);
+            firebase.database().ref(`submissions/${slugify(project.name)}`)
+                .update(project)
+                .then(resolve(true));
+        });
     }
 
-    postSubmission(submission) {
+    postSubmission(submission: SubmissionInterface) {
         return new Promise((resolve, reject) => {
-            if (submission && firebase.auth().currentUser) {
-                submission._uid = firebase.auth().currentUser.uid;
-                submission.added = firebase.database.ServerValue.TIMESTAMP;
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    submission._uid = user.uid;
+                    submission.added = firebase.database.ServerValue.TIMESTAMP;
 
-                firebase.database().ref(`submissions/${slugify(submission.name)}`).set(submission).then(() => { 
-                    resolve(true); 
-                });
-            }
+                    firebase.database().ref(`submissions/${slugify(submission.name)}`).set(submission).then(() => { 
+                        resolve(true); 
+                    });
+                } else {
+                    reject(false);
+                }
+            });
         });
     }
 }
