@@ -1,0 +1,20 @@
+<template bindable="project">
+    <div class="project project--single" with.bind="project">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                <header>
+                    <h1 class="project__name project__name--large">${name}</h1>
+                    <div class="project__border ${colour}" if.bind="colour"></div>
+                </header>
+
+                <div class="project__content project__content--black">
+                    <p innerhtml.bind="description"></p>
+                </div>
+
+                <a href="${url}" class="button" target="_blank">View</a>
+                <a if.bind="repoUrl" href="${repoUrl}" class="button" target="_blank">Source Code</a>
+            </div>
+        </div>
+    </div>
+</template>
+

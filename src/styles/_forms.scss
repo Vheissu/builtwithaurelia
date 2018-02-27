@@ -1,0 +1,21 @@
+.form {
+
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row__label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-row input,
+.form-row textarea,
+.form-row select {
+    display: block;
+    padding: 10px;
+    width: 100%;
+}

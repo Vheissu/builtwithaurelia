@@ -1,0 +1,43 @@
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    transition: all .2s ease-in-out;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: #E82887;
+    border-color: #E82887;
+}
+
+.btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
+.buttons-wrapper {
+    margin: 25px 0;
+
+    .btn {
+        margin-right: 12px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}

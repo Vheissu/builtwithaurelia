@@ -1,0 +1,16 @@
+{
+  "rules": {
+    ".read": true,
+    "submissions": {
+      ".indexOn": ["added", "_uid", "status"],
+      "$slug": {
+        ".write": "auth.uid != null",
+        "votes": {
+          "$uid": {
+            ".write": "auth.uid === $uid"
+          }
+        }
+      }
+    }
+  }
+}

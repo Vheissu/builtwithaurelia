@@ -1,0 +1,21 @@
+<template class="thumbnail">
+    <template with.bind="project">
+        <div class="thumbnail__inner">
+            <h1 class="thumbnail__heading">${name}</h1>
+            <h2 class="thumbnail__subheading">${category}</h2>
+        </div>
+        <div class="thumbnail__pullover">
+            <div class="thumbnail__inner">
+                <p innerhtml.bind="description"></p>
+                <a href="${url}" class="button" target="_blank" click.delegate="handleClick(url, name)">View</a>
+                <a if.bind="repoUrl" href="${repoUrl}" class="button" target="_blank" click.delegate="handleClick(repoUrl, name)">Source Code</a>
+            </div>
+
+            <div class="vote-buttons">
+                <a href="javascript:void(0);" class="vote ${!userService.isLoggedIn ? 'vote--disabled' : ''} fa ${currentUserHasVotedFor ? 'fa-heart': 'fa-heart-o'}" aria-hidden="true" click.delegate="callVoteCallback($event, name)"></a>
+                <span>${votes}</span>
+            </div>
+        </div>
+    </template>
+</template>
+

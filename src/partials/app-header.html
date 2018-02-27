@@ -1,0 +1,23 @@
+<template bindable="user, submissionCallback, loginCallback, logoutCallback" containerless>
+
+    <header id="main-header">
+        <div class="container">
+            <div class="row">
+                <h1 id="logo" class="col-xs-12 col-sm-6"><a route-href="route:home">Built With Aurelia</a></h1>
+                <div class="col-sm-6 text--right">
+                    <a href="javascript:void(0);" class="text--bold" click.delegate="submissionCallback()">Make a Submission</a>
+                    <span>&nbsp;|&nbsp;</span>
+                    <a href="javascript:void(0);" if.bind="!user.isLoggedIn" click.delegate="loginCallback()">Login/Register</a>
+                    <a route-href="route: dashboard" if.bind="user.isLoggedIn">Dashboard</a>
+                    <span if.bind="user.isLoggedIn">&nbsp;|&nbsp;</span>
+                    <a href="javascript:void(0);" if.bind="user.isLoggedIn" click.delegate="logoutCallback()">Logout</a>
+                    <span>&nbsp;|&nbsp;</span>
+                    <a route-href="route: about">About</a>
+                    <span>&nbsp;|&nbsp;</span>
+                    <a href="mailto:dwaynecharrington@gmail.com">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+</template>

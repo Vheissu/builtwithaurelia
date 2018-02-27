@@ -1,0 +1,25 @@
+#sidebar {
+
+    @media all and (min-width: 768px) {
+        padding-top: 50px;
+    }
+}
+
+.sidebar__section {
+    margin-bottom: 40px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    @media all and (min-width: 768px) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.sidebar__section__heading {
+    
+}

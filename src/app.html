@@ -1,0 +1,100 @@
+<template>
+    <require from="./app.css"></require>
+    <require from="./partials/loader.html"></require>
+    <require from="./partials/app-header.html"></require>
+    <require from="./partials/app-footer.html"></require>
+    <require from="./partials/modal.html"></require>
+
+    <loader show.bind="router.isNavigating || appService.loading"></loader>
+
+    <div class="hat ${showHat ? 'hat--active': ''}">
+        <a href="javascript:void(0);" click.delegate="closeHat()" class="close">X</a>
+        <div class="hat__inner" if.bind="showHatLogin">
+            <h1 class="hat__title">Login</h1>
+            <p>To upvote submissions and other cool things, login here.<br>Not a member? <a href="javascript:void(0);" click.delegate="register($event)">click here</a> to signup.</p>
+            <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
+            <form submit.delegate="handleLogin($event)">
+                <div class="form__row">
+                    <input type="email" name="email" placeholder="Email" value.bind="model.email">
+                </div>
+                <div class="form__row">
+                    <input type="password" name="password" value.bind="model.password" autocomplete="off">
+                </div>
+                <button type="submit" class="button" disabled.bind="!loginFormIsValid || disableButtons">Login</button>
+            </form>
+        </div>
+        <div class="hat__inner" if.bind="showHatRegister">
+            <h1 class="hat__title">Register</h1>
+            <p>Joining Built With Aurelia is quick and easy. Simply fill out the form below and you are on your way.<br>Already a member? <a href="javascript:void(0);" click.delegate="login($event)">click here to login</a></p>
+            <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
+            <form submit.delegate="handleRegister($event)">
+                <div class="form__row">
+                    <input type="email" name="email" placeholder="Email" value.bind="model.email">
+                </div>
+                <div class="form__row">
+                    <input type="password" name="password" placeholder="Enter a strong password" value.bind="model.password" autocomplete="off">
+                </div>
+                <div class="form__row">
+                    <input type="password" name="password2" placeholder="Re-enter your chosen password" value.bind="model.password2" autocomplete="off">
+                </div>
+                <p if.bind="!passwordsMatch" class="error-message">Please make sure both passwords match</p>
+                <button type="submit" class="button" disabled.two-way="!registerFormIsValid || disableButtons">Register</button>
+            </form>
+        </div>
+        <div class="hat__inner" if.bind="showHatSubmission">
+            <h1 class="hat__title">New Submission</h1>
+            <p>Make a new submission to the site. Just make sure you meet the criteria of it either being built using Aurelia or for Aurelia.</p>
+            <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
+            <form submit.delegate="handleSubmission($event)">
+                <div class="form__row">
+                    <p>
+                        <label>Project name <em>*</em></label>
+                        The name of this project.
+                    </p>
+                    <input type="text" name="name" placeholder="Project name" value.bind="model.name">
+                </div>
+                <div class="form__row">
+                    <p>
+                        <label>Project category <em>*</em></label>
+                        What kind of project are you submitting?
+                    </p>
+                    <select name="category" value.bind="model.category">
+                        <option repeat.for="category of categories" value.bind="category.value" selected.bind="category.selected">${category.name}</option>
+                    </select>
+                </div>
+                <div class="form__row">
+                    <p>
+                        <label>Where can this submission be seen?</label>
+                        If you are not providing a repository link, this field is required.
+                    </p>
+                    <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="model.url">
+                </div>
+                <div class="form__row">
+                    <p>
+                        <label>Source code URL</label>
+                        If there is source code available, provide the link here to the Github/Bitbucket repository. Required if above URL field is empty.
+                    </p>
+                    <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="model.repoUrl">
+                </div>
+                <div class="form__row">
+                    <textarea name="description" value.bind="model.description"></textarea>
+                </div>
+                <div class="form__row">
+                    <input type="text" name="twitterHandle" placeholder="@MyTwitterHandle" value.bind="model.twitterHandle">
+                </div>
+
+                <button type="submit" class="button" disabled.bind="!submissionFormIsValid || disableButtons">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <app-header user.bind="userService" login-callback.call="login($event)" logout-callback.call="logout($event)" submission-callback.call="submission($event)"></app-header>
+
+    <main id="content">
+        <div class="container">
+            <router-view id="main-content" class="main-content"></router-view>
+        </div>
+    </main>
+    
+    <app-footer containerless></app-footer>
+</template>
