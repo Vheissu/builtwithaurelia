@@ -1,9 +1,10 @@
+import { PLATFORM } from 'aurelia-pal';
 import {FrameworkConfiguration} from 'aurelia-framework';
 
 export function configure(config: FrameworkConfiguration) {
     config.globalResources([
-        './value-converters/async-binding-behavior',
-        './value-converters/object-keys',
-        './value-converters/prettify'
+        PLATFORM.moduleName('./value-converters/async-binding-behavior'),
+        PLATFORM.moduleName('./value-converters/object-keys'),
+        PLATFORM.moduleName('./value-converters/prettify')
     ]);
 }

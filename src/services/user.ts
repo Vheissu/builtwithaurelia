@@ -1,4 +1,4 @@
-declare var firebase;
+import firebase from '../firebase';
 
 import {computedFrom, autoinject} from 'aurelia-framework';
 

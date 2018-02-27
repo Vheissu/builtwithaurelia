@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%- htmlWebpackPlugin.options.metadata.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Built With Aurelia is a showcase of applications, plugins and resources developed for or using Aurelia.">
+    <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
+    <!-- imported CSS are concatenated and added automatically -->
+  </head>
+  <body aurelia-app="main">
+        <style type="text/css">
+            .loader {
+                background: rgba(255, 255, 255, 0.95);
+                height: 100%;
+                left: 0;
+                top: 0;
+                width : 100%;
+                position: fixed;
+                z-index: 999;
+            }
+    
+            .loader__inner {
+                height: 250px;
+                left: 50%;
+                position: fixed;
+                text-align: center;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                        transform: translate(-50%, -50%);
+                width: 250px;
+                z-index: 1000;
+            }
+    
+                .loader__inner h2 {
+                    color: #000;
+                    font-size: 16px;
+                    margin: 15px 0 0 0;
+                    padding: 0;
+                    width: 100%;
+                }
+    
+            .loader__indicator {
+                -webkit-animation: animate 1.5s linear infinite;
+                        animation: animate 1.5s linear infinite;
+                background: transparent url(images/aurelia-logo-mark.svg) no-repeat left top;
+                display: block;
+                height: 80px;
+                margin: 0 auto;
+                width: 80px;
+            }
+    
+            .ellipsis {
+                font-size: 16px;
+            }
+    
+            .ellipsis:after {
+                -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+                        animation: ellipsis steps(4, end) 900ms infinite;
+                content: "\2026";
+                display: inline-block;
+                overflow: hidden;
+                vertical-align: bottom;
+                width: 0;
+            }
+    
+            @-webkit-keyframes animate {
+                0% { 
+                    -webkit-transform: rotate(0deg); 
+                            transform: rotate(0deg)
+                }
+    
+                100% { 
+                    -webkit-transform: rotate(220deg); 
+                            transform: rotate(220deg)
+                }
+            }
+    
+            @keyframes animate {
+                0% { 
+                    -webkit-transform: rotate(0deg); 
+                            transform: rotate(0deg)
+                }
+    
+                100% { 
+                    -webkit-transform: rotate(220deg); 
+                            transform: rotate(220deg)
+                }
+            }
+    
+            @-webkit-keyframes ellipsis {
+                to {
+                    width: 1.25em;    
+                }
+            }
+    
+            @keyframes ellipsis {
+                to {
+                    width: 1.25em;    
+                }
+            }
+        </style>
+
+        <div class="loader">
+            <div class="loader__inner">
+                <span class="loader__indicator"></span>
+                <h2 class="ellipsis">Loading</h2>
+            </div>
+        </div>
+    
+        <script type="text/javascript">
+        var clicky_site_ids = clicky_site_ids || [];
+        clicky_site_ids.push(100978527);
+        (function() {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = '//static.getclicky.com/js';
+        ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+        })();
+        </script>
+        <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100978527ns.gif" /></p></noscript>
+  </body>
+</html>

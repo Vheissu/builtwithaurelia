@@ -8,7 +8,7 @@ import {slugify} from './common';
 
 import {SubmissionInterface} from './interfaces';
 
-declare let firebase;
+import firebase from './firebase';
 
 @autoinject
 export class Api {
@@ -124,12 +124,12 @@ export class Api {
     addProject(project: SubmissionInterface) {
         return new Promise((resolve, reject) => {
             if (!project.added) {
-                project.added = firebase.database.ServerValue.TIMESTAMP;
+                project.added = (firebase.database as any).ServerValue.TIMESTAMP;
             }
 
             firebase.database().ref(`submissions/${slugify(project.name)}`)
                 .update(project)
-                .then(resolve(true));
+                .then(() => resolve(true));
         });
     }
 
@@ -138,7 +138,7 @@ export class Api {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     submission._uid = user.uid;
-                    submission.added = firebase.database.ServerValue.TIMESTAMP;
+                    submission.added = (firebase.database as any).ServerValue.TIMESTAMP;
 
                     firebase.database().ref(`submissions/${slugify(submission.name)}`).set(submission).then(() => { 
                         resolve(true); 

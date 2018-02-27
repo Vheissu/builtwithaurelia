@@ -7,7 +7,7 @@ import {ApplicationService} from './services/application';
 import {UserService} from './services/user';
 import {getColourFromHashedString, slugify} from './common';
 
-declare var firebase;
+import firebase from './firebase';
 
 @autoinject
 export class Home {

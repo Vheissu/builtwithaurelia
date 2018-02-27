@@ -1,5 +1,4 @@
 <template>
-    <require from="./app.css"></require>
     <require from="./partials/loader.html"></require>
     <require from="./partials/app-header.html"></require>
     <require from="./partials/app-footer.html"></require>
@@ -92,7 +91,7 @@
 
     <main id="content">
         <div class="container">
-            <router-view id="main-content" class="main-content"></router-view>
+            <router-view id="main-content" class="main-content" swap-order="after"></router-view>
         </div>
     </main>
     

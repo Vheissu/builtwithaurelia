@@ -1,16 +1,17 @@
-import {Aurelia, autoinject, computedFrom, observable} from 'aurelia-framework';
-import {Router, RouterConfiguration, Redirect} from 'aurelia-router';
-import {EventAggregator} from 'aurelia-event-aggregator';
+import { Aurelia, autoinject, computedFrom, observable } from 'aurelia-framework';
+import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { PLATFORM } from 'aurelia-pal';
 
-import {SubmissionInterface} from './interfaces';
+import { SubmissionInterface } from './interfaces';
 
-import {Api} from './api';
-import {ApplicationService} from './services/application';
-import {UserService} from './services/user';
+import { Api } from './api';
+import { ApplicationService } from './services/application';
+import { UserService } from './services/user';
 
-import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from './common';
+import { categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals } from './common';
 
-declare let firebase: any;
+import firebase from './firebase';
 
 @autoinject
 export class App {
@@ -43,6 +44,15 @@ export class App {
 
     private formMessage: string = '';
     private validationErrors: any = {};
+
+    constructor(api: Api, appService: ApplicationService, userService: UserService, ea: EventAggregator) {
+        this.api = api;
+        this.appService = appService;
+        this.userService = userService;
+        this.ea = ea;
+
+        this.categories = categories;
+    }
 
     @computedFrom('model.email', 'model.password')
     get loginFormIsValid() {
@@ -83,16 +93,7 @@ export class App {
 
     @computedFrom('model.password', 'model.password2')
     get passwordsMatch() {
-        return ( (notEmpty(this.model.password) && notEmpty(this.model.password2)) && (equals(this.model.password.trim(), this.model.password2.trim())));
-    }
-
-    constructor(api: Api, appService: ApplicationService, userService: UserService, ea: EventAggregator) {
-        this.api = api;
-        this.appService = appService;
-        this.userService = userService;
-        this.ea = ea;
-
-        this.categories = categories;
+        return ((notEmpty(this.model.password) && notEmpty(this.model.password2)) && (equals(this.model.password.trim(), this.model.password2.trim())));
     }
 
     attached() {
@@ -107,47 +108,42 @@ export class App {
 
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'Built With Aurelia';
+        config.options.pushState = true;
+        config.options.root = '/';
 
         config.map([
             { 
                 route: '', 
-                moduleId: './home',
+                moduleId: PLATFORM.moduleName('./home'),
                 name: 'home',        
                 nav: false, 
                 title: 'Home'
             },
             { 
                 route: 'about',
-                moduleId: './about', 
+                moduleId: PLATFORM.moduleName('./about'), 
                 name: 'about',    
                 nav: true, 
                 title: 'About'
             },
             {
                 route: 'dashboard',
-                moduleId: './dashboard/dashboard',
+                moduleId: PLATFORM.moduleName('./dashboard/dashboard'),
                 name: 'dashboard',
                 nav: true,
                 auth: true,
                 title: 'Dashboard'
             },
             {
-                route: 'submissions/:key?',
-                moduleId: './submissions',
-                name: 'submissions',
-                nav: false,
-                title: 'My Submissions'
-            },
-            {
                 route: 'view/:slug',
-                moduleId: './view',
+                moduleId: PLATFORM.moduleName('./view'),
                 name: 'view',
                 nav: false,
                 title: 'View'
             },
             {
                 route: 'admin',
-                moduleId: './admin/admin',
+                moduleId: PLATFORM.moduleName('./admin/admin'),
                 name: 'admin',
                 nav: true,
                 auth: true,
@@ -159,6 +155,8 @@ export class App {
         ]);
 
         config.addPipelineStep('authorize', AuthorizeStep);
+
+        config.mapUnknownRoutes(PLATFORM.moduleName('not-found'));
 
         this.router = router;
     }
@@ -324,3 +322,4 @@ class AuthorizeStep {
         });
     }
 }
+
