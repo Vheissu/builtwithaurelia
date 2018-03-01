@@ -5,7 +5,29 @@ export { getCategories } from './actions/get-categories';
 export { sortCategories } from './actions/sort-categories';
 
 export async function saveProject(state, project) {
-    return;
+    const newProject = {
+        email: '',
+        password: '',
+        password2: '',
+        name: '',
+        category: 'website',
+        url: '',
+        repoUrl: '',
+        description: '',
+        twitterHandle: ''
+    };
+
+    const newState = {
+        ...state,
+        ...{
+            projects: [
+                ...state.projects,
+                newProject
+            ]
+        }
+    };
+
+    return newState;
 }
 
 export async function setSelectedProject(state, projectId) {

@@ -1,8 +1,8 @@
-import { SubmissionInterface } from '../interfaces';
+import { SubmissionInterface } from '../../interfaces';
 
 import {autoinject} from 'aurelia-framework';
 
-import {Api} from '../api';
+import {Api} from '../../api';
 
 @autoinject
 export class Home {

@@ -1,10 +1,10 @@
 import { autoinject } from 'aurelia-dependency-injection';
 import { TaskQueue } from 'aurelia-task-queue';
 import { computedFrom } from 'aurelia-framework';
-import { Api } from '../api';
+import { Api } from '../../api';
 
-import {SubmissionInterface} from '../interfaces';
-import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from '../common';
+import {SubmissionInterface} from '../../interfaces';
+import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from '../../common';
 
 declare var firebase;
 

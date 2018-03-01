@@ -3,7 +3,7 @@ import '../font-awesome.min.css';
 import './styles/app.scss';
 import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
-import initialState from './store/state';
+import { initialState } from './store/state';
 
 export async function configure(aurelia: Aurelia) {
     aurelia.use

@@ -1,4 +1,5 @@
-import { Aurelia, computedFrom, observable } from 'aurelia-framework';
+import { ApplicationRoutes } from './routes.config';
+import { Aurelia, computedFrom, observable, autoinject } from 'aurelia-framework';
 import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PLATFORM } from 'aurelia-pal';
@@ -9,6 +10,7 @@ import { SubmissionInterface } from './interfaces';
 import { Api } from './api';
 import { ApplicationService } from './services/application';
 import { UserService } from './services/user';
+import { State } from './store/state';
 
 import {
     categories,
@@ -33,16 +35,11 @@ import {
     setUser
 } from './store/actions';
 
+import { ProjectModel } from './models/project';
+
+@autoinject()
 export class App {
-    static inject = [Api, ApplicationService, UserService, EventAggregator, Store];
-
-    ea: EventAggregator;
-    api: Api;
-    appService: ApplicationService;
-    userService: UserService;
-    router: Router;
-    store;
-
+    private router: Router;
     public categories;
 
     @observable showHat: boolean = false;
@@ -50,17 +47,7 @@ export class App {
     private showHatRegister: boolean = false;
     private showHatSubmission: boolean = false;
 
-    private model = {
-        email: '',
-        password: '',
-        password2: '',
-        name: '',
-        category: 'website',
-        url: '',
-        repoUrl: '',
-        description: '',
-        twitterHandle: ''
-    };
+    private model = ProjectModel;
 
     private disableButtons: boolean = false;
 
@@ -69,21 +56,22 @@ export class App {
 
     public state = {};
 
-    constructor(api, appService, userService, ea, store) {
-        this.api = api;
-        this.appService = appService;
-        this.userService = userService;
-        this.ea = ea;
-        this.store = store;
-
+    constructor(
+        private api: Api,
+        private appService: ApplicationService,
+        private userService: UserService,
+        private ea: EventAggregator,
+        private store: Store<State>) {
         this.store.state.subscribe((state) => {
             this.state = state;
         });
 
+        // When the Firebase auth state changes, tell the store
         firebase.auth().onAuthStateChanged(user => {
             this.store.dispatch(setUser, user);
         });
 
+        // Register store actions
         this.setupStore();
 
         this.categories = categories;
@@ -156,52 +144,10 @@ export class App {
         config.options.pushState = true;
         config.options.root = '/';
 
-        config.map([
-            {
-                route: '',
-                moduleId: PLATFORM.moduleName('./home', 'home'),
-                name: 'home',
-                nav: false,
-                title: 'Home'
-            },
-            {
-                route: 'about',
-                moduleId: PLATFORM.moduleName('./about', 'about'),
-                name: 'about',
-                nav: true,
-                title: 'About'
-            },
-            {
-                route: 'dashboard',
-                moduleId: PLATFORM.moduleName('./dashboard/dashboard', 'dashboard'),
-                name: 'dashboard',
-                nav: true,
-                auth: true,
-                title: 'Dashboard'
-            },
-            {
-                route: 'view/:slug',
-                moduleId: PLATFORM.moduleName('./view', 'view'),
-                name: 'view',
-                nav: false,
-                title: 'View'
-            },
-            {
-                route: 'admin',
-                moduleId: PLATFORM.moduleName('./admin/admin', 'admin'),
-                name: 'admin',
-                nav: true,
-                auth: true,
-                title: 'Admin',
-                settings: {
-                    admin: true
-                }
-            },
-        ]);
-
+        config.map(ApplicationRoutes);
         config.addPipelineStep('authorize', AuthorizeStep);
 
-        config.mapUnknownRoutes(PLATFORM.moduleName('not-found', 'not-found'));
+        config.mapUnknownRoutes(PLATFORM.moduleName('./routes/not-found', 'not-found'));
 
         this.router = router;
     }

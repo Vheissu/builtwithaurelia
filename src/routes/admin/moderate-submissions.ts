@@ -1,9 +1,9 @@
-import {SubmissionInterface} from '../interfaces';
+import {SubmissionInterface} from '../../interfaces';
 
 import {autoinject} from 'aurelia-framework';
-import {Api} from '../api';
-import {ApplicationService} from '../services/application';
-import {UserService} from '../services/user';
+import {Api} from '../../api';
+import {ApplicationService} from '../../services/application';
+import {UserService} from '../../services/user';
 
 declare let firebase: any;
 
@@ -12,8 +12,8 @@ export class ModerateSubmissions {
     private moderateSubmissions: SubmissionInterface[] = [];
 
     constructor(
-        private api: Api, 
-        private appService: ApplicationService, 
+        private api: Api,
+        private appService: ApplicationService,
         private userService: UserService) {
 
     }
@@ -37,7 +37,7 @@ export class ModerateSubmissions {
                     } else {
                         project.votes = 0;
                     }
-                    
+
                     this.moderateSubmissions.push(project);
                 }
 

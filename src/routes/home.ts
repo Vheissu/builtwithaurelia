@@ -1,37 +1,37 @@
 import { Store } from 'aurelia-store';
-import { computedFrom } from 'aurelia-framework';
+import { autoinject, computedFrom } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
-import { loadProjects, getCategories, setCategory, backupProjects, resetProjects, sortCategories } from './store/actions';
-import State from './store/state';
 
-import { Api } from './api';
-import { ApplicationService } from './services/application';
-import { UserService } from './services/user';
-import { getColourFromHashedString, slugify } from './common';
+import {
+    loadProjects,
+    getCategories,
+    setCategory,
+    backupProjects,
+    resetProjects,
+    sortCategories
+} from '../store/actions';
 
-import firebase from './firebase';
+import { initialState, State } from '../store/state';
 
+import { Api } from '../api';
+import { ApplicationService } from '../services/application';
+import { UserService } from '../services/user';
+import { getColourFromHashedString, slugify } from '../common';
+
+import firebase from '../firebase';
+
+@autoinject()
 export class Home {
-    private api: Api;
-    private appService: ApplicationService;
-    private userService: UserService;
-    private ea: EventAggregator;
-    private router: Router;
-    private store;
-
     private state: any;
 
-    static inject = [ Api, ApplicationService, UserService, EventAggregator, Router, Store ];
-
-    constructor(api, appService, userService, ea, router, store) {
-        this.api = api;
-        this.appService = appService;
-        this.userService = userService;
-        this.ea = ea;
-        this.router = router;
-        this.store = store;
-
+    constructor(
+        private api: Api,
+        private appService: ApplicationService,
+        private userService: UserService,
+        private ea: EventAggregator,
+        private router: Router,
+        private store: Store<State>) {
         this.store.state.subscribe((state) => {
             this.state = state;
         });
@@ -40,10 +40,6 @@ export class Home {
     created() {
         this.store.dispatch(getCategories);
         this.store.dispatch(loadProjects, this.api.getProjectsFromFirebase.bind(this));
-    }
-
-    canActivate() {
-        return this.state.projects;
     }
 
     submission($event: Event) {
