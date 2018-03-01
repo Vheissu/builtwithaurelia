@@ -1,4 +1,4 @@
-import {autoinject} from 'aurelia-framework'; 
+import {autoinject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 
 import { ApplicationService } from './services/application';
@@ -13,8 +13,8 @@ import firebase from './firebase';
 @autoinject
 export class Api {
     constructor(
-        private http: HttpClient, 
-        private appService: ApplicationService, 
+        private http: HttpClient,
+        private appService: ApplicationService,
         private userService: UserService) {
 
     }
@@ -59,7 +59,7 @@ export class Api {
         return new Promise((resolve, reject) => {
             firebase.database().ref(`submissions/${slug}`).once('value').then(snapshot => {
                 this.appService.loading = false;
-                resolve(snapshot.val() as SubmissionInterface);  
+                resolve(snapshot.val() as SubmissionInterface);
             }, () => {
                 this.appService.loading = false;
                 reject();
@@ -69,8 +69,8 @@ export class Api {
 
     getCurrentUserSubmissions(): Promise<SubmissionInterface[]> {
         this.appService.loading = true;
-        
-        return new Promise((resolve, reject) => {        
+
+        return new Promise((resolve, reject) => {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     firebase.database().ref(`submissions`)
@@ -97,7 +97,7 @@ export class Api {
 
                             resolve(userSubmissions as SubmissionInterface[]);
                         });
-                } 
+                }
             });
         });
     }
@@ -140,8 +140,8 @@ export class Api {
                     submission._uid = user.uid;
                     submission.added = (firebase.database as any).ServerValue.TIMESTAMP;
 
-                    firebase.database().ref(`submissions/${slugify(submission.name)}`).set(submission).then(() => { 
-                        resolve(true); 
+                    firebase.database().ref(`submissions/${slugify(submission.name)}`).set(submission).then(() => {
+                        resolve(true);
                     });
                 } else {
                     reject(false);

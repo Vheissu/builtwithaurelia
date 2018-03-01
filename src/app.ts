@@ -1,4 +1,4 @@
-import { Aurelia, autoinject, computedFrom, observable } from 'aurelia-framework';
+import { Aurelia, computedFrom, observable } from 'aurelia-framework';
 import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PLATFORM } from 'aurelia-pal';
@@ -14,7 +14,8 @@ import { categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requir
 
 import firebase from './firebase';
 
-@autoinject
+import { loadProjects } from './store/actions';
+
 export class App {
     static inject = [Api, ApplicationService, UserService, EventAggregator, Store];
 
@@ -58,7 +59,17 @@ export class App {
         this.ea = ea;
         this.store = store;
 
+        this.store.state.subscribe((state) => {
+            this.state = state;
+        });
+
+        this.setupStore();
+
         this.categories = categories;
+    }
+
+    setupStore() {
+        this.store.registerAction(loadProjects.name, loadProjects);
     }
 
     @computedFrom('model.email', 'model.password')
@@ -104,10 +115,6 @@ export class App {
     }
 
     attached() {
-        this.store.state.subscribe((state) => {
-            this.state = state;
-        });
-
         this.ea.subscribe('show.login-form', () => {
             this.login();
         });

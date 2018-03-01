@@ -1,45 +1,44 @@
-import {autoinject, computedFrom} from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
-import {Router} from 'aurelia-router';
+import { Store } from 'aurelia-store';
+import { computedFrom } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { Router } from 'aurelia-router';
+import { loadProjects, getCategories } from './store/actions';
+import initialState from './store/state';
 
-import {Api} from './api';
-import {ApplicationService} from './services/application';
-import {UserService} from './services/user';
-import {getColourFromHashedString, slugify} from './common';
+import { Api } from './api';
+import { ApplicationService } from './services/application';
+import { UserService } from './services/user';
+import { getColourFromHashedString, slugify } from './common';
 
 import firebase from './firebase';
 
-@autoinject
 export class Home {
-    private currentCategory = null;
+    private api: Api;
+    private appService: ApplicationService;
+    private userService: UserService;
+    private ea: EventAggregator;
+    private router: Router;
+    private store;
 
-    private categories = {
-        all: {name: 'All', value: '', count: 0},
-        mobile: {name: 'Mobile', value: 'mobile', count: 0},
-        plugin: {name: 'Plugins', value: 'plugin', count: 0},
-        theme: {name: 'Themes', value: 'theme', count: 0},
-        website: {name: 'Websites', value: 'website', count: 0}
-    };
+    private state: any;
 
-    private projects = [];
-    private backupProjects = [];
+    static inject = [ Api, ApplicationService, UserService, EventAggregator, Router, Store ];
 
-    private currentPage: number = 1;
-    private totalNumberOfPages: number = -1;
+    constructor(api, appService, userService, ea, router, store) {
+        this.api = api;
+        this.appService = appService;
+        this.userService = userService;
+        this.ea = ea;
+        this.router = router;
 
-    private currentSortMode: string = 'popular';
+        this.store.state.subscribe((state) => {
+            this.state = state;
+        });
+    }
 
-    constructor(
-        private api: Api, 
-        private appService: ApplicationService, 
-        private userService: UserService, 
-        private ea: EventAggregator, 
-        private router: Router) {
-            this.api = api;
-            this.appService = appService;
-            this.userService = userService;
-            this.ea = ea;
-            this.router = router;
+    created() {
+        this.store.dispatch(loadProjects, this.api.getProjectsFromFirebase);
+        this.store.dispatch(getCategories);
     }
 
     canActivate(params) {
@@ -59,8 +58,8 @@ export class Home {
                     } else {
                         project.votes = 0;
                     }
-                    
-                    this.projects.push(project);
+
+                    this.state.projects.push(project);
                 }
 
                 resolve(projects);
@@ -72,13 +71,13 @@ export class Home {
 
     activate() {
         // Sort the projects by their vote counts in descending order
-        this.projects.sort((a, b) => {
+        this.state.projects.sort((a, b) => {
             return parseInt(b.votes, 10) - parseInt(a.votes, 10) || a.added - b.added;
         });
 
         this.getProjectCounts();
-        
-        this.currentCategory = this.categories.all;
+
+        this.state.currentCategory = this.state.categories.all;
     }
 
     submission($event: Event) {
@@ -86,12 +85,12 @@ export class Home {
     }
 
     getProjectCounts() {
-        if (this.projects.length) {
-            for (let i = 0; i < this.projects.length; i++) {
-                let item = this.projects[i];
+        if (this.state.projects.length) {
+            for (let i = 0; i < this.state.projects.length; i++) {
+                let item = this.state.projects[i];
 
                 if (item && item.category) {
-                    let navItem = this.categories[item.category];
+                    let navItem = this.state.categories[item.category];
 
                     if (navItem) {
                         navItem.count += 1;
@@ -99,7 +98,7 @@ export class Home {
                 }
             }
 
-            this.categories.all.count = this.projects.length;
+            this.state.categories.all.count = this.state.projects.length;
         }
     }
 
@@ -108,8 +107,8 @@ export class Home {
     }
 
     sortBy(type) {
-        this.currentSortMode = type;
-        
+        this.state.currentSortMode = type;
+
         if (type === 'popular') {
             this.sortByPopular();
         } else if (type === 'new') {
@@ -118,32 +117,32 @@ export class Home {
     }
 
     sortByPopular() {
-        this.projects.sort((a, b) => {
+        this.state.projects.sort((a, b) => {
             return parseInt(b.votes, 10) - parseInt(a.votes, 10) || a.added - b.added;
-        });   
+        });
     }
 
     sortByNewlyAdded() {
-        this.projects.sort((a, b) => {
+        this.state.projects.sort((a, b) => {
             return b.added - a.added;
-        });  
+        });
     }
 
     filterCategory(category) {
-        this.currentCategory = category;
+        this.state.currentCategory = category;
 
-        if (!this.backupProjects.length) {
+        if (!this.state.backupProjects.length) {
             // Backup existing projects
-            this.backupProjects = this.projects.slice(0);
+            this.state.backupProjects = this.state.projects.slice(0);
         }
 
         // If we are not wanting to show everything
         if (category.value !== '') {
-            this.projects = this.backupProjects.filter(project => {
+            this.state.projects = this.state.backupProjects.filter(project => {
                 return project.category === category.value;
             });
         } else {
-            this.projects = this.backupProjects;
+            this.state.projects = this.state.backupProjects;
         }
     }
 
@@ -151,7 +150,7 @@ export class Home {
         if (this.userService.isLoggedIn) {
             var voteAction: 'add' | 'remove' = 'add';
 
-            this.projects.map(project => {
+            this.state.projects.map(project => {
                 if (slugify(project.name) === slugify(name)) {
                     if (project.currentUserHasVotedFor) {
                         project.votes--;
