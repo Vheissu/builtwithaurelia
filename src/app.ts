@@ -10,27 +10,27 @@ import { Api } from './api';
 import { ApplicationService } from './services/application';
 import { UserService } from './services/user';
 
-import { 
-    categories, 
-    scrollTop, 
-    isEmpty, 
-    notEmpty, 
-    stringInObject, 
-    isUrl, 
-    requiredField, 
-    equals 
+import {
+    categories,
+    scrollTop,
+    isEmpty,
+    notEmpty,
+    stringInObject,
+    isUrl,
+    requiredField,
+    equals
 } from './common';
 
 import firebase from './firebase';
 
-import { 
-    loadProjects, 
-    getCategories, 
-    setCategory, 
-    backupProjects, 
-    resetProjects, 
-    sortCategories, 
-    setUser 
+import {
+    loadProjects,
+    getCategories,
+    setCategory,
+    backupProjects,
+    resetProjects,
+    sortCategories,
+    setUser
 } from './store/actions';
 
 export class App {

@@ -3,7 +3,7 @@ import { computedFrom } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
 import { loadProjects, getCategories, setCategory, backupProjects, resetProjects, sortCategories } from './store/actions';
-import initialState from './store/state';
+import State from './store/state';
 
 import { Api } from './api';
 import { ApplicationService } from './services/application';
