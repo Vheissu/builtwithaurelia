@@ -3,6 +3,7 @@
 @import "./partials/sidebars";
 @import "./partials/forms";
 @import "./partials/buttons";
+@import "./partials/loader";
 
 * {
     background-repeat: no-repeat;
@@ -110,7 +111,7 @@ nav li {
         margin-top: 15px;
         padding-top: 30px;
     }
-    
+
     @media all and (min-width: 768px) {
         width: 50%;
     }
@@ -232,7 +233,7 @@ pagination {
 }
 
 .pagination__link {
-    margin-right: 10px;   
+    margin-right: 10px;
 }
 
 #submission-iframe {
@@ -249,7 +250,7 @@ pagination {
     margin-top: 60px;
     padding-bottom: 20px;
     padding-top: 20px;
-    
+
 }
 
 .button {

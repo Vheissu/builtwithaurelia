@@ -128,6 +128,7 @@
     "jquery": "^3.2.1",
     "koa": "^2.4.1",
     "koa-static": "^4.0.1",
+    "node-fetch": "^2.0.0",
     "xmlhttprequest": "^1.8.0"
   }
 }
