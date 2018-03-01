@@ -2,6 +2,7 @@ import { Aurelia, autoinject, computedFrom, observable } from 'aurelia-framework
 import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PLATFORM } from 'aurelia-pal';
+import { Store } from 'aurelia-store';
 
 import { SubmissionInterface } from './interfaces';
 
@@ -15,11 +16,14 @@ import firebase from './firebase';
 
 @autoinject
 export class App {
+    static inject = [Api, ApplicationService, UserService, EventAggregator, Store];
+
     ea: EventAggregator;
     api: Api;
     appService: ApplicationService;
     userService: UserService;
     router: Router;
+    store;
 
     public categories;
 
@@ -45,11 +49,14 @@ export class App {
     private formMessage: string = '';
     private validationErrors: any = {};
 
-    constructor(api: Api, appService: ApplicationService, userService: UserService, ea: EventAggregator) {
+    public state = {};
+
+    constructor(api, appService, userService, ea, store) {
         this.api = api;
         this.appService = appService;
         this.userService = userService;
         this.ea = ea;
+        this.store = store;
 
         this.categories = categories;
     }
@@ -97,6 +104,10 @@ export class App {
     }
 
     attached() {
+        this.store.state.subscribe((state) => {
+            this.state = state;
+        });
+
         this.ea.subscribe('show.login-form', () => {
             this.login();
         });
@@ -112,23 +123,23 @@ export class App {
         config.options.root = '/';
 
         config.map([
-            { 
-                route: '', 
-                moduleId: PLATFORM.moduleName('./home'),
-                name: 'home',        
-                nav: false, 
+            {
+                route: '',
+                moduleId: PLATFORM.moduleName('./home', 'home'),
+                name: 'home',
+                nav: false,
                 title: 'Home'
             },
-            { 
+            {
                 route: 'about',
-                moduleId: PLATFORM.moduleName('./about'), 
-                name: 'about',    
-                nav: true, 
+                moduleId: PLATFORM.moduleName('./about', 'about'),
+                name: 'about',
+                nav: true,
                 title: 'About'
             },
             {
                 route: 'dashboard',
-                moduleId: PLATFORM.moduleName('./dashboard/dashboard'),
+                moduleId: PLATFORM.moduleName('./dashboard/dashboard', 'dashboard'),
                 name: 'dashboard',
                 nav: true,
                 auth: true,
@@ -136,14 +147,14 @@ export class App {
             },
             {
                 route: 'view/:slug',
-                moduleId: PLATFORM.moduleName('./view'),
+                moduleId: PLATFORM.moduleName('./view', 'view'),
                 name: 'view',
                 nav: false,
                 title: 'View'
             },
             {
                 route: 'admin',
-                moduleId: PLATFORM.moduleName('./admin/admin'),
+                moduleId: PLATFORM.moduleName('./admin/admin', 'admin'),
                 name: 'admin',
                 nav: true,
                 auth: true,
@@ -156,7 +167,7 @@ export class App {
 
         config.addPipelineStep('authorize', AuthorizeStep);
 
-        config.mapUnknownRoutes(PLATFORM.moduleName('not-found'));
+        config.mapUnknownRoutes(PLATFORM.moduleName('not-found', 'not-found'));
 
         this.router = router;
     }
@@ -216,7 +227,7 @@ export class App {
         if (this.loginFormIsValid) {
             this.formMessage = '';
             this.disableButtons = true;
-             
+
             this.userService.login(this.model.email, this.model.password)
                 .then(() => {
                     this.showHat = false;
@@ -276,7 +287,7 @@ export class App {
             if (notEmpty(this.model.twitterHandle)) {
                 submissionObject.twitterHandle = this.model.twitterHandle;
             }
-            
+
             // New submissions go into the moderation queue
             submissionObject.status = 'moderation-queue';
 
@@ -322,4 +333,3 @@ class AuthorizeStep {
         });
     }
 }
-

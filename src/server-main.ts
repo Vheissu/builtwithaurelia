@@ -9,6 +9,7 @@ async function configure(aurelia: Aurelia) {
         .standardConfiguration();
 
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-animator-css'));
+    aurelia.use.plugin(PLATFORM.moduleName('aurelia-store'));
 
     await aurelia.start();
     await aurelia.setRoot(PLATFORM.moduleName('app'));

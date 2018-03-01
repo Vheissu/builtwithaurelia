@@ -620,7 +620,7 @@ aurelia-bootstrapper@^2.1.1:
     aurelia-templating-resources "^1.0.0"
     aurelia-templating-router "^1.0.0"
 
-aurelia-dependency-injection@^1.0.0, aurelia-dependency-injection@^1.2.0:
+aurelia-dependency-injection@^1.0.0, aurelia-dependency-injection@^1.2.0, aurelia-dependency-injection@^1.3.1:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/aurelia-dependency-injection/-/aurelia-dependency-injection-1.3.2.tgz#5f9ca5dede6a1ccc72a0838c980df3dfe7918756"
   dependencies:
@@ -637,7 +637,7 @@ aurelia-fetch-client@^1.1.3:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/aurelia-fetch-client/-/aurelia-fetch-client-1.3.1.tgz#95af3c0ef0c434e92160d4882c088c7943bf2411"
 
-aurelia-framework@^1.0.0, aurelia-framework@^1.1.5:
+aurelia-framework@^1.0.0, aurelia-framework@^1.1.2, aurelia-framework@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/aurelia-framework/-/aurelia-framework-1.1.5.tgz#fd97d281c02d35bb98032830b0731ec3d2a6c1d7"
   dependencies:
@@ -713,7 +713,7 @@ aurelia-logging-console@1.0.0, aurelia-logging-console@^1.0.0:
   dependencies:
     aurelia-logging "^1.0.0"
 
-aurelia-logging@^1.0.0:
+aurelia-logging@^1.0.0, aurelia-logging@^1.3.1:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/aurelia-logging/-/aurelia-logging-1.4.0.tgz#04fb7aa74015593f7a15b225beeba07b7d14dcd5"
 
@@ -796,6 +796,16 @@ aurelia-ssr-engine@^0.1.0:
     aurelia-pal "^1.0.0"
     aurelia-pal-nodejs "^1.0.0-beta.1.0.0"
     preboot "^4.5.2"
+
+aurelia-store@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/aurelia-store/-/aurelia-store-0.18.0.tgz#75b2a7a0ef749f8b51db2ffab7d5deb96e00f625"
+  dependencies:
+    aurelia-dependency-injection "^1.3.1"
+    aurelia-framework "^1.1.2"
+    aurelia-logging "^1.3.1"
+    aurelia-pal "^1.3.0"
+    rxjs "^5.5.2"
 
 aurelia-task-queue@^1.0.0, aurelia-task-queue@^1.1.0:
   version "1.2.1"
@@ -7118,6 +7128,12 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
+rxjs@^5.5.2:
+  version "5.5.6"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.6.tgz#e31fb96d6fd2ff1fd84bcea8ae9c02d007179c02"
+  dependencies:
+    symbol-observable "1.0.1"
+
 safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
@@ -7817,6 +7833,10 @@ svgo@^0.7.0:
     mkdirp "~0.5.1"
     sax "~1.2.1"
     whet.extend "~0.9.9"
+
+symbol-observable@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.1.tgz#8340fc4702c3122df5d22288f88283f513d3fdd4"
 
 symbol-tree@^3.2.1, symbol-tree@^3.2.2:
   version "3.2.2"
