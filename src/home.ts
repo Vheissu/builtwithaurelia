@@ -2,7 +2,7 @@ import { Store } from 'aurelia-store';
 import { computedFrom } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
-import { loadProjects, getCategories } from './store/actions';
+import { loadProjects, getCategories, setCategory, backupProjects, resetProjects, sortCategories } from './store/actions';
 import initialState from './store/state';
 
 import { Api } from './api';
@@ -30,6 +30,7 @@ export class Home {
         this.userService = userService;
         this.ea = ea;
         this.router = router;
+        this.store = store;
 
         this.store.state.subscribe((state) => {
             this.state = state;
@@ -37,69 +38,16 @@ export class Home {
     }
 
     created() {
-        this.store.dispatch(loadProjects, this.api.getProjectsFromFirebase);
         this.store.dispatch(getCategories);
+        this.store.dispatch(loadProjects, this.api.getProjectsFromFirebase.bind(this));
     }
 
-    canActivate(params) {
-        let projectsPromise = new Promise((resolve, reject) => {
-            this.api.getProjectsFromFirebase().then(projects => {
-                for (let key in projects) {
-                    let project = projects[key];
-
-                    if (typeof project.votes !== 'undefined') {
-                        if (firebase.auth().currentUser) {
-                            if (firebase.auth().currentUser.uid in project.votes) {
-                                project.currentUserHasVotedFor = true;
-                            }
-                        }
-
-                        project.votes = Object.keys(project.votes).length;
-                    } else {
-                        project.votes = 0;
-                    }
-
-                    this.state.projects.push(project);
-                }
-
-                resolve(projects);
-            });
-        });
-
-        return Promise.all([projectsPromise]);
-    }
-
-    activate() {
-        // Sort the projects by their vote counts in descending order
-        this.state.projects.sort((a, b) => {
-            return parseInt(b.votes, 10) - parseInt(a.votes, 10) || a.added - b.added;
-        });
-
-        this.getProjectCounts();
-
-        this.state.currentCategory = this.state.categories.all;
+    canActivate() {
+        return this.state.projects;
     }
 
     submission($event: Event) {
         this.ea.publish('submission');
-    }
-
-    getProjectCounts() {
-        if (this.state.projects.length) {
-            for (let i = 0; i < this.state.projects.length; i++) {
-                let item = this.state.projects[i];
-
-                if (item && item.category) {
-                    let navItem = this.state.categories[item.category];
-
-                    if (navItem) {
-                        navItem.count += 1;
-                    }
-                }
-            }
-
-            this.state.categories.all.count = this.state.projects.length;
-        }
     }
 
     getRandomBackgroundColour(name): string {
@@ -129,21 +77,15 @@ export class Home {
     }
 
     filterCategory(category) {
-        this.state.currentCategory = category;
+        // Set currently active category
+        this.store.dispatch(setCategory, category);
 
         if (!this.state.backupProjects.length) {
-            // Backup existing projects
-            this.state.backupProjects = this.state.projects.slice(0);
+            // Backup the existing projects
+            this.store.dispatch(backupProjects);
         }
 
-        // If we are not wanting to show everything
-        if (category.value !== '') {
-            this.state.projects = this.state.backupProjects.filter(project => {
-                return project.category === category.value;
-            });
-        } else {
-            this.state.projects = this.state.backupProjects;
-        }
+        this.store.dispatch(sortCategories, category);
     }
 
     vote(evt, name) {

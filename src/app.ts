@@ -10,11 +10,28 @@ import { Api } from './api';
 import { ApplicationService } from './services/application';
 import { UserService } from './services/user';
 
-import { categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals } from './common';
+import { 
+    categories, 
+    scrollTop, 
+    isEmpty, 
+    notEmpty, 
+    stringInObject, 
+    isUrl, 
+    requiredField, 
+    equals 
+} from './common';
 
 import firebase from './firebase';
 
-import { loadProjects } from './store/actions';
+import { 
+    loadProjects, 
+    getCategories, 
+    setCategory, 
+    backupProjects, 
+    resetProjects, 
+    sortCategories, 
+    setUser 
+} from './store/actions';
 
 export class App {
     static inject = [Api, ApplicationService, UserService, EventAggregator, Store];
@@ -63,6 +80,10 @@ export class App {
             this.state = state;
         });
 
+        firebase.auth().onAuthStateChanged(user => {
+            this.store.dispatch(setUser, user);
+        });
+
         this.setupStore();
 
         this.categories = categories;
@@ -70,6 +91,12 @@ export class App {
 
     setupStore() {
         this.store.registerAction(loadProjects.name, loadProjects);
+        this.store.registerAction(getCategories.name, getCategories);
+        this.store.registerAction(setCategory.name, setCategory);
+        this.store.registerAction(backupProjects.name, backupProjects);
+        this.store.registerAction(resetProjects.name, resetProjects);
+        this.store.registerAction(sortCategories.name, sortCategories);
+        this.store.registerAction(setUser.name, setUser);
     }
 
     @computedFrom('model.email', 'model.password')
