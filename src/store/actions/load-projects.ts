@@ -1,4 +1,4 @@
-import firebase from '../../firebase';
+import firebase from '../../common/firebase';
 
 export async function loadProjects(state, getProjects) {
     let fetchedProjects = await getProjects();

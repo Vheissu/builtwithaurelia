@@ -1,4 +1,4 @@
-import { SubmissionInterface } from '../../interfaces';
+import { SubmissionInterface } from '../../common/interfaces';
 
 import {autoinject} from 'aurelia-framework';
 

@@ -19,7 +19,7 @@ import { ApplicationService } from '../services/application';
 import { UserService } from '../services/user';
 import { getColourFromHashedString, slugify } from '../common';
 
-import firebase from '../firebase';
+import firebase from '../common/firebase';
 
 @autoinject()
 export class Home {

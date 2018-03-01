@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import firebase from '../common/firebase';
 
 import {computedFrom, autoinject} from 'aurelia-framework';
 

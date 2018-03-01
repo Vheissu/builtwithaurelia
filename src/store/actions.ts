@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import firebase from '../common/firebase';
 
 export { loadProjects } from './actions/load-projects';
 export { getCategories } from './actions/get-categories';

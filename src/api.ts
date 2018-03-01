@@ -6,9 +6,9 @@ import { UserService } from './services/user';
 
 import {slugify} from './common';
 
-import {SubmissionInterface} from './interfaces';
+import {SubmissionInterface} from './common/interfaces';
 
-import firebase from './firebase';
+import firebase from './common/firebase';
 
 @autoinject
 export class Api {

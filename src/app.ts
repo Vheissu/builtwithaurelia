@@ -5,7 +5,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { PLATFORM } from 'aurelia-pal';
 import { Store } from 'aurelia-store';
 
-import { SubmissionInterface } from './interfaces';
+import { SubmissionInterface } from './common/interfaces';
 
 import { Api } from './api';
 import { ApplicationService } from './services/application';
@@ -23,7 +23,7 @@ import {
     equals
 } from './common';
 
-import firebase from './firebase';
+import firebase from './common/firebase';
 
 import {
     loadProjects,
@@ -35,7 +35,7 @@ import {
     setUser
 } from './store/actions';
 
-import { ProjectModel } from './models/project';
+import { ProjectModel } from './common/models/project';
 
 @autoinject()
 export class App {

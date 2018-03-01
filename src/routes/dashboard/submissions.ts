@@ -3,7 +3,7 @@ import { TaskQueue } from 'aurelia-task-queue';
 import { computedFrom } from 'aurelia-framework';
 import { Api } from '../../api';
 
-import {SubmissionInterface} from '../../interfaces';
+import {SubmissionInterface} from '../../common/interfaces';
 import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from '../../common';
 
 declare var firebase;
