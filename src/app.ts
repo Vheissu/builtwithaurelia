@@ -268,10 +268,6 @@ export class App {
                 submissionObject.repoUrl = this.model.repoUrl;
             }
 
-            if (notEmpty(this.model.twitterHandle)) {
-                submissionObject.twitterHandle = this.model.twitterHandle;
-            }
-
             // New submissions go into the moderation queue
             submissionObject.status = 'moderation-queue';
 

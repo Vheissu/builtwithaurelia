@@ -11,6 +11,11 @@
     position: relative;
 }
 
+body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
 img {
     height: auto;
     max-width: 100%;
@@ -91,6 +96,7 @@ nav li {
 .hat {
     background-color: #333;
     color: #FFF;
+    display: block;
     height: 0;
     overflow: hidden;
     transition: all 0.2s ease;

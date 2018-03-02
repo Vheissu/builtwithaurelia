@@ -45,41 +45,44 @@
             <p>Make a new submission to the site. Just make sure you meet the criteria of it either being built using Aurelia or for Aurelia.</p>
             <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
             <form submit.delegate="handleSubmission($event)">
-                <div class="form__row">
-                    <p>
-                        <label>Project name <em>*</em></label>
-                        The name of this project.
-                    </p>
-                    <input type="text" name="name" placeholder="Project name" value.bind="model.name">
+                <div class="row">
+                    <div class="form__row col-xs-12 col-sm-6">
+                            <p>
+                                <label>Project name <em>*</em></label>
+                                The name of this project.
+                            </p>
+                            <input type="text" name="name" placeholder="Project name" value.bind="model.name">
+                    </div>
+
+                    <div class="form__row col-xs-12 col-sm-6">
+                        <p>
+                            <label>Project category <em>*</em></label>
+                            What kind of project are you submitting?
+                        </p>
+                        <select name="category" value.bind="model.category">
+                            <option repeat.for="category of categories" value.bind="category.value" selected.bind="category.selected">${category.name}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form__row col-xs-12 col-sm-6">
+                        <p>
+                            <label>Where can this submission be seen?</label>
+                            If you are not providing a repository link, this field is required.
+                        </p>
+                        <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="model.url">
+                    </div>
+                    <div class="form__row col-xs-12 col-sm-6">
+                        <p>
+                            <label>Source code URL</label>
+                            If there is source code available, provide the link here to the Github/Bitbucket repository. Required if above URL field is empty.
+                        </p>
+                        <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="model.repoUrl">
+                    </div>
                 </div>
                 <div class="form__row">
-                    <p>
-                        <label>Project category <em>*</em></label>
-                        What kind of project are you submitting?
-                    </p>
-                    <select name="category" value.bind="model.category">
-                        <option repeat.for="category of categories" value.bind="category.value" selected.bind="category.selected">${category.name}</option>
-                    </select>
-                </div>
-                <div class="form__row">
-                    <p>
-                        <label>Where can this submission be seen?</label>
-                        If you are not providing a repository link, this field is required.
-                    </p>
-                    <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="model.url">
-                </div>
-                <div class="form__row">
-                    <p>
-                        <label>Source code URL</label>
-                        If there is source code available, provide the link here to the Github/Bitbucket repository. Required if above URL field is empty.
-                    </p>
-                    <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="model.repoUrl">
-                </div>
-                <div class="form__row">
+                    <p><label>Describe what you are submiting</label></p>
                     <textarea name="description" value.bind="model.description"></textarea>
-                </div>
-                <div class="form__row">
-                    <input type="text" name="twitterHandle" placeholder="@MyTwitterHandle" value.bind="model.twitterHandle">
                 </div>
 
                 <button type="submit" class="button" disabled.bind="!submissionFormIsValid || disableButtons">Submit</button>

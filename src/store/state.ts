@@ -7,6 +7,7 @@ export interface State {
     currentPage: number;
     totalNumberOfPages: number;
     currentSortMode: string;
+    currentProject: {};
 }
 
 export const initialState: State = {
@@ -17,5 +18,6 @@ export const initialState: State = {
     user: {},
     currentPage: 1,
     totalNumberOfPages: -1,
-    currentSortMode: 'popular'
+    currentSortMode: 'popular',
+    currentProject: {}
 };

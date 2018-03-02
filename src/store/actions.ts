@@ -14,8 +14,7 @@ export async function saveProject(state, project) {
         category: 'website',
         url: '',
         repoUrl: '',
-        description: '',
-        twitterHandle: ''
+        description: ''
     };
 
     const newState = {
