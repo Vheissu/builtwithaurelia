@@ -1,13 +1,18 @@
+import { categories } from './../../common';
+import { Api } from './../../services/api';
 import firebase from '../../common/firebase';
+import { Container } from 'aurelia-dependency-injection';
+import { Store } from 'aurelia-store';
 
-export async function loadProjects(state, getProjects) {
-    let fetchedProjects = await getProjects();
-    let projects = [];
+const API: Api = Container.instance.get(Api);
 
-    const categories = Object.assign({}, state.categories);
+export async function loadProjects(state) {
+    const fetchedProjects = await API.getProjectsFromFirebase();
+    const projects = [];
+    const categories = {...state.categories};
 
     for (let k in fetchedProjects) {
-        let project = fetchedProjects[ k ];
+        const project = fetchedProjects[ k ];
 
         if (typeof project.votes !== 'undefined') {
             if (firebase.auth().currentUser) {
@@ -20,6 +25,8 @@ export async function loadProjects(state, getProjects) {
         } else {
             project.votes = 0;
         }
+
+        project.slug = k;
 
         projects.push(project);
     }

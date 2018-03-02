@@ -32,7 +32,9 @@ import {
     backupProjects,
     resetProjects,
     sortCategories,
-    setUser
+    setUser,
+    loadProject,
+    saveProject
 } from './store/actions';
 
 import { ProjectModel } from './common/models/project';
@@ -85,6 +87,8 @@ export class App {
         this.store.registerAction(resetProjects.name, resetProjects);
         this.store.registerAction(sortCategories.name, sortCategories);
         this.store.registerAction(setUser.name, setUser);
+        this.store.registerAction(saveProject.name, saveProject);
+        this.store.registerAction(loadProject.name, loadProject);
     }
 
     @computedFrom('model.email', 'model.password')

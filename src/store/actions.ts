@@ -3,6 +3,7 @@ import firebase from '../common/firebase';
 export { loadProjects } from './actions/load-projects';
 export { getCategories } from './actions/get-categories';
 export { sortCategories } from './actions/sort-categories';
+export { loadProject } from './actions/load-project';
 
 export async function saveProject(state, project) {
     const newProject = {
