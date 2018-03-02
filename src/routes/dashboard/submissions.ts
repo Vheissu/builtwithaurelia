@@ -3,10 +3,9 @@ import { TaskQueue } from 'aurelia-task-queue';
 import { computedFrom } from 'aurelia-framework';
 import { Api } from '../../services/api';
 
-import {SubmissionInterface} from '../../common/interfaces';
+import { SubmissionInterface } from '../../common/interfaces';
+import firebase from '../../common/firebase';
 import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from '../../common';
-
-declare var firebase;
 
 @autoinject
 export class Submissions {
