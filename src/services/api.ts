@@ -1,14 +1,14 @@
 import {autoinject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 
-import { ApplicationService } from './services/application';
-import { UserService } from './services/user';
+import { ApplicationService } from './application';
+import { UserService } from './user';
 
-import {slugify} from './common';
+import {slugify} from '../common';
 
-import {SubmissionInterface} from './common/interfaces';
+import {SubmissionInterface} from '../common/interfaces';
 
-import firebase from './common/firebase';
+import firebase from '../common/firebase';
 
 @autoinject
 export class Api {

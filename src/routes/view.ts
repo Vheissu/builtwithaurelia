@@ -1,7 +1,7 @@
 import { autoinject } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
 
-import { Api } from '../api';
+import { Api } from '../services/api';
 
 @autoinject
 export class View {

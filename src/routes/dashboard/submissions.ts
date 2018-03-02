@@ -1,7 +1,7 @@
 import { autoinject } from 'aurelia-dependency-injection';
 import { TaskQueue } from 'aurelia-task-queue';
 import { computedFrom } from 'aurelia-framework';
-import { Api } from '../../api';
+import { Api } from '../../services/api';
 
 import {SubmissionInterface} from '../../common/interfaces';
 import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from '../../common';

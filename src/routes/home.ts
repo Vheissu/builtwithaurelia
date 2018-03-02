@@ -14,7 +14,7 @@ import {
 
 import { initialState, State } from '../store/state';
 
-import { Api } from '../api';
+import { Api } from '../services/api';
 import { ApplicationService } from '../services/application';
 import { UserService } from '../services/user';
 import { getColourFromHashedString, slugify } from '../common';

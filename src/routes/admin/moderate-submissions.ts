@@ -1,7 +1,7 @@
 import {SubmissionInterface} from '../../common/interfaces';
 
 import {autoinject} from 'aurelia-framework';
-import {Api} from '../../api';
+import {Api} from '../../services/api';
 import {ApplicationService} from '../../services/application';
 import {UserService} from '../../services/user';
 
