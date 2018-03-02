@@ -90,11 +90,10 @@ nav li {
 
 .hat {
     background-color: #333;
-    border-bottom: 2px solid #FFF;
     color: #FFF;
     height: 0;
     overflow: hidden;
-    transition: all 0.5s ease;
+    transition: all 0.2s ease;
 }
 
 .hat__title {
@@ -118,6 +117,7 @@ nav li {
 }
 
 .hat--active {
+    border-bottom: 2px solid #FFF;
     height: auto;
     overflow-y: auto;
     padding-bottom: 20px;
