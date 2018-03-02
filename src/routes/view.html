@@ -1,23 +1,13 @@
 <template>
-    <div class="row">
+    <div class="row singular-project">
         <div class="col-xs-12 col-sm-8">
-            <h1>${project.name}</h1>
-            <h2>${project.category} - ${project.votes} votes</h2>
-            <h3>Submitted: ${projectAdded}</h3>
+            <h1 class="singular-project__title">${project.name}</h1>
+            <h2 class="singular-project__meta">${project.category} - ${project.votes} votes</h2>
         </div>
-
-        <aside class="col-xs-12 col-sm-4">
-            <h2>Links</h2>
-
-            <ul>
-                <li if.bind="project.url"><a href="${project.url}" target="_blank" rel="nofollow">View Site</a></li>
-                <li if.bind="project.repoUrl"><a href="${project.repoUrl}" target="_blank" rel="nofollow">View Source</a></li>
-                <li if.bind="project.twitterHandle"><a href="${project.twitterHandle}" target="_blank" rel="nofollow">Twitter</a></li>
-            </ul>
-        </aside>
 
         <div class="col-xs-12 col-sm-8">
             <p innerhtml.bind="project.description"></p>
+            <p><a if.bind="project.url" href="${project.url}" target="_blank" rel="nofollow" class="btn btn-primary">View Site</a> <a if.bind="project.repoUrl" href="${project.repoUrl}" target="_blank" rel="nofollow" class="btn btn-danger">View Source</a></p>
         </div>
     </div>
 </template>

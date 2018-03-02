@@ -42,3 +42,12 @@ export class View {
         this.projectAdded = new Date(project.added).toDateString();
     }
 }
+
+export class ProcessTwitterHandleValueConverter {
+    toView(value) {
+        const handle = value.replace('@', '').toLowerCase();
+        const twitterUrl = `https://twitter.com/${handle}`;
+
+        return value ? twitterUrl : value;
+    }
+}
