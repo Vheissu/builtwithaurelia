@@ -1,9 +1,23 @@
 <template>
     <div class="row">
         <div class="col-xs-12 col-sm-8">
-          <h1>${project.name}</h1>
-          <h4>Submitted: ${projectAdded}</h4>
-          <p innerhtml.bind="project.description"></p>
+            <h1>${project.name}</h1>
+            <h2>${project.category} - ${project.votes} votes</h2>
+            <h3>Submitted: ${projectAdded}</h3>
+        </div>
+
+        <aside class="col-xs-12 col-sm-4">
+            <h2>Links</h2>
+
+            <ul>
+                <li if.bind="project.url"><a href="${project.url}" target="_blank" rel="nofollow">View Site</a></li>
+                <li if.bind="project.repoUrl"><a href="${project.repoUrl}" target="_blank" rel="nofollow">View Source</a></li>
+                <li if.bind="project.twitterHandle"><a href="${project.twitterHandle}" target="_blank" rel="nofollow">Twitter</a></li>
+            </ul>
+        </aside>
+
+        <div class="col-xs-12 col-sm-8">
+            <p innerhtml.bind="project.description"></p>
         </div>
     </div>
 </template>

@@ -17,9 +17,9 @@
                 top: 0;
                 width : 100%;
                 position: fixed;
-                z-index: 999;
+                z-index: 9999;
             }
-    
+
             .loader__inner {
                 height: 250px;
                 left: 50%;
@@ -31,7 +31,7 @@
                 width: 250px;
                 z-index: 1000;
             }
-    
+
                 .loader__inner h2 {
                     color: #000;
                     font-size: 16px;
@@ -39,7 +39,7 @@
                     padding: 0;
                     width: 100%;
                 }
-    
+
             .loader__indicator {
                 -webkit-animation: animate 1.5s linear infinite;
                         animation: animate 1.5s linear infinite;
@@ -49,11 +49,11 @@
                 margin: 0 auto;
                 width: 80px;
             }
-    
+
             .ellipsis {
                 font-size: 16px;
             }
-    
+
             .ellipsis:after {
                 -webkit-animation: ellipsis steps(4, end) 900ms infinite;
                         animation: ellipsis steps(4, end) 900ms infinite;
@@ -63,40 +63,40 @@
                 vertical-align: bottom;
                 width: 0;
             }
-    
+
             @-webkit-keyframes animate {
-                0% { 
-                    -webkit-transform: rotate(0deg); 
+                0% {
+                    -webkit-transform: rotate(0deg);
                             transform: rotate(0deg)
                 }
-    
-                100% { 
-                    -webkit-transform: rotate(220deg); 
+
+                100% {
+                    -webkit-transform: rotate(220deg);
                             transform: rotate(220deg)
                 }
             }
-    
+
             @keyframes animate {
-                0% { 
-                    -webkit-transform: rotate(0deg); 
+                0% {
+                    -webkit-transform: rotate(0deg);
                             transform: rotate(0deg)
                 }
-    
-                100% { 
-                    -webkit-transform: rotate(220deg); 
+
+                100% {
+                    -webkit-transform: rotate(220deg);
                             transform: rotate(220deg)
                 }
             }
-    
+
             @-webkit-keyframes ellipsis {
                 to {
-                    width: 1.25em;    
+                    width: 1.25em;
                 }
             }
-    
+
             @keyframes ellipsis {
                 to {
-                    width: 1.25em;    
+                    width: 1.25em;
                 }
             }
         </style>
@@ -107,7 +107,7 @@
                 <h2 class="ellipsis">Loading</h2>
             </div>
         </div>
-    
+
         <script type="text/javascript">
         var clicky_site_ids = clicky_site_ids || [];
         clicky_site_ids.push(100978527);

@@ -1,3 +1,5 @@
+import '../styles/view.scss';
+
 import { autoinject } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
 import { Store } from 'aurelia-store';
@@ -22,23 +24,21 @@ export class View {
         await this.store.dispatch(getCategories);
         await this.store.dispatch(loadProjects);
 
-        return new Promise((resolve, reject) => {
-            const project: any = this.state.projects.reduce((project, currentItem) => {
-                if (currentItem.slug === params.slug) {
-                    project = currentItem;
-                }
-
-                return project;
-            }, {});
-
-            if (!project) {
-                reject(false);
+        const project: any = this.state.projects.reduce((project, currentItem) => {
+            if (currentItem.slug === params.slug) {
+                project = currentItem;
             }
 
-            this.project = project;
-            this.projectAdded = new Date(project.added).toDateString();
+            return project;
+        }, {});
 
-            resolve(true);
-        });
+        console.log(project);
+
+        if (!project.slug) {
+            return new Redirect('');
+        }
+
+        this.project = project;
+        this.projectAdded = new Date(project.added).toDateString();
     }
 }
