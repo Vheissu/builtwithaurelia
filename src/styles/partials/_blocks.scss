@@ -5,15 +5,15 @@
 .blocks__block {
 
     @media all and (min-width: 768px) {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 }
 
 .thumbnail {
     height: 320px;
-    
+
     @media all and (min-width: 768px) {
-        border-left: 12px solid #FFF;
+        border-left: 10px solid #FFF;
     }
 
     &:hover > .thumbnail__pullover {
@@ -46,7 +46,7 @@
 
     .thumbnail__inner {
         max-width: 80%;
-        text-align: left;
+        text-align: center;
 
         a:not(.button) {
             text-decoration: underline;
