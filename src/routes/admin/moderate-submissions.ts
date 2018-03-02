@@ -1,11 +1,10 @@
 import {SubmissionInterface} from '../../common/interfaces';
 
 import {autoinject} from 'aurelia-framework';
+import firebase from '../../common/firebase';
 import {Api} from '../../services/api';
 import {ApplicationService} from '../../services/application';
 import {UserService} from '../../services/user';
-
-declare let firebase: any;
 
 @autoinject
 export class ModerateSubmissions {

@@ -39,7 +39,7 @@ export class Home {
 
     created() {
         this.store.dispatch(getCategories);
-        this.store.dispatch(loadProjects, this.api.getProjectsFromFirebase.bind(this));
+        this.store.dispatch(loadProjects);
     }
 
     submission($event: Event) {
