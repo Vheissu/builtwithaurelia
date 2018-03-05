@@ -32,8 +32,6 @@ export class View {
             return project;
         }, {});
 
-        console.log(project);
-
         if (!project.slug) {
             return new Redirect('');
         }
