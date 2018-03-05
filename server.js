@@ -1,16 +1,19 @@
 const Koa = require('koa');
 const path = require('path');
 const {aureliaKoaMiddleware} = require('aurelia-middleware-koa');
+const initialState = require('./src/store/prepopulated-state');
 
 var port = process.env.PORT || 8080;
 
 const app = new Koa();
 const bundle = './dist/server.bundle';
+const template = require('fs').readFileSync(path.resolve('./dist/index.ssr.html'), 'utf-8')
+    .replace("// [prerendered model]", `window.__PRELOADED_STATE__ = ${JSON.stringify(initialState)};`);
 
 app.use(aureliaKoaMiddleware({
   preboot: true,
   bundlePath: require.resolve(bundle),
-  template: require('fs').readFileSync(path.resolve('./dist/index.ssr.html'), 'utf-8')
+  template
 }, {
   main: () => {
     delete require.cache[require.resolve(bundle)];

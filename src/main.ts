@@ -3,7 +3,13 @@ import '../font-awesome.min.css';
 import './styles/app.scss';
 import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
-import { initialState } from './store/state';
+import { initialState as clientInitialState } from './store/state';
+
+let initialState = clientInitialState;
+
+if ((window as any).__PRELOADED_STATE__) {
+    initialState = { ...(window as any).__PRELOADED_STATE__, clientInitialState};
+}
 
 export async function configure(aurelia: Aurelia) {
     aurelia.use
