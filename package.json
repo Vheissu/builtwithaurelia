@@ -53,7 +53,6 @@
     "mapCoverage": true
   },
   "devDependencies": {
-    "@types/firebase": "^3.2.1",
     "@types/jest": "21.1.6",
     "@types/jsdom": "^11.0.4",
     "@types/lodash": "4.14.85",
@@ -116,7 +115,7 @@
     "aurelia-polyfills": "^1.2.2",
     "aurelia-router": "^1.4.0",
     "aurelia-ssr-bootstrapper-webpack": "^0.1.0",
-    "aurelia-store": "^0.18.0",
+    "aurelia-store": "^0.19.1",
     "aurelia-templating": "^1.6.0",
     "aurelia-templating-resources": "^1.5.4",
     "aurelia-templating-router": "^1.2.0",

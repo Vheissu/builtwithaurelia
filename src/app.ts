@@ -171,7 +171,7 @@ export class App {
     logout($event?: Event) {
         this.formMessage = '';
         this.userService.logout();
-        window.location.reload();
+        PLATFORM.global.location.reload();
     }
 
     register($event?: Event) {
@@ -212,7 +212,7 @@ export class App {
                     this.showHatRegister = false;
                     this.showHatLogin = false;
 
-                    window.location.reload();
+                    PLATFORM.global.location.reload();
                 })
                 .catch(e => {
                     if (e.code === 'auth/user-not-found') {
@@ -234,7 +234,7 @@ export class App {
                     this.showHatRegister = false;
                     this.showHatLogin = true;
 
-                    window.location.reload();
+                    PLATFORM.global.location.reload();
                 })
                 .catch(e => {
                     this.formMessage = 'Sorry :(<br>there was a problem registering. Please make sure you entered in all fields correctly or refreshing the page.';
@@ -271,7 +271,7 @@ export class App {
 
             this.api.postSubmission(submissionObject)
                 .then(() => {
-                    window.alert('Your submission has been received, thank you');
+                    PLATFORM.global.alert('Your submission has been received, thank you');
                     this.disableButtons = false;
                     this.showHat = false;
                     this.showHatSubmission = false;
@@ -282,9 +282,14 @@ export class App {
     showHatChanged(bool: boolean) {
         if (bool) {
             scrollTop();
-            document.body.style.overflow = 'hidden';
+
+            if (PLATFORM.global.body) {
+                PLATFORM.global.body.style.overflow = 'hidden';
+            }
         } else {
-            document.body.style.overflow = '';
+            if (PLATFORM.global.body) {
+                PLATFORM.global.body.style.overflow = '';
+            }
         }
     }
 }
