@@ -7,7 +7,6 @@ export interface ProjectModelInterface {
     url: string;
     repoUrl?: string;
     description: string;
-    twitterHandle?: string;
 }
 
 export const ProjectModel: ProjectModelInterface = {
@@ -18,6 +17,5 @@ export const ProjectModel: ProjectModelInterface = {
     category: 'website',
     url: '',
     repoUrl: '',
-    description: '',
-    twitterHandle: ''
+    description: ''
 };

@@ -123,14 +123,8 @@ nav li {
 }
 
 .hat--active {
-    border-bottom: 2px solid #FFF;
-    height: auto;
+    height: 100vh;
     overflow-y: auto;
-    padding-bottom: 20px;
-
-    @media all and (min-width: 768px) {
-        height: calc(100vh - 2px);
-    }
 }
 
 .close {

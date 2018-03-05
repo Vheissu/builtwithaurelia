@@ -10,7 +10,6 @@
 
                     <h4>${submission.name} // category: ${submission.category}</h4>
                     <p><small>Submitted by: ${submission._uid}</small></p>
-                    <p if.bind="submission.twitterHandle"><small>Twitter handle: ${submission.twitterHandle}</small></p>
                     <p innerhtml.bind="submission.description"></p>
 
                     <div if.bind="submission.url || submission.repoUrl">

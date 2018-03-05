@@ -75,14 +75,14 @@
                     <div class="form__row col-xs-12 col-sm-6">
                         <p>
                             <label>Source code URL</label>
-                            If there is source code available, provide the link here to the Github/Bitbucket repository. Required if above URL field is empty.
+                            A link to a repository or visible code URL.
                         </p>
                         <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="model.repoUrl">
                     </div>
                 </div>
                 <div class="form__row">
                     <p><label>Describe what you are submiting</label></p>
-                    <textarea name="description" value.bind="model.description"></textarea>
+                    <textarea name="description" value.bind="model.description" style="width: 550px;"></textarea>
                 </div>
 
                 <button type="submit" class="button" disabled.bind="!submissionFormIsValid || disableButtons">Submit</button>

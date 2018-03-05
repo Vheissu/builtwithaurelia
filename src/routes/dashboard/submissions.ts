@@ -44,11 +44,7 @@ export class Submissions {
         this.editMode = false;
     }
 
-    saveSubmission() {
-
-    }
-
-    @computedFrom('submission.name', 'submission.category', 'submission.url', 'submission.repoUrl', 'submission.description', 'submission.twitterHandle')
+    @computedFrom('submission.name', 'submission.category', 'submission.url', 'submission.repoUrl', 'submission.description')
     get submissionFormIsValid() {
         var isValid = true;
 
@@ -62,10 +58,6 @@ export class Submissions {
 
         if (notEmpty(this.submission.repoUrl) && !isUrl(this.submission.repoUrl)) {
             isValid = false;
-        }
-
-        if (notEmpty(this.submission.twitterHandle) && this.submission.twitterHandle.charAt(0) === '@') {
-            this.submission.twitterHandle.substring(1);
         }
 
         if (isEmpty(this.submission.url) && isEmpty(this.submission.repoUrl)) {

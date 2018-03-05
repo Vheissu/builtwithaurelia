@@ -7,9 +7,9 @@ export class Dashboard {
     configureRouter(config: RouterConfiguration, router: Router) {
         config.map([
             { route: '', name: 'dashboard', moduleId: PLATFORM.moduleName('./home'), title: 'Dashboard', nav: true },
-            { route: 'submissions', name: 'submissions', moduleId: PLATFORM.moduleName('./submissions'), title: 'Your Submissions', nav: true }
+            // { route: 'submissions', name: 'submissions', moduleId: PLATFORM.moduleName('./submissions'), title: 'Your Submissions', nav: true }
         ]);
-        
+
         this.router = router;
     }
 }

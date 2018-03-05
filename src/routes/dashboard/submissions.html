@@ -13,7 +13,7 @@
 
             <template if.bind="editMode">
               <h1>Edit ${name} <a href="#" click.delegate="cancelEdit()" class="text--cancel">cancel</a></h1>
-              
+
               <div class="form-row">
                 <label class="form-row__label">Description</label>
                 <textarea textcontent.bind="description"></textarea>
@@ -27,11 +27,6 @@
               <div class="form-row">
                 <label class="form-row__label">Repo URL</label>
                 <input type="text" value.bind="repoUrl">
-              </div>
-
-              <div class="form-row">
-                <label class="form-row__label">Twitter handle</label>
-                <input type="text" value.bind="twitterHandle">
               </div>
 
               <div class="form-row">

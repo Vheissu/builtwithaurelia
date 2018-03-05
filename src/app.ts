@@ -2,7 +2,7 @@ import { ApplicationRoutes } from './routes.config';
 import { Aurelia, computedFrom, observable, autoinject } from 'aurelia-framework';
 import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PLATFORM } from 'aurelia-pal';
+import { PLATFORM, DOM } from 'aurelia-pal';
 import { Store } from 'aurelia-store';
 
 import { SubmissionInterface } from './common/interfaces';
@@ -33,8 +33,7 @@ import {
     resetProjects,
     sortCategories,
     setUser,
-    loadProject,
-    saveProject
+    loadProject
 } from './store/actions';
 
 import { ProjectModel } from './common/models/project';
@@ -56,7 +55,7 @@ export class App {
     private formMessage: string = '';
     private validationErrors: any = {};
 
-    public state = {};
+    public state: State;
 
     constructor(
         private api: Api,
@@ -64,7 +63,7 @@ export class App {
         private userService: UserService,
         private ea: EventAggregator,
         private store: Store<State>) {
-        this.store.state.subscribe((state) => {
+        this.store.state.subscribe((state: State) => {
             this.state = state;
         });
 
@@ -87,7 +86,6 @@ export class App {
         this.store.registerAction(resetProjects.name, resetProjects);
         this.store.registerAction(sortCategories.name, sortCategories);
         this.store.registerAction(setUser.name, setUser);
-        this.store.registerAction(saveProject.name, saveProject);
         this.store.registerAction(loadProject.name, loadProject);
     }
 
@@ -101,7 +99,7 @@ export class App {
         return (notEmpty(this.model.email) && notEmpty(this.model.password) && notEmpty(this.model.password2) && this.passwordsMatch);
     }
 
-    @computedFrom('model.name', 'model.category', 'model.url', 'model.repoUrl', 'model.description', 'model.twitterHandle')
+    @computedFrom('model.name', 'model.category', 'model.url', 'model.repoUrl', 'model.description')
     get submissionFormIsValid() {
         var isValid = true;
 
@@ -115,10 +113,6 @@ export class App {
 
         if (notEmpty(this.model.repoUrl) && !isUrl(this.model.repoUrl)) {
             isValid = false;
-        }
-
-        if (notEmpty(this.model.twitterHandle) && this.model.twitterHandle.charAt(0) === '@') {
-            this.model.twitterHandle.substring(1);
         }
 
         if (isEmpty(this.model.url) && isEmpty(this.model.repoUrl)) {
@@ -254,7 +248,14 @@ export class App {
             this.formMessage = '';
             this.disableButtons = true;
 
-            let submissionObject: SubmissionInterface;
+            let submissionObject: SubmissionInterface = {
+                name: '',
+                category: '',
+                description: '',
+                url: '',
+                repoUrl: '',
+                status: 'published'
+            };
 
             submissionObject.name = this.model.name;
             submissionObject.category = this.model.category;
@@ -268,18 +269,12 @@ export class App {
                 submissionObject.repoUrl = this.model.repoUrl;
             }
 
-            // New submissions go into the moderation queue
-            submissionObject.status = 'moderation-queue';
-
             this.api.postSubmission(submissionObject)
                 .then(() => {
                     window.alert('Your submission has been received, thank you');
                     this.disableButtons = false;
                     this.showHat = false;
                     this.showHatSubmission = false;
-                })
-                .catch(() => {
-                    this.disableButtons = false;
                 });
         }
     }
@@ -287,6 +282,9 @@ export class App {
     showHatChanged(bool: boolean) {
         if (bool) {
             scrollTop();
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 import bootstrapper from 'aurelia-ssr-bootstrapper-webpack';
+import { initialState } from './store/state';
 
 (global as any).XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
@@ -9,7 +10,7 @@ async function configure(aurelia: Aurelia) {
         .standardConfiguration();
 
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-animator-css'));
-    aurelia.use.plugin(PLATFORM.moduleName('aurelia-store'));
+    aurelia.use.plugin(PLATFORM.moduleName('aurelia-store'), { initialState });
 
     await aurelia.start();
     await aurelia.setRoot(PLATFORM.moduleName('app'));

@@ -5,7 +5,7 @@ import { Redirect } from 'aurelia-router';
 import { Store } from 'aurelia-store';
 
 import { State } from '../store/state';
-import { loadProject, saveProject, loadProjects, getCategories } from '../store/actions';
+import { loadProject, loadProjects, getCategories } from '../store/actions';
 import { Api } from '../services/api';
 
 @autoinject

@@ -138,7 +138,7 @@ export class Api {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     submission._uid = user.uid;
-                    submission.added = (firebase.database as any).ServerValue.TIMESTAMP;
+                    submission.added = new Date().getTime();
 
                     firebase.database().ref(`submissions/${slugify(submission.name)}`).set(submission).then(() => {
                         resolve(true);
