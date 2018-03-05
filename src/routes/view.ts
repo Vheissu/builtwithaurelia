@@ -2,12 +2,13 @@ import '../styles/view.scss';
 
 import { autoinject } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
-import { Store } from 'aurelia-store';
+import { Store, connectTo } from 'aurelia-store';
 
 import { State } from '../store/state';
 import { loadProject, loadProjects, getCategories } from '../store/actions';
 import { Api } from '../services/api';
 
+@connectTo()
 @autoinject
 export class View {
     private state: State;
@@ -17,7 +18,7 @@ export class View {
     private projectAdded;
 
     constructor(private api: Api, private store: Store<State>) {
-        this.store.state.subscribe((state: State) => this.state = state);
+
     }
 
     async canActivate(params) {

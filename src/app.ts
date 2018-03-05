@@ -3,7 +3,7 @@ import { Aurelia, computedFrom, observable, autoinject } from 'aurelia-framework
 import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PLATFORM, DOM } from 'aurelia-pal';
-import { Store } from 'aurelia-store';
+import { Store, connectTo } from 'aurelia-store';
 
 import { SubmissionInterface } from './common/interfaces';
 
@@ -38,6 +38,7 @@ import {
 
 import { ProjectModel } from './common/models/project';
 
+@connectTo()
 @autoinject()
 export class App {
     private router: Router;
@@ -63,10 +64,6 @@ export class App {
         private userService: UserService,
         private ea: EventAggregator,
         private store: Store<State>) {
-        this.store.state.subscribe((state: State) => {
-            this.state = state;
-        });
-
         // When the Firebase auth state changes, tell the store
         firebase.auth().onAuthStateChanged(user => {
             this.store.dispatch(setUser, user);

@@ -1,7 +1,7 @@
-import { Store } from 'aurelia-store';
 import { autoinject, computedFrom } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
+import { Store, connectTo } from 'aurelia-store';
 
 import {
     loadProjects,
@@ -21,6 +21,7 @@ import { getColourFromHashedString, slugify } from '../common';
 
 import firebase from '../common/firebase';
 
+@connectTo()
 @autoinject()
 export class Home {
     private state: any;
@@ -32,9 +33,6 @@ export class Home {
         private ea: EventAggregator,
         private router: Router,
         private store: Store<State>) {
-        this.store.state.subscribe((state) => {
-            this.state = state;
-        });
     }
 
     created() {
