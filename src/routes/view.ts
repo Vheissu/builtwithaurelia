@@ -29,7 +29,7 @@ export class View {
         );
     }
 
-    async canActivate(params) {
+    async canActivate(params, routeConfig) {
         await this.store.dispatch(getCategories);
         await this.store.dispatch(loadProjects);
 
@@ -44,6 +44,8 @@ export class View {
         if (!project.slug) {
             return new Redirect('');
         }
+
+        routeConfig.navModel.setTitle(project.name);
 
         this.project = project;
         this.projectAdded = new Date(project.added).toDateString();
