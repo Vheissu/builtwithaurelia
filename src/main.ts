@@ -7,8 +7,8 @@ import { initialState as clientInitialState } from './store/state';
 
 let initialState = clientInitialState;
 
-if ((window as any).__PRELOADED_STATE__) {
-    initialState = { ...(window as any).__PRELOADED_STATE__, clientInitialState};
+if (PLATFORM.global.__PRELOADED_STATE__) {
+    initialState = Object.assign({}, PLATFORM.global.__PRELOADED_STATE__, clientInitialState);
 }
 
 export async function configure(aurelia: Aurelia) {

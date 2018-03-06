@@ -1,24 +1,32 @@
 import '../styles/view.scss';
 
+import { PLATFORM } from 'aurelia-pal';
 import { autoinject } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
-import { Store, connectTo } from 'aurelia-store';
+import { Store } from 'aurelia-store';
 
-import { State } from '../store/state';
+import { State, initialState as clientInitialState } from '../store/state';
 import { loadProject, loadProjects, getCategories } from '../store/actions';
 import { Api } from '../services/api';
 
-@connectTo()
-@autoinject
+let initialState: State;
+
+if (PLATFORM.global.__PRELOADED_STATE__) {
+    initialState = Object.assign({}, PLATFORM.global.__PRELOADED_STATE__, clientInitialState);
+}
+
+@autoinject()
 export class View {
-    private state: State;
+    private state: State = initialState;
 
     private slug: string;
     private project;
     private projectAdded;
 
     constructor(private api: Api, private store: Store<State>) {
-
+        this.store.state.subscribe(
+            (state: State) => this.state = state
+        );
     }
 
     async canActivate(params) {
