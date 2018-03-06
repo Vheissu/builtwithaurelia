@@ -10,9 +10,14 @@
         <a href="javascript:void(0);" click.delegate="closeHat()" class="close">X</a>
         <div class="hat__inner" if.bind="showHatLogin">
             <h1 class="hat__title">Login</h1>
-            <p>To upvote submissions and other cool things, login here.<br>Not a member? <a href="javascript:void(0);" click.delegate="register($event)">click here</a> to signup.</p>
             <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
-            <form submit.delegate="handleLogin($event)">
+
+            <p><a class="btn btn-block btn-social btn-lg btn-github" click.delegate="socialLogin('github')"><i class="fa fa-github"></i>Login with GitHub</a></p>
+            <p><a class="btn btn-block btn-social btn-lg btn-google" click.delegate="socialLogin('google')"><i class="fa fa-google"></i>Login with Google</a></p>
+
+            <p><a href="#" click.delegate="oldMethodSignin = !oldMethodSignin">Click here</a> to login with an existing email/password created account.</p>
+
+            <form submit.delegate="handleLogin($event)" if.bind="oldMethodSignin">
                 <div class="form__row">
                     <input type="email" name="email" placeholder="Email" value.bind="model.email">
                 </div>

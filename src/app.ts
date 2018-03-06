@@ -198,6 +198,11 @@ export class App {
         }
     }
 
+    socialLogin(providerType: 'google' | 'github') {
+        let provider = providerType === 'google' ? new firebase.auth.GoogleAuthProvider() : new firebase.auth.GithubAuthProvider();
+        firebase.auth().signInWithRedirect(provider);
+    }
+
     handleLogin($event?) {
         if (this.loginFormIsValid) {
             this.formMessage = '';

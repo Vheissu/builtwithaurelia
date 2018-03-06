@@ -1,6 +1,7 @@
 ﻿/// <reference types="aurelia-loader-webpack/src/webpack-hot-interface"/>
 import '../font-awesome.min.css';
 import './styles/app.scss';
+import '../bootstrap-social.css';
 import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 import { initialState as clientInitialState } from './store/state';
