@@ -1,3 +1,5 @@
+import { PLATFORM } from 'aurelia-pal';
+
 export const colours = [
     'bg--purple',
     'bg--grapefruit',
@@ -10,7 +12,7 @@ export const colours = [
     'bg--yellow-its-me',
     'bg--green',
     'bg--pie',
-    'bg--middle-blue'    
+    'bg--middle-blue'
 ];
 
 
@@ -18,7 +20,7 @@ export const getColourFromHashedString = str => {
     if (str) {
         let hash = hashString(str);
         let index = hash % colours.length;
-        
+
         return colours[index];
     }
 
@@ -50,7 +52,7 @@ export const slugify = str => {
     return str.toLowerCase()
         .replace(/[^\w\s-]/g, '')
         .replace(/[\s_-]+/g, '-')
-        .replace(/^-+|-+$/g, ''); 
+        .replace(/^-+|-+$/g, '');
 }
 
 export let categories = [
@@ -61,7 +63,7 @@ export let categories = [
 ];
 
 export const scrollTop = () => {
-    window.scrollTo(0, 0);
+    PLATFORM.global.scrollTo(0, 0);
 };
 
 export const isEmpty = str => {
