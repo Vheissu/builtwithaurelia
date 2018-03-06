@@ -5,6 +5,8 @@
 @import "./partials/buttons";
 @import "./partials/loader";
 
+@import "../../bootstrap-social.css";
+
 * {
     background-repeat: no-repeat;
     box-sizing: border-box;
@@ -109,7 +111,7 @@ nav li {
 
 .hat__inner {
     margin: 0 auto;
-    padding: 0 30px;
+    max-width: 380px;
     text-align: center;
 
     form {
@@ -118,14 +120,25 @@ nav li {
         padding-top: 30px;
     }
 
-    @media all and (min-width: 768px) {
-        width: 50%;
+    .btn-social.btn-lg > :first-child {
+        font-size: 26px;
+        line-height: 40px;
+    }
+
+    .btn-block {
+        width: 100%;
     }
 }
 
 .hat--active {
+    background: #FFF;
+    color: #333;
     height: 100vh;
     overflow-y: auto;
+
+    .close {
+        color: #000;
+    }
 }
 
 .close {
