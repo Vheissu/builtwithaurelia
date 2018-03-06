@@ -13,7 +13,9 @@
     "test": "nps test",
     "start": "nps",
     "watch": "nps webpack.server.ssr.watch",
-    "server": "nps webpack.server.ssr.start"
+    "server": "nps webpack.server.ssr.start",
+    "build": "nps webpack.build",
+    "build:ssr": "nps webpack.build.production.ssr"
   },
   "jest": {
     "modulePaths": [

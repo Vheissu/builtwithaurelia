@@ -1,3 +1,4 @@
+import { PLATFORM } from 'aurelia-pal';
 import { autoinject, computedFrom } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
@@ -12,7 +13,7 @@ import {
     sortCategories
 } from '../store/actions';
 
-import { initialState, State } from '../store/state';
+import { initialState as clientInitialState, State } from '../store/state';
 
 import { Api } from '../services/api';
 import { ApplicationService } from '../services/application';
@@ -21,10 +22,16 @@ import { getColourFromHashedString, slugify } from '../common';
 
 import firebase from '../common/firebase';
 
+let initialState: State;
+
+if (PLATFORM.global.__PRELOADED_STATE__) {
+    initialState = Object.assign({}, PLATFORM.global.__PRELOADED_STATE__, clientInitialState);
+}
+
 @connectTo()
 @autoinject()
 export class Home {
-    private state: any;
+    private state: State = initialState;
 
     constructor(
         private api: Api,

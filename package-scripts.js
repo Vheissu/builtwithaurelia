@@ -61,7 +61,7 @@ module.exports = {
           ),
           ssr: series(
             'nps webpack.build.before',
-            'webpack --progress -p --env.production --env.extractCss',
+            'webpack --progress -p --env.production --env.extractCss --env.ssr',
             'webpack --config webpack.server.config.js --progress -p --env.production --env.extractCss'
           )
         }

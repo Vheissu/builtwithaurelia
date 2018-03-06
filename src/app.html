@@ -1,10 +1,7 @@
 <template>
-    <require from="./partials/loader.html"></require>
     <require from="./partials/app-header.html"></require>
     <require from="./partials/app-footer"></require>
     <require from="./partials/modal.html"></require>
-
-    <loader show.bind="router.isNavigating || appService.loading"></loader>
 
     <div class="hat ${showHat ? 'hat--active': ''}">
         <a href="javascript:void(0);" click.delegate="closeHat()" class="close">X</a>
