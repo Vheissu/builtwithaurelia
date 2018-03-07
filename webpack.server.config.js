@@ -3,8 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { AureliaPlugin } = require('aurelia-webpack-plugin');
-const { optimize: { CommonsChunkPlugin }, ProvidePlugin, DefinePlugin } = require('webpack')
-const { TsConfigPathsPlugin, CheckerPlugin } = require('awesome-typescript-loader');
+const { ProvidePlugin, DefinePlugin } = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 const ensureArray = (config) => config && (Array.isArray(config) ? config : [config]) || []
@@ -52,6 +51,7 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
             /font-awesome|bootstrap|-loader|aurelia-(?!pal-nodejs|pal|polyfills|bootstrapper)/,
         ]
     })],
+    mode: production ? 'production' : 'development',
     output: {
         path: outDir,
         publicPath: baseUrl,
@@ -65,6 +65,7 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
         // serve index.html for all 404 (required for push-state)
         historyApiFallback: true,
     },
+    performance: { hints: false },
     module: {
         rules: [
             // CSS required in JS/TS files should use the style-loader that auto-injects it into the website
@@ -90,7 +91,7 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
                 }) : ['style-loader', ...scssRules]
             },
             { test: /\.html$/i, loader: 'html-loader' },
-            { test: /\.ts$/i, loader: 'awesome-typescript-loader', exclude: nodeModulesDir },
+            { test: /\.ts$/i, loader: 'ts-loader', exclude: nodeModulesDir },
             { test: /\.json$/i, loader: 'json-loader' },
             // exposes jQuery globally as $ and as jQuery:
             { test: require.resolve('jquery'), loader: 'expose-loader?$!expose-loader?jQuery' },
@@ -119,8 +120,6 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
             'window.jQuery': 'jquery',
             'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!isomorphic-fetch'
         }),
-        new TsConfigPathsPlugin(),
-        new CheckerPlugin(),
         new CopyWebpackPlugin([
             { from: 'favicon.ico', to: 'favicon.ico' },
             { from: 'node_modules/preboot/__dist/preboot_browser.js', to: 'preboot_browser.js' }
@@ -128,9 +127,6 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
         ...when(extractCss, new ExtractTextPlugin({
             filename: production ? '[contenthash].css' : '[id].css',
             allChunks: true,
-        })),
-        // ...when(production, new CommonsChunkPlugin({
-        //     name: 'common'
-        // }))
+        }))
     ],
 })
