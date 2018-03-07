@@ -10,7 +10,10 @@ import {
     setCategory,
     backupProjects,
     resetProjects,
-    sortCategories
+    sortCategories,
+    changeSortMode,
+    sortProjects,
+    castVote
 } from '../store/actions';
 
 import { initialState as clientInitialState, State } from '../store/state';
@@ -56,7 +59,7 @@ export class Home {
     }
 
     sortBy(type) {
-        this.state.currentSortMode = type;
+        this.store.dispatch(changeSortMode, type);
 
         if (type === 'popular') {
             this.sortByPopular();
@@ -66,19 +69,14 @@ export class Home {
     }
 
     sortByPopular() {
-        this.state.projects.sort((a, b) => {
-            return parseInt(b.votes, 10) - parseInt(a.votes, 10) || a.added - b.added;
-        });
+        this.store.dispatch(sortProjects, 'popular');
     }
 
     sortByNewlyAdded() {
-        this.state.projects.sort((a, b) => {
-            return b.added - a.added;
-        });
+        this.store.dispatch(sortProjects, 'new');
     }
 
     filterCategory(category) {
-        // Set currently active category
         this.store.dispatch(setCategory, category);
 
         if (!this.state.backupProjects.length) {
@@ -91,24 +89,7 @@ export class Home {
 
     vote(evt, name) {
         if (this.userService.isLoggedIn) {
-            var voteAction: 'add' | 'remove' = 'add';
-
-            this.state.projects.map(project => {
-                if (slugify(project.name) === slugify(name)) {
-                    if (project.currentUserHasVotedFor) {
-                        project.votes--;
-                        project.currentUserHasVotedFor = false;
-                        voteAction = 'remove';
-                    } else {
-                        project.votes++;
-                        project.currentUserHasVotedFor = true;
-                    }
-                }
-
-                return project;
-            });
-
-            this.api.castVote(name, voteAction);
+            this.store.dispatch(castVote, name);
         } else {
             this.ea.publish('show.login-form');
         }

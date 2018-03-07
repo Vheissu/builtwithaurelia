@@ -33,7 +33,10 @@ import {
     resetProjects,
     sortCategories,
     setUser,
-    loadProject
+    loadProject,
+    changeSortMode,
+    sortProjects,
+    castVote
 } from './store/actions';
 
 import { ProjectModel } from './common/models/project';
@@ -80,10 +83,12 @@ export class App {
         this.store.registerAction(getCategories.name, getCategories);
         this.store.registerAction(setCategory.name, setCategory);
         this.store.registerAction(backupProjects.name, backupProjects);
-        this.store.registerAction(resetProjects.name, resetProjects);
         this.store.registerAction(sortCategories.name, sortCategories);
         this.store.registerAction(setUser.name, setUser);
         this.store.registerAction(loadProject.name, loadProject);
+        this.store.registerAction(sortProjects.name, sortProjects);
+        this.store.registerAction(changeSortMode.name, changeSortMode);
+        this.store.registerAction(castVote.name, castVote);
     }
 
     @computedFrom('model.email', 'model.password')
