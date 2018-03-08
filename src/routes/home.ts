@@ -2,7 +2,7 @@ import { PLATFORM } from 'aurelia-pal';
 import { autoinject, computedFrom } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
-import { Store, connectTo } from 'aurelia-store';
+import { Store } from 'aurelia-store';
 
 import {
     loadProjects,
@@ -31,7 +31,6 @@ if (PLATFORM.global.__PRELOADED_STATE__) {
     initialState = Object.assign({}, PLATFORM.global.__PRELOADED_STATE__, clientInitialState);
 }
 
-@connectTo()
 @autoinject()
 export class Home {
     private state: State = initialState;
@@ -43,6 +42,29 @@ export class Home {
         private ea: EventAggregator,
         private router: Router,
         private store: Store<State>) {
+        this.store.state.subscribe(
+            (state: State) => this.state = state
+        );
+    }
+
+    @computedFrom('state.categories')
+    get categories() {
+        return this.state.categories;
+    }
+
+    @computedFrom('state.projects')
+    get projects() {
+        return this.state.projects;
+    }
+
+    @computedFrom('state.currentCategory')
+    get currentCategory() {
+        return this.state.currentCategory;
+    }
+
+    @computedFrom('state.currentSortMode')
+    get currentSortMode() {
+        return this.state.currentSortMode;
     }
 
     created() {
