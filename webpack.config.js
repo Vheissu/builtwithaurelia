@@ -107,18 +107,7 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
         new HtmlWebpackPlugin({
             filename: ssr ? 'index.ssr.html' : 'index.html',
             template: ssr ? 'index.ssr.ejs' : 'index.ejs',
-            minify: production ? {
-                removeComments: true,
-                collapseWhitespace: true,
-                collapseInlineTagWhitespace: true,
-                collapseBooleanAttributes: true,
-                removeAttributeQuotes: true,
-                minifyCSS: true,
-                minifyJS: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                ignoreCustomFragments: [/\${.*?}/g]
-            } : undefined,
+            minify: undefined,
             metadata: {
                 title, server, baseUrl
             },
