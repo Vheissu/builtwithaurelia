@@ -1,6 +1,8 @@
 module.exports = (req, res, next, { functions, admin }) => {
     const RSS = require('rss');
 
+    res.set('Content-Type', 'text/xml');
+
     const feed = new RSS({
         title: 'Built With Aurelia',
         description: 'Latest submissions added to Built With Aurelia.',
@@ -9,30 +11,30 @@ module.exports = (req, res, next, { functions, admin }) => {
     });
 
     admin.database().ref('submissions').orderByChild('added').once('value').then(snapshot => {
-        let items = snapshot.val();
+        const items = [];
+
+        snapshot.forEach(snap => {
+            const item = snap.val();
+            console.log('Iterating submission item', item);
+            items.push({ key: snap.key, name: item.name, description: item.description});
+        });
 
         if (items) {
-            let counter = 0;
+            for (let i = 0; i < 10; i++) {
+                const { name, description, key } = items[i];
 
-            for (let key in items) {
-                if (items.hasOwnProperty(key) && counter < 10) {
-                    let item = items[key];
-
-                    feed.item({
-                        title: item.name,
-                        description: item.description,
-                        url: `https://builtwithaurelia.com/view/${key}`
-                    });
-
-                    counter++;
-                }
+                feed.item({
+                    title: name,
+                    description: description,
+                    url: `https://builtwithaurelia.com/view/${key}`
+                });
             }
 
             let generatedFeed = feed.xml({ indent: true });
-            let buffer = Buffer.from(generatedFeed);
-            let content = buffer.toString('base64');
+            // let buffer = Buffer.from(generatedFeed);
+            // let content = buffer.toString('base64');
 
-            res.status(200).send(content);
+            res.status(200).send(generatedFeed);
         } else {
             res.status(500);
         }
