@@ -15,11 +15,12 @@ module.exports = (req, res, next, { functions, admin }) => {
 
         snapshot.forEach(snap => {
             const item = snap.val();
-            console.log('Iterating submission item', item);
             items.push({ key: snap.key, name: item.name, description: item.description});
         });
 
         if (items) {
+            items.reverse();
+
             for (let i = 0; i < 10; i++) {
                 const { name, description, key } = items[i];
 
