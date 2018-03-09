@@ -35,7 +35,7 @@
                                 <label>Project name <em>*</em></label>
                                 The name of this project.
                             </p>
-                            <input type="text" name="name" placeholder="Project name" value.bind="model.name">
+                            <input type="text" name="name" placeholder="Project name" value.bind="submissionModel.name">
                     </div>
 
                     <div class="form__row col-xs-12 col-sm-6">
@@ -43,7 +43,7 @@
                             <label>Project category <em>*</em></label>
                             What kind of project are you submitting?
                         </p>
-                        <select name="category" value.bind="model.category">
+                        <select name="category" value.bind="submissionModel.category">
                             <option repeat.for="category of categories" value.bind="category.value" selected.bind="category.selected">${category.name}</option>
                         </select>
                     </div>
@@ -54,19 +54,19 @@
                             <label>Where can this submission be seen?</label>
                             If you are not providing a repository link, this field is required.
                         </p>
-                        <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="model.url">
+                        <input type="text" name="viewUrl" placeholder="Demo/View URL" value.bind="submissionModel.url">
                     </div>
                     <div class="form__row col-xs-12 col-sm-6">
                         <p>
                             <label>Source code URL</label>
                             A link to a repository or visible code URL.
                         </p>
-                        <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="model.repoUrl">
+                        <input type="text" name="repoUrl" placeholder="Github/Bitbucket/Source control URL" value.bind="submissionModel.repoUrl">
                     </div>
                 </div>
                 <div class="form__row">
                     <p><label>Describe what you are submiting</label></p>
-                    <textarea name="description" value.bind="model.description" style="width: 550px;"></textarea>
+                    <textarea name="description" value.bind="submissionModel.description" style="width: 550px;"></textarea>
                 </div>
 
                 <button type="submit" class="button" disabled.bind="!submissionFormIsValid || disableButtons">Submit</button>

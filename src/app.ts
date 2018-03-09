@@ -66,7 +66,8 @@ export class App {
     private showHatRegister: boolean = false;
     private showHatSubmission: boolean = false;
 
-    private model = ProjectModel;
+    private model;
+    private submissionModel = ProjectModel;
 
     private disableButtons: boolean = false;
 
@@ -115,23 +116,25 @@ export class App {
         return (notEmpty(this.model.email) && notEmpty(this.model.password) && notEmpty(this.model.password2) && this.passwordsMatch);
     }
 
-    @computedFrom('model.name', 'model.category', 'model.url', 'model.repoUrl', 'model.description')
+    @computedFrom('submissionModel.name', 'submissionModel.category', 'submissionModel.url', 'submissionModel.repoUrl', 'submissionModel.description')
     get submissionFormIsValid() {
         var isValid = true;
 
-        if (isEmpty(this.model.name) || isEmpty(this.model.category) || isEmpty(this.model.description)) {
+        const { name, category, description, url, repoUrl } = this.submissionModel;
+
+        if (isEmpty(name) || isEmpty(category) || isEmpty(description)) {
             isValid = false;
         }
 
-        if (notEmpty(this.model.url) && !isUrl(this.model.url)) {
+        if (notEmpty(url) && !isUrl(url)) {
             isValid = false;
         }
 
-        if (notEmpty(this.model.repoUrl) && !isUrl(this.model.repoUrl)) {
+        if (notEmpty(repoUrl) && !isUrl(repoUrl)) {
             isValid = false;
         }
 
-        if (isEmpty(this.model.url) && isEmpty(this.model.repoUrl)) {
+        if (isEmpty(url) && isEmpty(repoUrl)) {
             isValid = false;
         }
 
@@ -202,7 +205,7 @@ export class App {
     }
 
     submission($event?: Event) {
-        this.model.name = '';
+        this.submissionModel = ProjectModel;
         this.formMessage = '';
 
         this.showHat = true;
@@ -244,26 +247,6 @@ export class App {
         }
     }
 
-    handleRegister($event?) {
-        if (this.registerFormIsValid) {
-            this.formMessage = '';
-            this.disableButtons = true;
-
-            this.userService.register(this.model.email, this.model.password)
-                .then(() => {
-                    this.showHat = false;
-                    this.showHatRegister = false;
-                    this.showHatLogin = true;
-
-                    PLATFORM.global.location.reload();
-                })
-                .catch(e => {
-                    this.formMessage = 'Sorry :(<br>there was a problem registering. Please make sure you entered in all fields correctly or refreshing the page.';
-                    this.disableButtons = false;
-                });
-        }
-    }
-
     handleSubmission($event?) {
         if (this.submissionFormIsValid) {
             this.formMessage = '';
@@ -278,16 +261,16 @@ export class App {
                 status: 'published'
             };
 
-            submissionObject.name = this.model.name;
-            submissionObject.category = this.model.category;
-            submissionObject.description = this.model.description;
+            submissionObject.name = this.submissionModel.name;
+            submissionObject.category = this.submissionModel.category;
+            submissionObject.description = this.submissionModel.description;
 
-            if (notEmpty(this.model.url)) {
-                submissionObject.url = this.model.url;
+            if (notEmpty(this.submissionModel.url)) {
+                submissionObject.url = this.submissionModel.url;
             }
 
-            if (notEmpty(this.model.repoUrl)) {
-                submissionObject.repoUrl = this.model.repoUrl;
+            if (notEmpty(this.submissionModel.repoUrl)) {
+                submissionObject.repoUrl = this.submissionModel.repoUrl;
             }
 
             this.api.postSubmission(submissionObject)
