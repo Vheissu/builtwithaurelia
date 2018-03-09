@@ -51,5 +51,11 @@ export async function loadProjects(state) {
         categories.all.count = projects.length;
     }
 
+    Object.keys(categories).map((k, i) => {
+        if (!categories[k].count) {
+            delete categories[k];
+        }
+    });
+
     return { ...state, ...{ projects, categories } };
 }
