@@ -13,6 +13,20 @@ import { UserService } from './services/user';
 import { State } from './store/state';
 
 import {
+    LOAD_PROJECTS,
+    GET_CATEGORIES,
+    SET_CATEGORY,
+    BACKUP_PROJECTS,
+    SORT_CATEGORIES,
+    SET_USER,
+    LOAD_PROJECT,
+    SORT_PROJECTS,
+    CHANGE_SORT_MODE,
+    CAST_VOTE
+} from './store/constants';
+
+
+import {
     categories,
     scrollTop,
     isEmpty,
@@ -79,16 +93,16 @@ export class App {
     }
 
     setupStore() {
-        this.store.registerAction(loadProjects.name, loadProjects);
-        this.store.registerAction(getCategories.name, getCategories);
-        this.store.registerAction(setCategory.name, setCategory);
-        this.store.registerAction(backupProjects.name, backupProjects);
-        this.store.registerAction(sortCategories.name, sortCategories);
-        this.store.registerAction(setUser.name, setUser);
-        this.store.registerAction(loadProject.name, loadProject);
-        this.store.registerAction(sortProjects.name, sortProjects);
-        this.store.registerAction(changeSortMode.name, changeSortMode);
-        this.store.registerAction(castVote.name, castVote);
+        this.store.registerAction(LOAD_PROJECTS, loadProjects);
+        this.store.registerAction(GET_CATEGORIES, getCategories);
+        this.store.registerAction(SET_CATEGORY, setCategory);
+        this.store.registerAction(BACKUP_PROJECTS, backupProjects);
+        this.store.registerAction(SORT_CATEGORIES, sortCategories);
+        this.store.registerAction(SET_USER, setUser);
+        this.store.registerAction(LOAD_PROJECT, loadProject);
+        this.store.registerAction(SORT_PROJECTS, sortProjects);
+        this.store.registerAction(CHANGE_SORT_MODE, changeSortMode);
+        this.store.registerAction(CAST_VOTE, castVote);
     }
 
     @computedFrom('model.email', 'model.password')
