@@ -61,9 +61,17 @@ export class Home {
         return this.state.currentSortMode;
     }
 
-    created() {
-        this.store.dispatch(getCategories);
-        this.store.dispatch(loadProjects);
+    async activate(params) {
+        await this.store.dispatch(getCategories);
+        await this.store.dispatch(loadProjects);
+
+        const { category } = params;
+
+        console.log(this.categories[category]);
+
+        if (category && this.categories[category]) {
+            this.filterCategory(this.categories[category]);
+        }
     }
 
     submission($event: Event) {
