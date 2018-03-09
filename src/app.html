@@ -12,7 +12,7 @@
             <p><a class="btn btn-block btn-social btn-lg btn-github" click.delegate="socialLogin('github')"><i class="fa fa-github"></i>Login with GitHub</a></p>
             <p><a class="btn btn-block btn-social btn-lg btn-google" click.delegate="socialLogin('google')"><i class="fa fa-google"></i>Login with Google</a></p>
 
-            <p><a href="#" click.delegate="oldMethodSignin = !oldMethodSignin">Click here</a> to login with an existing email/password created account.</p>
+            <p><a href="javascript:void(0);" click.delegate="oldMethodSignin = !oldMethodSignin">Click here</a> to login with an existing email/password created account.</p>
 
             <form submit.delegate="handleLogin($event)" if.bind="oldMethodSignin">
                 <div class="form__row">
@@ -24,25 +24,7 @@
                 <button type="submit" class="button" disabled.bind="!loginFormIsValid || disableButtons">Login</button>
             </form>
         </div>
-        <div class="hat__inner" if.bind="showHatRegister">
-            <h1 class="hat__title">Register</h1>
-            <p>Joining Built With Aurelia is quick and easy. Simply fill out the form below and you are on your way.<br>Already a member? <a href="javascript:void(0);" click.delegate="login($event)">click here to login</a></p>
-            <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
-            <form submit.delegate="handleRegister($event)">
-                <div class="form__row">
-                    <input type="email" name="email" placeholder="Email" value.bind="model.email">
-                </div>
-                <div class="form__row">
-                    <input type="password" name="password" placeholder="Enter a strong password" value.bind="model.password" autocomplete="off">
-                </div>
-                <div class="form__row">
-                    <input type="password" name="password2" placeholder="Re-enter your chosen password" value.bind="model.password2" autocomplete="off">
-                </div>
-                <p if.bind="!passwordsMatch" class="error-message">Please make sure both passwords match</p>
-                <button type="submit" class="button" disabled.two-way="!registerFormIsValid || disableButtons">Register</button>
-            </form>
-        </div>
-        <div class="hat__inner" if.bind="showHatSubmission">
+        <div class="hat__inner hat__inner--submission" if.bind="showHatSubmission">
             <h1 class="hat__title">New Submission</h1>
             <p>Make a new submission to the site. Just make sure you meet the criteria of it either being built using Aurelia or for Aurelia.</p>
             <p if.bind="formMessage" class="error-message" innerhtml.bind="formMessage"></p>
