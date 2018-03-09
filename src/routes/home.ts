@@ -62,7 +62,10 @@ export class Home {
     }
 
     async activate(params) {
-        await this.store.dispatch(getCategories);
+        if (!this.state.categories.length) {
+            await this.store.dispatch(getCategories);
+        }
+
         await this.store.dispatch(loadProjects);
 
         const { category } = params;
