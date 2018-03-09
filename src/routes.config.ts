@@ -2,7 +2,7 @@ import { PLATFORM } from 'aurelia-pal';
 
 export const ApplicationRoutes = [
     {
-        route: [''],
+        route: [ '', ':category?'],
         moduleId: PLATFORM.moduleName('./routes/home', 'home'),
         name: 'home',
         nav: false,
