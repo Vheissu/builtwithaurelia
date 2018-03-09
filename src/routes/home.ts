@@ -16,7 +16,7 @@ import {
     castVote
 } from '../store/actions';
 
-import { initialState as clientInitialState, State } from '../store/state';
+import { State } from '../store/state';
 
 import { Api } from '../services/api';
 import { ApplicationService } from '../services/application';
@@ -25,15 +25,9 @@ import { getColourFromHashedString, slugify } from '../common';
 
 import firebase from '../common/firebase';
 
-let initialState: State;
-
-if (PLATFORM.global.__PRELOADED_STATE__) {
-    initialState = Object.assign({}, PLATFORM.global.__PRELOADED_STATE__, clientInitialState);
-}
-
 @autoinject()
 export class Home {
-    private state: State = initialState;
+    private state: State;
 
     constructor(
         private api: Api,
