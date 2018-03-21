@@ -1,5 +1,11 @@
+interface CategoryInterface {
+    name: string;
+    value: string;
+    count: number;
+}
+
 export interface State {
-    categories: {};
+    categories: CategoryInterface[];
     currentCategory: string;
     projects: any[];
     backupProjects: any[];
@@ -10,7 +16,7 @@ export interface State {
 }
 
 export const initialState: State = {
-    categories: {},
+    categories: [],
     currentCategory: null,
     projects: [],
     backupProjects: [],

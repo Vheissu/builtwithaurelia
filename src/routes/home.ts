@@ -62,19 +62,16 @@ export class Home {
     }
 
     async activate(params) {
-        if (!this.state.categories.length) {
-            await this.store.dispatch(getCategories);
-        }
-
+        await this.store.dispatch(getCategories);
         await this.store.dispatch(loadProjects);
 
         const { category } = params;
 
         console.log(this.categories[category]);
 
-        if (category && this.categories[category]) {
-            this.filterCategory(this.categories[category]);
-        }
+        // if (category && this.categories[category]) {
+        //     this.filterCategory(this.categories[category]);
+        // }
     }
 
     submission($event: Event) {
