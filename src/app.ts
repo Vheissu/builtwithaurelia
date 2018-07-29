@@ -106,16 +106,6 @@ export class App {
         this.store.registerAction(CAST_VOTE, castVote);
     }
 
-    @computedFrom('model.email', 'model.password')
-    get loginFormIsValid() {
-        return (notEmpty(this.model.email) && notEmpty(this.model.password));
-    }
-
-    @computedFrom('model.email', 'model.password', 'model.password2')
-    get registerFormIsValid() {
-        return (notEmpty(this.model.email) && notEmpty(this.model.password) && notEmpty(this.model.password2) && this.passwordsMatch);
-    }
-
     @computedFrom('submissionModel.name', 'submissionModel.category', 'submissionModel.url', 'submissionModel.repoUrl', 'submissionModel.description')
     get submissionFormIsValid() {
         var isValid = true;
@@ -179,8 +169,6 @@ export class App {
 
     login($event?: Event) {
         this.formMessage = '';
-        this.model.email = '';
-        this.model.password = '';
 
         this.showHat = true;
         this.showHatRegister = false;
@@ -223,28 +211,6 @@ export class App {
     socialLogin(providerType: 'google' | 'github') {
         let provider = providerType === 'google' ? new firebase.auth.GoogleAuthProvider() : new firebase.auth.GithubAuthProvider();
         firebase.auth().signInWithRedirect(provider);
-    }
-
-    handleLogin($event?) {
-        if (this.loginFormIsValid) {
-            this.formMessage = '';
-            this.disableButtons = true;
-
-            this.userService.login(this.model.email, this.model.password)
-                .then(() => {
-                    this.showHat = false;
-                    this.showHatRegister = false;
-                    this.showHatLogin = false;
-
-                    PLATFORM.global.location.reload();
-                })
-                .catch(e => {
-                    if (e.code === 'auth/user-not-found') {
-                        this.formMessage = 'Ow, there was a problem :(<br>Please make sure you have entered a valid email address and password, then try again.';
-                        this.disableButtons = false;
-                    }
-                })
-        }
     }
 
     handleSubmission($event?) {

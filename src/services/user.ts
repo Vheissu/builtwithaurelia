@@ -16,14 +16,6 @@ export class UserService {
         });
     }
 
-    login(email, password) {
-        return firebase.auth().signInWithEmailAndPassword(email, password);
-    }
-
-    register(email, password) {
-        return firebase.auth().createUserWithEmailAndPassword(email, password);
-    }
-
     @computedFrom('userLoggedIn')
     get isLoggedIn() {
         return this.userLoggedIn;

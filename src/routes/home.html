@@ -5,20 +5,20 @@
 
     <nav>
         <ul>
-            <li repeat.for="category of categoriee"><a route-href="route: home; params.bind: { category: category.value ? category.value : null }" class="${category == currentCategory ? 'active': ''}">${category.name}&nbsp;<span>(${category.count})</span></a></li>
+            <li repeat.for="category of state.categories"><a route-href="route: home; params.bind: { category: category.value ? category.value : null }" class="${category == state.currentCategory ? 'active': ''}">${category.name}&nbsp;<span>(${category.count})</span></a></li>
         </ul>
     </nav>
 
     <nav>
         <ul>
-            <li><a href="javascript:void(0);" class="${currentSortMode == 'popular' ? 'active' : ''}" click.delegate="sortBy('popular')">Popular</a></li>
-            <li><a href="javascript:void(0);" class="${currentSortMode == 'new' ? 'active' : ''}" click.delegate="sortBy('new')">Newly Added</a></li>
+            <li><a href="javascript:void(0);" class="${state.currentSortMode == 'popular' ? 'active' : ''}" click.delegate="sortBy('popular')">Popular</a></li>
+            <li><a href="javascript:void(0);" class="${state.currentSortMode == 'new' ? 'active' : ''}" click.delegate="sortBy('new')">Newly Added</a></li>
         </ul>
     </nav>
 
     <div class="blocks row">
-        <div id="no-results" if.bind="!projects.length && !appService.loading"><h2>Sorry, nothing was found :(</h2></div>
-        <template repeat.for="project of projects">
+        <div id="no-results" if.bind="!state.projects.length && !appService.loading"><h2>Sorry, nothing was found :(</h2></div>
+        <template repeat.for="project of state.projects">
             <template if.bind="$index == 1">
                 <div class="col-xs-12 col-sm-6 thumbnail blocks__block bg--dark">
                     <div class="thumbnail__inner">

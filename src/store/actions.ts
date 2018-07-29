@@ -1,5 +1,4 @@
 import { slugify } from './../common';
-import firebase from '../common/firebase';
 
 export { loadProjects } from './actions/load-projects';
 export { getCategories } from './actions/get-categories';
@@ -12,15 +11,27 @@ import { Api } from '../services/api';
 const api = Container.instance.get(Api);
 
 export async function setSelectedProject(state, projectId) {
-    return {...state, ...{ projectId }};
+    const newState = { ...state };
+
+    newState.projectId = projectId;
+
+    return newState;
 }
 
 export async function setUser(state, user) {
-    return {...state, ...{ user }};
+    const newState = { ...state };
+
+    newState.user = user;
+
+    return newState;
 }
 
 export function setCategory(state, currentCategory) {
-    return {...state, ...{ currentCategory }};
+    const newState = { ...state };
+
+    newState.currentCategory = currentCategory;
+
+    return newState;
 }
 
 export function sortProjects(state, type) {
@@ -40,15 +51,27 @@ export function sortProjects(state, type) {
 }
 
 export function backupProjects(state) {
-    return {...state, ...{ backupProjects: state.projects }};
+    const newState = { ...state };
+
+    newState.backupProjects = [...newState.projects];
+
+    return newState;
 }
 
 export function changeSortMode(state, currentSortMode) {
-    return { ...state, ...{ currentSortMode }};
+    const newState = { ...state };
+
+    newState.currentSortMode = currentSortMode;
+
+    return newState;
 }
 
 export function resetProjects(state) {
-    return { ...state, ...{ projects: state.backupProjects } };
+    const newState = { ...state };
+
+    newState.projects = newState.backupProjects;
+
+    return newState;
 }
 
 export async function castVote(state, name) {

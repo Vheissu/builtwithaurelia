@@ -1,7 +1,10 @@
 import { categories, getDefaultCategory } from '../../common/models/categories';
 
-export function getCategories(state) {
-    const currentCategory = getDefaultCategory();
+export async function getCategories(state) {
+    const newState = {...state};
 
-    return { ...state, ...{ categories, currentCategory } };
+    newState.currentCategory = getDefaultCategory();
+    newState.categories = [...categories];
+
+    return newState;
 }

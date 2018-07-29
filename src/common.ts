@@ -56,10 +56,10 @@ export const slugify = str => {
 }
 
 export let categories = [
-    {name: 'Website', value: 'website', selected: true},
-    {name: 'Plugin', value: 'plugin'},
-    {name: 'Mobile Application', value: 'mobile'},
-    {name: 'Theme', value: 'theme'}
+    {name: 'Website', value: 'website', selected: true, count: 0},
+    {name: 'Plugin', value: 'plugin', count: 0},
+    {name: 'Mobile Application', value: 'mobile', count: 0},
+    {name: 'Theme', value: 'theme', count: 0}
 ];
 
 export const scrollTop = () => {

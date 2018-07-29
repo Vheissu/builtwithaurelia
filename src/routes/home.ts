@@ -1,8 +1,8 @@
-import { PLATFORM } from 'aurelia-pal';
+import { TaskQueue } from 'aurelia-task-queue';
 import { autoinject, computedFrom } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
-import { Store } from 'aurelia-store';
+import { dispatchify, Store, connectTo } from 'aurelia-store';
 
 import {
     loadProjects,
@@ -25,6 +25,7 @@ import { getColourFromHashedString, slugify } from '../common';
 
 import firebase from '../common/firebase';
 
+@connectTo()
 @autoinject()
 export class Home {
     private state: State;
@@ -35,43 +36,30 @@ export class Home {
         private userService: UserService,
         private ea: EventAggregator,
         private router: Router,
-        private store: Store<State>) {
-        this.store.state.subscribe(
-            (state: State) => this.state = state
-        );
+        private store: Store<State>,
+        private taskQueue: TaskQueue) {
     }
 
-    @computedFrom('state.categories')
-    get categories() {
-        return this.state.categories;
+    async canActivate(params) {
+        await dispatchify(getCategories)();
+        await dispatchify(loadProjects)();
+
+        // this.taskQueue.queueMicroTask(() => {
+        //     console.log(this.state);
+        // });
     }
 
-    @computedFrom('state.projects')
-    get projects() {
-        return this.state.projects;
-    }
-
-    @computedFrom('state.currentCategory')
-    get currentCategory() {
-        return this.state.currentCategory;
-    }
-
-    @computedFrom('state.currentSortMode')
-    get currentSortMode() {
-        return this.state.currentSortMode;
-    }
-
-    async activate(params) {
-        await this.store.dispatch(getCategories);
-        await this.store.dispatch(loadProjects);
-
+    activate(params) {
         const { category } = params;
 
-        console.log(this.categories[category]);
-
-        // if (category && this.categories[category]) {
-        //     this.filterCategory(this.categories[category]);
-        // }
+        setTimeout(() => {
+            if (category) {
+                const cat = this.state.categories.find(el => el.value === category);
+                if (cat) {
+                    this.filterCategory(cat);
+                }
+            }
+        }, 120);
     }
 
     submission($event: Event) {
@@ -83,7 +71,7 @@ export class Home {
     }
 
     sortBy(type) {
-        this.store.dispatch(changeSortMode, type);
+        dispatchify(changeSortMode)(type);
 
         if (type === 'popular') {
             this.sortByPopular();
@@ -93,27 +81,27 @@ export class Home {
     }
 
     sortByPopular() {
-        this.store.dispatch(sortProjects, 'popular');
+        dispatchify(sortProjects)('popular');
     }
 
     sortByNewlyAdded() {
-        this.store.dispatch(sortProjects, 'new');
+        dispatchify(sortProjects)('new');
     }
 
     filterCategory(category) {
-        this.store.dispatch(setCategory, category);
+        dispatchify(setCategory)(category);
 
         if (!this.state.backupProjects.length) {
             // Backup the existing projects
-            this.store.dispatch(backupProjects);
+            dispatchify(backupProjects)();
         }
 
-        this.store.dispatch(sortCategories, category);
+        dispatchify(sortCategories)(category);
     }
 
     vote(evt, name) {
         if (this.userService.isLoggedIn) {
-            this.store.dispatch(castVote, name);
+            dispatchify(castVote)(name);
         } else {
             this.ea.publish('show.login-form');
         }
