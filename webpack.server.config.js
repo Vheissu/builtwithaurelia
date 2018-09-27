@@ -72,7 +72,7 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
                 test: /\.css$/i,
                 issuer: [{ not: [{ test: /\.html$/i }] }],
                 use: [
-                    !production ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,
                     ...cssRules
                 ]
             },
@@ -84,7 +84,7 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
             {
                 test: /\.scss$/,
                 use: [
-                    !production ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,
                     ...scssRules
                 ]
             },
@@ -123,8 +123,8 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
             { from: 'node_modules/preboot/__dist/preboot_browser.js', to: 'preboot_browser.js' }
         ]),
         new MiniCssExtractPlugin({
-            filename: !production ? '[name].css' : '[name].[hash].css',
-            chunkFilename: !production ? '[id].css' : '[id].[hash].css',
+            filename: '[name].[hash].css',
+            chunkFilename: '[id].[hash].css',
         })
     ],
 })

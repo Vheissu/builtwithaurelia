@@ -20,6 +20,8 @@ async function configure(aurelia: Aurelia) {
     aurelia.use
         .standardConfiguration();
 
+    aurelia.use.plugin(PLATFORM.moduleName('aurelia-validation'));
+
     await aurelia.start();
     await aurelia.setRoot(PLATFORM.moduleName('app'));
 }
