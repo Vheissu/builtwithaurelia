@@ -1,8 +1,8 @@
 import { ApplicationRoutes } from './routes.config';
-import { Aurelia, computedFrom, observable, autoinject } from 'aurelia-framework';
+import { computedFrom, observable, autoinject } from 'aurelia-framework';
 import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PLATFORM, DOM } from 'aurelia-pal';
+import { PLATFORM } from 'aurelia-pal';
 import { Store, connectTo } from 'aurelia-store';
 
 import { SubmissionInterface } from './common/interfaces';
@@ -31,9 +31,7 @@ import {
     scrollTop,
     isEmpty,
     notEmpty,
-    stringInObject,
     isUrl,
-    requiredField,
     equals
 } from './common';
 
@@ -44,7 +42,6 @@ import {
     getCategories,
     setCategory,
     backupProjects,
-    resetProjects,
     sortCategories,
     setUser,
     loadProject,
@@ -78,7 +75,6 @@ export class App {
 
     constructor(
         private api: Api,
-        private appService: ApplicationService,
         private userService: UserService,
         private ea: EventAggregator,
         private store: Store<State>) {
@@ -129,11 +125,6 @@ export class App {
         }
 
         return isValid;
-    }
-
-    @computedFrom('model.password', 'model.password2')
-    get passwordsMatch() {
-        return ((notEmpty(this.model.password) && notEmpty(this.model.password2)) && (equals(this.model.password.trim(), this.model.password2.trim())));
     }
 
     attached() {
@@ -266,7 +257,7 @@ export class App {
 
 class AuthorizeStep {
     run(navigationInstruction, next) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             firebase.auth().onAuthStateChanged(user => {
                 let currentRoute = navigationInstruction.config;
                 let loginRequired = currentRoute.auth && currentRoute.auth === true;

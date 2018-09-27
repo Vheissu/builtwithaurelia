@@ -5,7 +5,11 @@
 
     <nav>
         <ul>
-            <li repeat.for="category of state.categories"><a route-href="route: home; params.bind: { category: category.value ? category.value : null }" class="${category == state.currentCategory ? 'active': ''}">${category.name}&nbsp;<span>(${category.count})</span></a></li>
+            <li repeat.for="category of state.categories">
+                <a 
+                    route-href="route: home; params.bind: { category: category.value ? category.value : null }" 
+                    class="${category == state.currentCategory ? 'active': ''}">${category.name}&nbsp;<span>(${category.count})</span></a>
+            </li>
         </ul>
     </nav>
 
@@ -40,7 +44,11 @@
                     </div>
                 </div>
             </template>
-            <thumbnail class="blocks__block ${!$first ? getRandomBackgroundColour(project.name) : 'bg--aurelia-pink blocks__block--large'} ${$first ? 'col-xs-12 col-sm-12 thumbnail--large' : 'col-xs-12 col-sm-6'}" project.bind="project" vote-callback.call="vote(evt, name)"></thumbnail>
+            <thumbnail 
+                class="blocks__block ${!$first ? getRandomBackgroundColour(project.name) : 'bg--aurelia-pink blocks__block--large'} ${$first ? 'col-xs-12 col-sm-12 thumbnail--large' : 'col-xs-12 col-sm-6'}" 
+                project.bind="project" 
+                vote-callback.call="vote(evt, name)">
+            </thumbnail>
         </template>
     </div>
 </template>

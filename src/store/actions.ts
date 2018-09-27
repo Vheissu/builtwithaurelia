@@ -8,7 +8,7 @@ export { loadProject } from './actions/load-project';
 import { Container } from 'aurelia-dependency-injection';
 import { Api } from '../services/api';
 
-const api = Container.instance.get(Api);
+const api: Api = Container.instance.get(Api);
 
 export async function setSelectedProject(state, projectId) {
     const newState = { ...state };

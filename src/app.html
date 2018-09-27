@@ -62,7 +62,12 @@
         </div>
     </div>
 
-    <app-header user.bind="userService" login-callback.call="login($event)" logout-callback.call="logout($event)" submission-callback.call="submission($event)"></app-header>
+    <app-header 
+        user.bind="userService" 
+        login-callback.call="login($event)" 
+        logout-callback.call="logout($event)" 
+        submission-callback.call="submission($event)">
+    </app-header>
 
     <main id="content">
         <div class="container">
