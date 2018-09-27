@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { AureliaPlugin } = require('aurelia-webpack-plugin');
 const { ProvidePlugin, DefinePlugin } = require('webpack');
 const nodeExternals = require('webpack-node-externals');
@@ -68,15 +68,13 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
     performance: { hints: false },
     module: {
         rules: [
-            // CSS required in JS/TS files should use the style-loader that auto-injects it into the website
-            // only when the issuer is a .js/.ts file, so the loaders are not applied inside html templates
             {
                 test: /\.css$/i,
                 issuer: [{ not: [{ test: /\.html$/i }] }],
-                use: extractCss ? ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: cssRules,
-                }) : ['style-loader', ...cssRules],
+                use: [
+                    !production ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    ...cssRules
+                ]
             },
             {
                 test: /\.css$/i,
@@ -85,10 +83,10 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
             },
             {
                 test: /\.scss$/,
-                use: extractCss ? ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: scssRules,
-                }) : ['style-loader', ...scssRules]
+                use: [
+                    !production ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    ...scssRules
+                ]
             },
             { test: /\.html$/i, loader: 'html-loader' },
             { test: /\.ts$/i, loader: 'ts-loader', exclude: nodeModulesDir },
@@ -124,9 +122,9 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
             { from: 'favicon.ico', to: 'favicon.ico' },
             { from: 'node_modules/preboot/__dist/preboot_browser.js', to: 'preboot_browser.js' }
         ]),
-        ...when(extractCss, new ExtractTextPlugin({
-            filename: production ? '[contenthash].css' : '[id].css',
-            allChunks: true,
-        }))
+        new MiniCssExtractPlugin({
+            filename: !production ? '[name].css' : '[name].[hash].css',
+            chunkFilename: !production ? '[id].css' : '[id].[hash].css',
+        })
     ],
 })
