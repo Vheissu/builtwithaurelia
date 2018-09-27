@@ -20,6 +20,7 @@ export async function configure(aurelia: Aurelia) {
 
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-animator-css'));
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-store'), { initialState });
+    aurelia.use.plugin(PLATFORM.moduleName('aurelia-validation'));
 
     await aurelia.start();
     await aurelia.setRoot(PLATFORM.moduleName('app'));

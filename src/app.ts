@@ -4,6 +4,7 @@ import { Router, RouterConfiguration, Redirect } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PLATFORM } from 'aurelia-pal';
 import { Store, connectTo } from 'aurelia-store';
+import { ValidationControllerFactory, ValidationRules, ValidationController, validateTrigger, Validator } from 'aurelia-validation';
 
 import { SubmissionInterface } from './common/interfaces';
 
@@ -72,12 +73,15 @@ export class App {
     private validationErrors: any = {};
 
     public state: State;
+    public controller: ValidationController;
 
     constructor(
         private api: Api,
         private userService: UserService,
         private ea: EventAggregator,
-        private store: Store<State>) {
+        private store: Store<State>,
+        private controllerFactory: ValidationControllerFactory,
+        private validator: Validator) {
         // When the Firebase auth state changes, tell the store
         firebase.auth().onAuthStateChanged(user => {
             this.store.dispatch(setUser, user);
@@ -87,6 +91,22 @@ export class App {
         this.setupStore();
 
         this.categories = categories;
+
+        this.controller = controllerFactory.createForCurrentScope();
+        this.controller.validateTrigger = validateTrigger.blur;
+        this.controller.subscribe(event => this.validateForm());
+
+        ValidationRules
+            .ensure('name').required()
+            .ensure('category').required()
+            .ensure('description').required()
+            .ensure('url').required().when((submission: any) => (submission.repoUrl.trim() === ''))
+            .on(this.submissionModel);
+    }
+
+    validateForm() {
+        this.validator.validateObject(this.submissionModel)
+        .then(results => this.disableButtons = results.every(result => result.valid));
     }
 
     setupStore() {
@@ -100,31 +120,6 @@ export class App {
         this.store.registerAction(SORT_PROJECTS, sortProjects);
         this.store.registerAction(CHANGE_SORT_MODE, changeSortMode);
         this.store.registerAction(CAST_VOTE, castVote);
-    }
-
-    @computedFrom('submissionModel.name', 'submissionModel.category', 'submissionModel.url', 'submissionModel.repoUrl', 'submissionModel.description')
-    get submissionFormIsValid() {
-        var isValid = true;
-
-        const { name, category, description, url, repoUrl } = this.submissionModel;
-
-        if (isEmpty(name) || isEmpty(category) || isEmpty(description)) {
-            isValid = false;
-        }
-
-        if (notEmpty(url) && !isUrl(url)) {
-            isValid = false;
-        }
-
-        if (notEmpty(repoUrl) && !isUrl(repoUrl)) {
-            isValid = false;
-        }
-
-        if (isEmpty(url) && isEmpty(repoUrl)) {
-            isValid = false;
-        }
-
-        return isValid;
     }
 
     attached() {
@@ -204,8 +199,10 @@ export class App {
         firebase.auth().signInWithRedirect(provider);
     }
 
-    handleSubmission($event?) {
-        if (this.submissionFormIsValid) {
+    async handleSubmission() {
+        const result = await this.controller.validate();
+
+        if (result.valid) {
             this.formMessage = '';
             this.disableButtons = true;
 
@@ -222,21 +219,16 @@ export class App {
             submissionObject.category = this.submissionModel.category;
             submissionObject.description = this.submissionModel.description;
 
-            if (notEmpty(this.submissionModel.url)) {
-                submissionObject.url = this.submissionModel.url;
-            }
+            try {
+                await this.api.postSubmission(submissionObject);
 
-            if (notEmpty(this.submissionModel.repoUrl)) {
-                submissionObject.repoUrl = this.submissionModel.repoUrl;
+                PLATFORM.global.alert('Your submission has been received, thank you');
+                this.disableButtons = false;
+                this.showHat = false;
+                this.showHatSubmission = false;
+            } catch(e) {
+                console.error(e);
             }
-
-            this.api.postSubmission(submissionObject)
-                .then(() => {
-                    PLATFORM.global.alert('Your submission has been received, thank you');
-                    this.disableButtons = false;
-                    this.showHat = false;
-                    this.showHatSubmission = false;
-                });
         }
     }
 

@@ -677,7 +677,7 @@ aurelia-bootstrapper@^2.3.0:
     aurelia-templating-resources "^1.7.0"
     aurelia-templating-router "^1.0.0"
 
-aurelia-dependency-injection@^1.0.0, aurelia-dependency-injection@^1.4.1:
+aurelia-dependency-injection@^1.0.0, aurelia-dependency-injection@^1.3.1, aurelia-dependency-injection@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/aurelia-dependency-injection/-/aurelia-dependency-injection-1.4.1.tgz#fb916e1809446600fb2cdf062f549060df49ef86"
   dependencies:
@@ -766,7 +766,7 @@ aurelia-logging-console@^1.0.0:
   dependencies:
     aurelia-logging "^1.0.0"
 
-aurelia-logging@^1.0.0, aurelia-logging@^1.5.0:
+aurelia-logging@^1.0.0, aurelia-logging@^1.3.1, aurelia-logging@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/aurelia-logging/-/aurelia-logging-1.5.0.tgz#4eab204fbb9beae698f6e79a7a8641f4f60ce6ea"
 
@@ -860,7 +860,7 @@ aurelia-store@^1.1.0:
     aurelia-pal "^1.8.0"
     rxjs "^6.2.2"
 
-aurelia-task-queue@^1.0.0, aurelia-task-queue@^1.1.0:
+aurelia-task-queue@^1.0.0, aurelia-task-queue@^1.1.0, aurelia-task-queue@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/aurelia-task-queue/-/aurelia-task-queue-1.3.1.tgz#3399e726d2f387b4101381141e321d2c2f1d789e"
   dependencies:
@@ -923,6 +923,17 @@ aurelia-testing@^1.0.0:
     aurelia-logging "^1.0.0"
     aurelia-pal "^1.0.0"
     aurelia-templating "^1.0.0"
+
+aurelia-validation@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/aurelia-validation/-/aurelia-validation-1.2.3.tgz#376a265e4041cfc1bc00a3fdf1533afd3b260f2d"
+  dependencies:
+    aurelia-binding "^2.0.0"
+    aurelia-dependency-injection "^1.3.1"
+    aurelia-logging "^1.3.1"
+    aurelia-pal "^1.3.0"
+    aurelia-task-queue "^1.2.0"
+    aurelia-templating "^1.8.1"
 
 aurelia-webpack-plugin@^3.0.0:
   version "3.0.0"
