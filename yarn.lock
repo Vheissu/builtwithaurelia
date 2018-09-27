@@ -789,7 +789,7 @@ aurelia-pal-browser@^1.0.0:
   dependencies:
     aurelia-pal "^1.4.0"
 
-aurelia-pal-nodejs@^1.0.0-beta.1.0.0, aurelia-pal-nodejs@^1.0.0-beta.3.2.0:
+aurelia-pal-nodejs@^1.0.0-beta.1.0.0, aurelia-pal-nodejs@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/aurelia-pal-nodejs/-/aurelia-pal-nodejs-1.1.1.tgz#880be128747f05adc927af29f56a7ecb82b97d0d"
   dependencies:
