@@ -1,0 +1,35 @@
+{
+  "rules": {
+    ".read": "true",
+    "submissions": {
+      ".read": "true",
+      ".indexOn": [
+        "added",
+        "_uid",
+        "status"
+      ],
+      "$slug": {
+        ".validate": "newData.hasChildren(['name', 'category'])",
+        "name": {
+          ".validate": "newData.isString()"
+        },
+        "category": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": "false"
+        },
+        ".write": "auth.uid != null",
+        "status": {
+          ".validate": "true",
+          ".write": "auth.uid == 'TPdM9feOrbgNHVGHebBT7TBZ8Xj1'"
+        },
+        "votes": {
+          "$uid": {
+            ".write": "(auth != null && auth.uid == $uid)"
+          }
+        }
+      }
+    }
+  }
+}

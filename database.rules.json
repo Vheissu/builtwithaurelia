@@ -5,6 +5,9 @@
       ".indexOn": ["added", "_uid", "status"],
       "$slug": {
         ".write": "auth.uid != null",
+        "status":{
+            ".write": "auth.uid === 'TPdM9feOrbgNHVGHebBT7TBZ8Xj1'"
+        },
         "votes": {
           "$uid": {
             ".write": "auth.uid === $uid"
