@@ -9,7 +9,6 @@ import { ValidationControllerFactory, ValidationRules, ValidationController, val
 import { SubmissionInterface } from './common/interfaces';
 
 import { Api } from './services/api';
-import { ApplicationService } from './services/application';
 import { UserService } from './services/user';
 import { State } from './store/state';
 
@@ -29,11 +28,7 @@ import {
 
 import {
     categories,
-    scrollTop,
-    isEmpty,
-    notEmpty,
-    isUrl,
-    equals
+    scrollTop
 } from './common';
 
 import firebase from './common/firebase';
@@ -64,7 +59,6 @@ export class App {
     private showHatRegister: boolean = false;
     private showHatSubmission: boolean = false;
 
-    private model;
     private submissionModel = ProjectModel;
 
     private disableButtons: boolean = false;
@@ -165,17 +159,6 @@ export class App {
         this.formMessage = '';
         this.userService.logout();
         PLATFORM.global.location.reload();
-    }
-
-    register($event?: Event) {
-        this.formMessage = '';
-        this.model.email = '';
-        this.model.password = '';
-        this.model.password2 = '';
-
-        this.showHat = true;
-        this.showHatLogin = false;
-        this.showHatRegister = true;
     }
 
     submission($event?: Event) {
