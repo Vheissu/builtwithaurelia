@@ -1,7 +1,4 @@
 export interface ProjectModelInterface {
-    email: string;
-    password: string;
-    password2: string;
     name: string;
     category: string;
     url: string;
@@ -9,13 +6,10 @@ export interface ProjectModelInterface {
     description: string;
 }
 
-export const ProjectModel: ProjectModelInterface = {
-    email: '',
-    password: '',
-    password2: '',
-    name: '',
-    category: 'website',
-    url: '',
-    repoUrl: '',
-    description: ''
-};
+export class ProjectModel implements ProjectModelInterface {
+    public name: string = '';
+    public category: string = '';
+    public url: string = '';
+    public repoUrl: string = '';
+    public description: string = '';
+}

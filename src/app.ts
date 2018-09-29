@@ -46,7 +46,7 @@ import {
     castVote
 } from './store/actions';
 
-import { ProjectModel } from './common/models/project';
+import { ProjectModel, ProjectModelInterface } from './common/models/project';
 
 @connectTo()
 @autoinject()
@@ -59,7 +59,7 @@ export class App {
     private showHatRegister: boolean = false;
     private showHatSubmission: boolean = false;
 
-    private submissionModel = ProjectModel;
+    private submissionModel: ProjectModelInterface;
 
     private disableButtons: boolean = false;
 
@@ -162,7 +162,7 @@ export class App {
     }
 
     submission($event?: Event) {
-        this.submissionModel = ProjectModel;
+        this.submissionModel = new ProjectModel();
         this.formMessage = '';
 
         this.showHat = true;
