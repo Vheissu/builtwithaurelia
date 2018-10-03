@@ -155,9 +155,9 @@
   version "10.5.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.4.tgz#6eccc158504357d1da91434d75e86acde94bb10b"
 
-"@types/node@^10.11.0":
-  version "10.11.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.0.tgz#ddd0d67a3b6c3810dd1a59e36675fa82de5e19ae"
+"@types/node@^10.11.3":
+  version "10.11.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.3.tgz#c055536ac8a5e871701aa01914be5731539d01ee"
 
 "@types/node@^6.0.46":
   version "6.0.114"
@@ -185,9 +185,9 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack@^4.4.12":
-  version "4.4.12"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.12.tgz#79094b4c51ab1cf8f41f55bfe270c150bf0c0528"
+"@types/webpack@^4.4.13":
+  version "4.4.13"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.13.tgz#828d3a8f7743a12692aa0f65d083f30d25bf34eb"
   dependencies:
     "@types/node" "*"
     "@types/tapable" "*"
@@ -944,15 +944,15 @@ aurelia-webpack-plugin@^3.0.0:
     html-loader "^0.5.5"
     minimatch "^3.0.4"
 
-autoprefixer@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.0.1.tgz#b5b74aba3fa60b4f1403729e46a6a1246f16818f"
+autoprefixer@^9.1.5:
+  version "9.1.5"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.1.5.tgz#8675fd8d1c0d43069f3b19a2c316f3524e4f6671"
   dependencies:
-    browserslist "^4.0.1"
-    caniuse-lite "^1.0.30000865"
+    browserslist "^4.1.0"
+    caniuse-lite "^1.0.30000884"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
-    postcss "^7.0.1"
+    postcss "^7.0.2"
     postcss-value-parser "^3.2.3"
 
 aws-sign2@~0.7.0:
@@ -1321,13 +1321,13 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-browserslist@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.0.1.tgz#61c05ce2a5843c7d96166408bc23d58b5416e818"
+browserslist@^4.1.0:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.1.2.tgz#632feb46d1cbdd6bb1a6eb660eff68f2345ae7e7"
   dependencies:
-    caniuse-lite "^1.0.30000865"
-    electron-to-chromium "^1.3.52"
-    node-releases "^1.0.0-alpha.10"
+    caniuse-lite "^1.0.30000888"
+    electron-to-chromium "^1.3.73"
+    node-releases "^1.0.0-alpha.12"
 
 browserstack@^1.5.1:
   version "1.5.1"
@@ -1468,9 +1468,9 @@ camelcase@^4.0.0, camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
-caniuse-lite@^1.0.30000865:
-  version "1.0.30000865"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000865.tgz#70026616e8afe6e1442f8bb4e1092987d81a2f25"
+caniuse-lite@^1.0.30000884, caniuse-lite@^1.0.30000888:
+  version "1.0.30000889"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000889.tgz#53e266c83e725ad3bd2e4a3ea76d5031a8aa4c3e"
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -2028,6 +2028,12 @@ cssstyle@^1.0.0:
   dependencies:
     cssom "0.3.x"
 
+cssstyle@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-1.1.1.tgz#18b038a9c44d65f7a8e428a653b9f6fe42faf5fb"
+  dependencies:
+    cssom "0.3.x"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -2373,9 +2379,9 @@ ejs@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.6.1.tgz#498ec0d495655abc6f23cd61868d926464071aa0"
 
-electron-to-chromium@^1.3.52:
-  version "1.3.52"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.52.tgz#d2d9f1270ba4a3b967b831c40ef71fb4d9ab5ce0"
+electron-to-chromium@^1.3.73:
+  version "1.3.73"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.73.tgz#aa67787067d58cc3920089368b3b8d6fe0fc12f6"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -4528,16 +4534,16 @@ jsdom@^11.5.1:
     ws "^5.2.0"
     xml-name-validator "^3.0.0"
 
-jsdom@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-12.0.0.tgz#043ffaac60605d87adf77a1ec3eb7686918b6b64"
+jsdom@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-12.1.0.tgz#2c8fbd12a2c690c8a8e14cce164afa11879e57f4"
   dependencies:
     abab "^2.0.0"
     acorn "^5.7.1"
     acorn-globals "^4.1.0"
     array-equal "^1.0.0"
     cssom ">= 0.3.2 < 0.4.0"
-    cssstyle "^1.0.0"
+    cssstyle "^1.1.1"
     data-urls "^1.0.1"
     domexception "^1.0.1"
     escodegen "^1.11.0"
@@ -4547,7 +4553,7 @@ jsdom@^12.0.0:
     pn "^1.1.0"
     request "^2.88.0"
     request-promise-native "^1.0.5"
-    sax "^1.2.4"
+    saxes "^3.1.2"
     symbol-tree "^3.2.2"
     tough-cookie "^2.4.3"
     w3c-hr-time "^1.0.1"
@@ -5561,9 +5567,9 @@ node-pre-gyp@^0.10.0:
     semver "^5.3.0"
     tar "^4"
 
-node-releases@^1.0.0-alpha.10:
-  version "1.0.0-alpha.10"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.0.0-alpha.10.tgz#61c8d5f9b5b2e05d84eba941d05b6f5202f68a2a"
+node-releases@^1.0.0-alpha.12:
+  version "1.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.0.0-alpha.12.tgz#32e461b879ea76ac674e511d9832cf29da345268"
   dependencies:
     semver "^5.3.0"
 
@@ -5670,9 +5676,9 @@ npm-run-path@^2.0.0:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nps-utils@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/nps-utils/-/nps-utils-1.6.0.tgz#d88badb94fdf002e037d9718df5bc6cbf4c58bcf"
+nps-utils@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/nps-utils/-/nps-utils-1.7.0.tgz#88ef27925ee7cd916f15a25f1b1a6648e9b21a7d"
   dependencies:
     any-shell-escape "^0.1.1"
     common-tags "^1.4.0"
@@ -5685,9 +5691,9 @@ nps-utils@^1.6.0:
     opn-cli "^3.1.0"
     rimraf "^2.6.1"
 
-nps@^5.9.2:
-  version "5.9.2"
-  resolved "https://registry.yarnpkg.com/nps/-/nps-5.9.2.tgz#3531ebd79b81bca648e9c751ccf24b937ff7bcb0"
+nps@^5.9.3:
+  version "5.9.3"
+  resolved "https://registry.yarnpkg.com/nps/-/nps-5.9.3.tgz#5e50f13b7b44e8c8e972d5c843454f97cc63d3a3"
   dependencies:
     arrify "^1.0.1"
     chalk "^2.0.1"
@@ -6278,13 +6284,13 @@ postcss@^7.0.0:
     source-map "^0.6.1"
     supports-color "^5.5.0"
 
-postcss@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.1.tgz#db20ca4fc90aa56809674eea75864148c66b67fa"
+postcss@^7.0.2:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.5.tgz#70e6443e36a6d520b0fd4e7593fcca3635ee9f55"
   dependencies:
     chalk "^2.4.1"
     source-map "^0.6.1"
-    supports-color "^5.4.0"
+    supports-color "^5.5.0"
 
 preboot@^4.5.2:
   version "4.5.2"
@@ -6803,9 +6809,9 @@ request@^2.88.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-require-dir@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/require-dir/-/require-dir-1.0.0.tgz#c2639de72960ea1ee280279f2da35e03c6536b2d"
+require-dir@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/require-dir/-/require-dir-1.1.0.tgz#1ce24f41b57bcc31210fe0a9c4ede85b28cfa907"
 
 require-directory@^2.1.1:
   version "2.1.1"
@@ -6971,6 +6977,12 @@ sax@>=0.6.0, sax@^1.2.1, sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
+saxes@^3.1.2:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/saxes/-/saxes-3.1.3.tgz#334ab3b802a465ccda96fff9bdefbd505546ffa8"
+  dependencies:
+    xmlchars "^1.3.1"
+
 schema-utils@^0.4.4, schema-utils@^0.4.5:
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.4.5.tgz#21836f0608aac17b78f9e3e24daff14a5ca13a3e"
@@ -7022,13 +7034,13 @@ semver-diff@^2.0.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
-semver@5.x:
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
-
 semver@^4.1.0:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
+
+semver@^5.5:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
 
 semver@~5.3.0:
   version "5.3.0"
@@ -7740,9 +7752,9 @@ trim-right@^1.0.1:
   dependencies:
     glob "^6.0.4"
 
-ts-jest@^23.10.2:
-  version "23.10.2"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-23.10.2.tgz#10212ec4aba3cb6c75578b09460589ee80cf527a"
+ts-jest@^23.10.3:
+  version "23.10.3"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-23.10.3.tgz#f42de669888dfd2795b1491016b1813230d553fa"
   dependencies:
     bs-logger "0.x"
     buffer-from "1.x"
@@ -7750,7 +7762,7 @@ ts-jest@^23.10.2:
     json5 "2.x"
     make-error "1.x"
     mkdirp "0.x"
-    semver "5.x"
+    semver "^5.5"
     yargs-parser "10.x"
 
 ts-loader@^5.2.1:
@@ -7819,9 +7831,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.0.3.tgz#4853b3e275ecdaa27f78fda46dc273a7eb7fc1c8"
+typescript@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.1.tgz#3362ba9dd1e482ebb2355b02dfe8bcd19a2c7c96"
 
 uglify-es@^3.3.4:
   version "3.3.9"
@@ -8174,9 +8186,9 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-cli@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.1.1.tgz#92be3e324c1788208a301172139febb476566262"
+webpack-cli@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.1.2.tgz#17d7e01b77f89f884a2bbf9db545f0f6a648e746"
   dependencies:
     chalk "^2.4.1"
     cross-spawn "^6.0.5"
@@ -8437,6 +8449,10 @@ xml2js@^0.4.17:
 xmlbuilder@~9.0.1:
   version "9.0.7"
   resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-9.0.7.tgz#132ee63d2ec5565c557e20f4c22df9aca686b10d"
+
+xmlchars@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-1.3.1.tgz#1dda035f833dbb4f86a0c28eaa6ca769214793cf"
 
 xmlhttprequest@1.8.0, xmlhttprequest@^1.8.0:
   version "1.8.0"

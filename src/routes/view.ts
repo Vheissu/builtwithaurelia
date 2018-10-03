@@ -1,4 +1,4 @@
-import '../styles/view.scss';
+import 'assets/styles/view.scss';
 
 import { PLATFORM } from 'aurelia-pal';
 import { autoinject } from 'aurelia-framework';
