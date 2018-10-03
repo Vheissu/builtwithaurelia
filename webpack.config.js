@@ -113,8 +113,7 @@ module.exports = ({ production, server, extractCss, coverage, ssr } = {}) => ({
             },
         }),
         new CopyWebpackPlugin([
-            { from: 'favicon.ico', to: 'favicon.ico' },
-            { from: 'images', to: 'images' }
+            { from: 'favicon.ico', to: 'favicon.ico' }
         ]),
         new MiniCssExtractPlugin({
             filename: !production ? '[name].css' : '[name].[hash].css',
