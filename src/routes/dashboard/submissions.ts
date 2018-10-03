@@ -1,41 +1,56 @@
+import { ValidationControllerFactory, Validator, ValidationController, ValidationRules } from 'aurelia-validation';
 import { autoinject } from 'aurelia-dependency-injection';
-import { TaskQueue } from 'aurelia-task-queue';
-import { computedFrom } from 'aurelia-framework';
 import { Api } from '../../services/api';
 
 import { SubmissionInterface } from '../../common/interfaces';
-import firebase from '../../common/firebase';
-import {categories, scrollTop, isEmpty, notEmpty, stringInObject, isUrl, requiredField, equals} from '../../common';
 
 @autoinject
 export class Submissions {
 
     private submissions: SubmissionInterface[] = [];
-    private submission: SubmissionInterface = null;
+
+    private submission: SubmissionInterface = {
+        name: null,
+        category: null,
+        description: '',
+        repoUrl: '',
+        url: ''
+    };
+
     private editMode: boolean = false;
+    public controller: ValidationController;
+    public disableButtons: boolean = false;
 
-    constructor(private api: Api) {
+    constructor(private api: Api, private controllerFactory: ValidationControllerFactory, private validator: Validator) {
+        this.controller = controllerFactory.createForCurrentScope();
+        this.controller.subscribe(event => this.validateForm(event));
 
+        ValidationRules
+            .ensure('description').required()
+            .ensure('url').required().when((submission: any) => (submission.repoUrl.trim() === ''))
+            .on(this.submission).rules;
+    }
+
+    async validateForm(e) {
+        const results = await this.validator.validateObject(this.submission);
+        console.log(e);
+        this.disableButtons = results.every(result => result.valid);
     }
 
     determineActivationStrategy() {
         return 'replace';
     }
 
-    canActivate() {
-        return this.api.getCurrentUserSubmissions()
-            .then((submissions: SubmissionInterface[]) => {
-                this.submissions = submissions;
-                return true;
-        });
+    async canActivate() {
+        this.submissions = await this.api.getCurrentUserSubmissions();
     }
 
     async activate(params) {
         if (params.key !== undefined) {
             this.editMode = true;
 
-            await this.api.getSubmission(params.key)
-                .then((submission: SubmissionInterface) => this.submission = submission);
+            this.submission = await this.api.getSubmission(params.key);
+
             console.log(this.submission);
         }
     }
@@ -43,28 +58,4 @@ export class Submissions {
     cancelEdit() {
         this.editMode = false;
     }
-
-    @computedFrom('submission.name', 'submission.category', 'submission.url', 'submission.repoUrl', 'submission.description')
-    get submissionFormIsValid() {
-        var isValid = true;
-
-        if (isEmpty(this.submission.name) || isEmpty(this.submission.category) || isEmpty(this.submission.description)) {
-            isValid = false;
-        }
-
-        if (notEmpty(this.submission.url) && !isUrl(this.submission.url)) {
-            isValid = false;
-        }
-
-        if (notEmpty(this.submission.repoUrl) && !isUrl(this.submission.repoUrl)) {
-            isValid = false;
-        }
-
-        if (isEmpty(this.submission.url) && isEmpty(this.submission.repoUrl)) {
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-xs-12 col-sm-8" with.bind="submission">
+        <div class="col-xs-12 col-sm-8">
 
             <template if.bind="!editMode">
               <h1>Your submissions</h1>
@@ -16,21 +16,21 @@
 
               <div class="form-row">
                 <label class="form-row__label">Description</label>
-                <textarea textcontent.bind="description"></textarea>
+                <textarea textcontent.bind="submission.description & validate"></textarea>
               </div>
 
               <div class="form-row">
                 <label class="form-row__label">Submission URL</label>
-                <input type="text" value.bind="url">
+                <input type="text" value.bind="submission.url & validate">
               </div>
 
               <div class="form-row">
                 <label class="form-row__label">Repo URL</label>
-                <input type="text" value.bind="repoUrl">
+                <input type="text" value.bind="submission.repoUrl & validate">
               </div>
 
               <div class="form-row">
-                <button click.delegate="saveSubmission()" disabled.bind="!submissionFormIsValid">Save</button>
+                <button click.delegate="saveSubmission()" disabled.bind="!disableButtons">Save</button>
               </div>
             </template>
         </div>
