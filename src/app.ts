@@ -59,7 +59,12 @@ export class App {
     private showHatRegister: boolean = false;
     private showHatSubmission: boolean = false;
 
-    private submissionModel: ProjectModelInterface;
+    private submissionModel: ProjectModelInterface = {
+        name: null,
+        category: null,
+        description: null,
+        url: null
+    };
 
     private disableButtons: boolean = false;
 
