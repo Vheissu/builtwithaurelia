@@ -1,0 +1,20 @@
+nav {
+  background: #eee;
+  display: flex;
+}
+
+a {
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  background-color: darkgray;
+}
+
+/* When using css-module, set .goto-active
+as a global class name */
+:global(.goto-active) {
+  background-color: lightgray;
+}
