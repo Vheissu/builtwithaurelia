@@ -1,0 +1,65 @@
+rules_version = '2';
+
+// [WRITE] Data that is sent to a Firestore document
+// e.g incomingData().userId
+// e.g isUser(incomingData().userId)
+function incomingData() {
+    return request.resource.data;
+}
+
+// [READ] Data that exists on the Firestore document
+function existingData() {
+    return resource.data;
+}
+
+// Prevent a field from being updated with a new value
+function notUpdating(field) {
+    return !(field in request.resource.data) || resource.data[field] == request.resource.data[field];
+}
+
+function isAuth() {
+    return request.auth != null && request.auth.uid != null;
+}
+
+function userExists() {
+    return exists(/databases/$(database)/documents/users/$(request.auth.uid));
+}
+
+function isUser(uid) {
+    return request.auth.uid == uid;
+}
+
+function isAdmin() {
+    return isAuth() && request.auth.token.admin == true;
+}
+
+function isSuperAdmin() {
+    return isAuth() && request.auth.token.super == true;
+}
+
+function isModerator() {
+    return isAuth() && request.auth.token.moderator == true;
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+        allow read: if isUser(userId) || isAdmin() || isSuperAdmin();
+        allow write: if isUser(userId) && notUpdating('admin') && notUpdating('super') && notUpdating('moderator') || isAdmin() || isSuperAdmin();
+        allow create: if isAuth();
+        allow delete: if isUser(userId) || isAdmin() || isSuperAdmin();
+    }
+
+    match /submissions/{submissionId} {
+      allow read: if true;
+      allow write: if isAuth();
+      allow delete: if isAuth() && isUser(existingData().userId) || isAdmin() || isSuperAdmin();
+    }
+
+    match /submissions/{submissionId}/votes {
+      allow read: if true;
+      allow write: if isAuth() && ;
+      allow delete: if isAdmin() || isSuperAdmin();
+    }
+  }
+}

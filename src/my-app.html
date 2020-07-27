@@ -1,10 +1,11 @@
 <import from="./welcome"></import>
 <import from="./about.html"></import>
 <import from="./missing"></import>
+<import from="./components/main-header.html"></import>
 
-<nav>
-  <a goto="welcome">Welcome</a>
-  <a goto="about">About</a>
-</nav>
+<import from="./routes/home"></import>
+<import from="./routes/dashboard/dashboard"></import>
 
-<au-viewport default="welcome" fallback="missing"></au-viewport>
+<main-header></main-header>
+
+<au-viewport default="home" fallback="missing"></au-viewport>

@@ -1,0 +1,18 @@
+:root {
+    --bs-primary: #3813C2;
+    --bs-pink: #F20487;
+    --bs-font-sans-serif: 'Roboto', sans-serif;
+}
+
+:global(.nav-item) :global(.goto-active) {
+    color: #FFF !important;
+}
+
+:global(.mt-8),
+:global(.my-8) {
+    margin-top: 5rem !important;
+}
+
+:global(.fw-700) {
+    font-weight: 700;
+}
