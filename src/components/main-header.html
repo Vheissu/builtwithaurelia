@@ -1,5 +1,23 @@
+<bindable name="auth"></bindable>
+<import from="./main-header.css"></import>
+
 <header id="main">
     <div class="container">
         <a goto="home">Built With Aurelia</a>
+        <a click.trigger="showLogin = !showLogin" if.bind="!auth.loggedIn">Login</a>
+        <a goto="logout" if.bind="auth.loggedIn">Logout</a>
     </div>
 </header>
+
+<div class="login" if.bind="showLogin && !auth.loggedIn">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-4 mt-5 text-center">
+                <h1 class="mb-3">Login</h1>
+
+                <button type="button" class="btn btn-block btn-social btn-lg btn-github" click.trigger="auth.signInWithGithub()">Login with GitHub</button>
+                <button type="button" class="btn btn-block btn-social btn-lg btn-google" click.trigger="auth.signInWithGoogle()">Login with Google</button>
+            </div>
+        </div>
+    </div>
+</div>

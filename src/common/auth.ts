@@ -2,9 +2,25 @@ import { firebase } from './firebase';
 
 export class Auth {
     private auth;
+    private loggedIn = false;
+    private token;
 
     constructor() {
         this.auth = firebase.auth();
+
+        this.auth.onAuthStateChanged(async user => {
+            // eslint-disable-next-line no-undef
+            const token = await this.auth?.currentUser?.getIdTokenResult(true);
+
+            if (user) {
+                this.loggedIn = true;
+                this.token = token;
+                console.log(user);
+            } else {
+                this.loggedIn = false;
+                this.token = null;
+            }
+        });
     }
 
     createWithEmailAndPassword(email, password) {

@@ -7,5 +7,5 @@ interface Submission {
     slug: string;
     description: string;
     status: Status;
-    datetime: string.
+    datetime: string;
 }

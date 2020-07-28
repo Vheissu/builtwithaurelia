@@ -1,6 +1,13 @@
 :root {
     --bs-primary: #3813C2;
     --bs-pink: #F20487;
+    --purple: #646FC7;
+    --grapefruit: #E14840;
+    --medium-blue: #4E73AA;
+    --aurelia-pink: #BC157A;
+    --brave-orange: #FF794E;
+    --green: #6F9661;
+    --pie: #FDBE79;
     --bs-font-sans-serif: 'Roboto', sans-serif;
 }
 
@@ -15,4 +22,8 @@
 
 :global(.fw-700) {
     font-weight: 700;
+}
+
+:global(.btn-social):global(.btn-lg) {
+    padding-left: 61px;
 }

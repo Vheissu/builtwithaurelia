@@ -1,9 +1,17 @@
 <import from="../components/thumbnail.html"></import>
 
-<h1>Home</h1>
-
 <div class="container">
-    <div class="row">
-        <thumbnail class="col-3" item.bind="submission" repeat.for="submission of submissions"></thumbnail>
+    <div class="blocks row">
+        <template repeat.for="project of submissions">
+            <template if.bind="$index == 3">
+                <div class="col-xs-12 col-sm-6 thumbnail bg--dark">
+                    <ul class="list">
+                        <li><a href="https://aurelia.io" target="_blank">Aurelia Website</a></li>
+                    </ul>
+                </div>
+            </template>
+
+        <thumbnail class="${$first ? 'col-12' : 'col-sm-6 col-xs-12'} ${!$first ? getColourFromHashedString(project.title) : 'bg--aurelia-pink'}" item.bind="project"></thumbnail>
+        </template>
     </div>
 </div>

@@ -35,13 +35,20 @@ export const deleteUser = functions.auth.user().onDelete((user) => {
 
 export const submissionCreated = functions.firestore.document('submissions/{submissionId}').onWrite((change) => {
     const newValue = change.after.data();
+    const oldValue = change.before.data();
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (newValue?.slug === oldValue?.slug || newValue?.status === oldValue?.status) {
+        return;
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const slug = slugify((newValue as any).title as string, { lower: true });
 
     return change.after.ref.set({
-        slug,
-        status: 'awaiting-moderation'
+        slug: oldValue?.slug ? oldValue.slug : slug,
+        status: oldValue?.status ? oldValue.status : 'awaiting-moderation'
     }, { merge: true })
 });
 

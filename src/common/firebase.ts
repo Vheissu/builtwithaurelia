@@ -14,6 +14,7 @@ export async function authStateChanged(): Promise<{user: firebase.User, token: f
             const token = await firebase.auth()?.currentUser?.getIdTokenResult(true);
 
             if (user) {
+                console.log(user);
                 resolve({user, token});
             } else {
                 resolve(null);

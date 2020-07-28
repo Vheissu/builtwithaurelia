@@ -3,9 +3,10 @@
 <import from="./missing"></import>
 <import from="./components/main-header.html"></import>
 
+<import from="./routes/logout"></import>
 <import from="./routes/home"></import>
 <import from="./routes/dashboard/dashboard"></import>
 
-<main-header></main-header>
+<main-header auth.bind="auth"></main-header>
 
 <au-viewport default="home" fallback="missing"></au-viewport>

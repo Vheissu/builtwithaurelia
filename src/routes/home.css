@@ -1,0 +1,38 @@
+.bg--aurelia-pink {
+    background-color: var(--aurelia-pink);
+    color: #FFF;
+}
+
+.bg--dark {
+    background: #424242;
+    color: #FFF;
+}
+
+.bg--purple {
+    background: var(--purple);
+    color: #FFF;
+}
+
+.bg--grapefruit {
+    background: var(--grapefruit);
+}
+
+.bg--medium-blue {
+    background: var(--medium-blue);
+}
+
+.bg--pink {
+    background: var(--bs-pink);
+}
+
+.bg--brave-orange {
+    background: var(--brave-orange);
+}
+
+.bg--green {
+    background: var(--green);
+}
+
+.bg--pie {
+    background: var(--pie);
+}

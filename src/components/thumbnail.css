@@ -1,0 +1,20 @@
+.large {
+    height: 320px;
+}
+
+.heading {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+}
+
+@media all and (min-width: 768px) {
+    .heading {
+        font-size: 46px;
+    }
+    .large {
+        height: 460px;
+    }
+}
