@@ -10,7 +10,12 @@ export class MyApp implements IViewModel {
     public async beforeBind(): Promise<void> {
         // TODO: We'll handle authentication checks here later
         this.router.addHook((instructions) => {
-            return instructions;
+            if (this.auth.isSignedIn) {
+                return true;
+            }
+    
+            // User is not logged in, so redirect them back to login page
+            return [this.router.createViewportInstruction('home', instructions[0].viewport)];
         }, { exclude: ['login', 'logout', 'home'] });
     }
 
