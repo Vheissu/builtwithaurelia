@@ -11,6 +11,14 @@
     --bs-font-sans-serif: 'Roboto', sans-serif;
 }
 
+body {
+    padding-top: 56px;
+}
+
+a:hover {
+    background: none;
+}
+
 :global(.nav-item) :global(.goto-active) {
     color: #FFF !important;
 }
