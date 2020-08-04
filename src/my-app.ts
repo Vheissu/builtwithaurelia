@@ -13,4 +13,10 @@ export class MyApp implements IViewModel {
             return instructions;
         }, { exclude: ['login', 'logout', 'home'] });
     }
+
+    public afterAttach() {
+        document.querySelector('[data-toggle="offcanvas"]').addEventListener('click', function () {
+            document.querySelector('.offcanvas-collapse').classList.toggle('open')
+        });
+    }
 }
