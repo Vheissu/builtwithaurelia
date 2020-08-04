@@ -2,10 +2,41 @@
 <import from="./main-header.css"></import>
 
 <header id="main">
-    <div class="container">
-        <a goto="home">Built With Aurelia</a>
-        <a click.trigger="showLogin = !showLogin" if.bind="!auth.loggedIn">Login</a>
-        <a goto="logout" if.bind="auth.loggedIn">Logout</a>
+    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a goto="home" class="brand navbar-brand d-flex align-items-center">Built With Aurelia</a>
+            <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse offcanvas-collapse" id="menu">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" click.trigger="showLogin = !showLogin" if.bind="!auth.loggedIn">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" goto="logout" if.bind="auth.loggedIn">Logout</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-expanded="false">Settings</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
     </div>
 </header>
 
