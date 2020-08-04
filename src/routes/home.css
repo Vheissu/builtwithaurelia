@@ -36,3 +36,43 @@
 .bg--pie {
     background: var(--pie);
 }
+
+:global(.nav-scroller) {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+    margin-bottom: 1.2rem;
+}
+
+:global(.nav-scroller) :global(.nav) {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    color: rgba(255, 255, 255, .75);
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+:global(.nav-underline) :global(.nav-link) {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: .875rem;
+    color: #6c757d;
+}
+
+:global(.nav-underline) :global(.nav-link):first-child {
+    padding-left: .65rem;
+}
+
+:global(.nav-underline) :global(.nav-link):hover {
+    color: #007bff;
+}
+
+:global(.nav-underline) :global(.active) {
+    font-weight: 500;
+    color: #343a40;
+}
