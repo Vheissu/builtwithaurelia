@@ -119,7 +119,7 @@
     "jquery": "^3.2.1",
     "koa": "^2.5.3",
     "koa-static": "^5.0.0",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.6.7",
     "popper.js": "^1.14.4",
     "xmlhttprequest": "^1.8.0"
   }
